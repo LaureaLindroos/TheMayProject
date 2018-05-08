@@ -2,6 +2,8 @@ package com.bimobject.themayproject;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class MainSearchActivity extends AppCompatActivity {
@@ -11,8 +13,19 @@ public class MainSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_search);
 
-        EditText searchBox = findViewById(R.id.searchBox);
-        searchBox.getText();
+
+        Button searchButton = findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText searchBox = findViewById(R.id.searchBox);
+                String search = searchBox.getText().toString();
+                RequestService.getRequest(search, "/products");
+            }
+        });
+
+
 
     }
 }

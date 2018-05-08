@@ -19,9 +19,9 @@ public class RequestService {
 
     public static void getRequest(String search, String path){
 
-        //Adding some parameters (just for fun!)
+        //Adding some parameters, pagesize=1 for testing purposes
         RequestParams params = new RequestParams();
-        params.put("pageSize", "10");
+        params.put("pageSize", "1");
         params.put("filter.fullText", search);
         params.put("fields", "name,brand");
 
