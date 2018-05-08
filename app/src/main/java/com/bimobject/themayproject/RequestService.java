@@ -17,7 +17,9 @@ public class RequestService {
     private static AsyncHttpClient client = new AsyncHttpClient();
     private static final String BASE_URL = "https://api.bimobject.com/search/v1/";
 
-    public static void getRequest(String search, String path){
+    public static String getRequest(String search, String path){
+
+        final StringBuilder response = new StringBuilder();
 
         //Adding some parameters, pagesize=1 for testing purposes
         RequestParams params = new RequestParams();
@@ -36,9 +38,11 @@ public class RequestService {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                Log.e("AsyncHttpClient", responseString);
+                response.append(responseString);
             }
         });
+
+        return response.toString();
 
 
     }
