@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.SyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
 
 import cz.msebera.android.httpclient.Header;
@@ -14,11 +15,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class RequestService {
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static SyncHttpClient client = new SyncHttpClient();
     private static final String BASE_URL = "https://api.bimobject.com/search/v1/";
 
     public static String getRequest(String search, String path){
 
+        //Final Stringbuilder as callback-methods are in inner class
         final StringBuilder response = new StringBuilder();
 
         //Adding some parameters, pagesize=1 for testing purposes
@@ -28,18 +30,20 @@ public class RequestService {
         params.put("fields", "name,brand");
 
         //TODO:Exchange hardcoded header with authorizationService
-        client.addHeader("Authorization", "Bearer fa6013339715ad2ef27e2f8b6a950c31");
+        client.addHeader("Authorization", "Bearer a584b464489a848458f65fe3321ec54c");
         client.get(BASE_URL + path, params, new TextHttpResponseHandler() {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("AsyncHttpClient", responseString);
+                Log.d("SyncHttpClient", responseString);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                //Appending responsestring to stringBuilder
                 response.append(responseString);
             }
+
         });
 
         return response.toString();
