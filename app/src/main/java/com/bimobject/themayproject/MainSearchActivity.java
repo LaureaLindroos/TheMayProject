@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class MainSearchActivity extends AppCompatActivity {
 
@@ -45,8 +48,9 @@ public class MainSearchActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            TextView searchResult = findViewById(R.id.searchResult);
-            searchResult.setText(s);
+            ImageView searchResult = findViewById(R.id.searchResult);
+            Picasso.with(MainSearchActivity.this).load(s).into(searchResult);
+
         }
 
         @Override
