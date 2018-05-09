@@ -3,9 +3,14 @@ package com.bimobject.themayproject;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -21,7 +26,7 @@ public class RequestService {
     public static String getRequest(String search, String path){
 
         //Stringbuilder is final as callback-methods are in inner class
-        final StringBuilder response = new StringBuilder();
+        final StringBuilder responseBuilder = new StringBuilder();
 
         //Adding some parameters, pagesize=1 for testing purposes
         RequestParams params = new RequestParams();
@@ -30,24 +35,39 @@ public class RequestService {
         params.put("fields", "name,brand");
 
         //TODO:Exchange hardcoded header with authorizationService
-        client.addHeader("Authorization", "Bearer 85273e0bf16083c710941b473225ca94");
-        client.get(BASE_URL + path, params, new TextHttpResponseHandler() {
+        client.addHeader("Authorization", "Bearer 4aa56da6a1814b555b0f560ab58f2947");
+        client.get(BASE_URL + path, params, new JsonHttpResponseHandler() {
 
+            //If response is a JSONObject
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                Log.d("SyncHttpClient", responseString);
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    JSONArray data = (JSONArray) response.get("data");
+                    responseBuilder.append(data.getJSONObject(0).getJSONObject("brand").get("imageUrl").toString());
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
             }
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                //Appending responsestring to stringBuilder
-                response.append(responseString);
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
             }
 
+            //If response is a JSONArray
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
         });
 
-        return response.toString();
-
+        return responseBuilder.toString();
 
     }
 
