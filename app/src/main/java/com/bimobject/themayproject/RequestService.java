@@ -20,7 +20,7 @@ public class RequestService {
 
     public static String getRequest(String search, String path){
 
-        //Final Stringbuilder as callback-methods are in inner class
+        //Stringbuilder is final as callback-methods are in inner class
         final StringBuilder response = new StringBuilder();
 
         //Adding some parameters, pagesize=1 for testing purposes
