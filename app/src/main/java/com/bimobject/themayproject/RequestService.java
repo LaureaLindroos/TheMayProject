@@ -30,7 +30,7 @@ public class RequestService {
         params.put("fields", "name,brand");
 
         //TODO:Exchange hardcoded header with authorizationService
-        client.addHeader("Authorization", "Bearer a584b464489a848458f65fe3321ec54c");
+        client.addHeader("Authorization", "Bearer 85273e0bf16083c710941b473225ca94");
         client.get(BASE_URL + path, params, new TextHttpResponseHandler() {
 
             @Override

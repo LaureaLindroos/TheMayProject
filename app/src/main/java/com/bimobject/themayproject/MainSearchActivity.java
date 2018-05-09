@@ -1,6 +1,6 @@
 package com.bimobject.themayproject;
 
-import android.os.StrictMode;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +15,6 @@ public class MainSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_search);
 
-        //Setting the applications blocking policy, allowing the synchttphandler to block the main thread (really not a good thing)
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
         //Getting button from layout
         Button searchButton = findViewById(R.id.searchButton);
 
@@ -26,15 +22,37 @@ public class MainSearchActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText searchBox = findViewById(R.id.searchBox);
-                TextView searchResult = findViewById(R.id.searchResult);
 
-                //Getting string value from searchbox
+                EditText searchBox = findViewById(R.id.searchBox);
                 String search = searchBox.getText().toString();
-                //Setting text of searchResult to response from request
-                searchResult.setText(RequestService.getRequest(search, "/products"));
+
+                new setTextAsyncTask().execute(search);
+
             }
         });
 
     }
+
+
+    private class setTextAsyncTask extends AsyncTask<String, String, String>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            TextView searchResult = findViewById(R.id.searchResult);
+            searchResult.setText(s);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return RequestService.getRequest(strings[0], "/products");
+        }
+    }
+
 }
