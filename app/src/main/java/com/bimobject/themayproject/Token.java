@@ -17,19 +17,18 @@ import cz.msebera.android.httpclient.Header;
 
 public class Token {
     Timer t;
-    // Timer g;
+
     private String token;
     final int expieryTime = 60 * 1000;
 
     public Token() {
         t = new Timer();
-        // g = new Timer();
+
 
 
         //Creating custom TimerTask to run every 10 seconds
         t.scheduleAtFixedRate(new CollectAccessToken(), 0, expieryTime);
-        // Creating custom TimerTask to check getToken
-        // g.scheduleAtFixedRate(new GetToken(), 30000, expieryTime);
+
     }
 
     public void setToken(String token) {
@@ -40,12 +39,6 @@ public class Token {
 
         return token;
     }
-
-/*class GetToken extends TimerTask {
-        public void run(){
-            String result = getToken();
-            System.out.println(result);
-        }*/
 
     //Method that collects AccessToken and sets the value.
     class CollectAccessToken extends TimerTask {
