@@ -1,5 +1,6 @@
 package com.bimobject.themayproject;
 
+import android.app.Service;
 import android.os.Looper;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -15,38 +16,19 @@ import java.util.TimerTask;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Token {
-
-    private Timer t;
+public abstract class TokenGenerator {
 
     private static String access_token;
-    final int expieryTime = 60 * 1000;
-    private Token token = new Token();
 
-    private Token() {
-
-        t = new Timer();
-
-        //Creating custom TimerTask to run every 10 seconds
-        t.scheduleAtFixedRate(new CollectAccessToken(), 0, expieryTime);
-        // Creating custom TimerTask to check getToken
-        // g.scheduleAtFixedRate(new GetToken(), 30000, expieryTime);
+    static {
+        generateAccess_token();
     }
 
-/*class GetToken extends TimerTask {
-        public void run(){
-            String result = getToken();
-            System.out.println(result);
-        }*/
-
     //Method that collects AccessToken and sets the value.
-    class CollectAccessToken extends TimerTask {
+    private static void generateAccess_token() {
 
         SyncHttpClient client = new SyncHttpClient();
 
-        @Override
-        public void run() {
-            System.out.println("run");
             //skapar våra request parameters
             RequestParams params = new RequestParams();
             params.put("grant_type", "client_credentials");
@@ -63,16 +45,13 @@ public class Token {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
-                    System.out.println("success post");
 
                     try {
                         String responseToken = response.get("access_token").toString();
                         setToken(responseToken);
-                        System.out.println("Success");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        System.out.println("fail");
                     }
                 }
 
@@ -83,19 +62,15 @@ public class Token {
 
             });
         }
-    }
 
 
-    public void setToken(String new_token) {
+
+    private static void setToken(String new_token) {
         access_token = new_token;
     }
 
-    public Token getToken() {
-        return token;
-    }
+    public static String getAccess_token() {
 
-    @Override
-    public String toString() {
         return access_token;
     }
 }

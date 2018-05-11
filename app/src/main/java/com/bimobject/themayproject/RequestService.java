@@ -35,7 +35,7 @@ public class RequestService {
         params.put("fields", "name,brand");
 
         //TODO:Exchange hardcoded header with authorizationService
-        client.addHeader("Authorization", "Bearer 4aa56da6a1814b555b0f560ab58f2947");
+        client.addHeader("Authorization", "Bearer " + TokenGenerator.getAccess_token());
         client.get(BASE_URL + path, params, new JsonHttpResponseHandler() {
 
             //If response is a JSONObject
