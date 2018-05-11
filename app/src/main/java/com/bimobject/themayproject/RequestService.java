@@ -1,5 +1,6 @@
 package com.bimobject.themayproject;
 
+import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -13,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpStatus;
+import cz.msebera.android.httpclient.client.HttpResponseException;
 
 /**
  * Created by octoboss on 2018-05-07.
@@ -22,6 +25,10 @@ public class RequestService {
 
     private static SyncHttpClient client = new SyncHttpClient();
     private static final String BASE_URL = "https://api.bimobject.com/search/v1/";
+
+    static {
+        AsyncHttpClient.allowRetryExceptionClass(HttpResponseException.class);
+    }
 
     public static String getRequest(String search, String path){
 
@@ -53,6 +60,12 @@ public class RequestService {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+
+                //If request is Unauthorized, token probably expired
+                if (statusCode == HttpStatus.SC_UNAUTHORIZED){
+                    TokenGenerator.generateNewAccess_token();
+                }
+
             }
 
             //If response is a JSONArray
@@ -64,6 +77,10 @@ public class RequestService {
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
+
+                if (statusCode == HttpStatus.SC_UNAUTHORIZED){
+                    TokenGenerator.generateNewAccess_token();
+                }
             }
         });
 

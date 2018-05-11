@@ -48,8 +48,12 @@ public class MainSearchActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            ImageView searchResult = findViewById(R.id.searchResult);
-            Picasso.with(MainSearchActivity.this).load(s).into(searchResult);
+            try {
+                ImageView searchResult = findViewById(R.id.searchResult);
+                Picasso.with(MainSearchActivity.this).load(s).into(searchResult);
+            }catch (IllegalArgumentException e){
+                e.printStackTrace();
+            }
 
         }
 
