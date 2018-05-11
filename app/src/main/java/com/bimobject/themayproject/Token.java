@@ -16,45 +16,42 @@ import java.util.TimerTask;
 import cz.msebera.android.httpclient.Header;
 
 public class Token {
-    Timer t;
-    // Timer g;
-    private String token;
+
+    private String accessToken;
     final int expieryTime = 60 * 1000;
+    private static Token instance;
+    Timer t;
 
-    public Token() {
+    private Token(
+
+    ) {
         t = new Timer();
-        // g = new Timer();
-
-
-        //Creating custom TimerTask to run every 10 seconds
         t.scheduleAtFixedRate(new CollectAccessToken(), 0, expieryTime);
-        // Creating custom TimerTask to check getToken
-        // g.scheduleAtFixedRate(new GetToken(), 30000, expieryTime);
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public static Token getInstance(){
+        if (instance==null){
+            Token instance=new Token();
+        }
+        return instance;
+    }
+
+
+    public void setToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getToken() {
 
-        return token;
+        return accessToken;
     }
-
-/*class GetToken extends TimerTask {
-        public void run(){
-            String result = getToken();
-            System.out.println(result);
-        }*/
 
     //Method that collects AccessToken and sets the value.
     class CollectAccessToken extends TimerTask {
-
         SyncHttpClient client = new SyncHttpClient();
 
         @Override
         public void run() {
-            System.out.println("run");
             //skapar våra request parameters
             RequestParams params = new RequestParams();
             params.put("grant_type", "client_credentials");
@@ -76,11 +73,9 @@ public class Token {
                     try {
                         String responseToken = response.get("access_token").toString();
                         setToken(responseToken);
-                        System.out.println("Success");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        System.out.println("fail");
                     }
                 }
 
