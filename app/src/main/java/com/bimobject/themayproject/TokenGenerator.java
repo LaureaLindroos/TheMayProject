@@ -9,26 +9,25 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public final class TokenGenerator {
+public abstract class TokenGenerator {
 
     private static String access_token;
+    private static SyncHttpClient client = new SyncHttpClient();
 
-    //TODO: Implement better solution for first generating token
+    private static RequestParams params = new RequestParams();
     static {
+        //TODO: Implement better solution for first generating token
         generateNewAccess_token();
+
+        //TODO: Encrypt client crendentials
+        params.put("grant_type", "client_credentials");
+        params.put("scope", "search_api");
+        params.put("client_id", "KaHKuGnJJduQ9Ek1ekXRw6PdLKTkdic7");
+        params.put("client_secret", "3yUKdB0agDKJlw7ltRwQ4eRTeZC2Fw22KmMNcRYfvgzQ0WxekewFfUJxhkknM7Lb");
     }
 
     //Method that collects AccessToken and sets the value.
     public static void generateNewAccess_token() {
-
-        SyncHttpClient client = new SyncHttpClient();
-
-            //TODO: Encrypt client crendentials
-            RequestParams params = new RequestParams();
-            params.put("grant_type", "client_credentials");
-            params.put("scope", "search_api");
-            params.put("client_id", "KaHKuGnJJduQ9Ek1ekXRw6PdLKTkdic7");
-            params.put("client_secret", "3yUKdB0agDKJlw7ltRwQ4eRTeZC2Fw22KmMNcRYfvgzQ0WxekewFfUJxhkknM7Lb");
 
             client.post("https://accounts.bimobject.com/identity/connect/token", params, new JsonHttpResponseHandler(
             ) {
@@ -51,8 +50,6 @@ public final class TokenGenerator {
 
             });
         }
-
-
 
     private static void setToken(String new_token) {
         access_token = new_token;

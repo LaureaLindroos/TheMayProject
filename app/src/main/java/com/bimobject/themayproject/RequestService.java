@@ -1,8 +1,9 @@
 package com.bimobject.themayproject;
 
-import android.security.keystore.UserNotAuthenticatedException;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
 
+import com.annimon.stream.Stream;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -13,9 +14,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpStatus;
+import cz.msebera.android.httpclient.client.HttpRequestRetryHandler;
 import cz.msebera.android.httpclient.client.HttpResponseException;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpRequestRetryHandler;
+import cz.msebera.android.httpclient.protocol.HttpContext;
 
 /**
  * Created by octoboss on 2018-05-07.
@@ -25,9 +31,16 @@ public class RequestService {
 
     private static SyncHttpClient client = new SyncHttpClient();
     private static final String BASE_URL = "https://api.bimobject.com/search/v1/";
+    private static HttpRequestRetryHandler handler = new HttpRequestRetryHandler() {
+        @Override
+        public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
+            return true;
+        }
+    };
+
 
     static {
-        AsyncHttpClient.allowRetryExceptionClass(HttpResponseException.class);
+        SyncHttpClient.allowRetryExceptionClass(Exception.class);
     }
 
     public static String getRequest(String search, String path){
@@ -64,6 +77,7 @@ public class RequestService {
                 //If request is Unauthorized, token probably expired
                 if (statusCode == HttpStatus.SC_UNAUTHORIZED){
                     TokenGenerator.generateNewAccess_token();
+                    handler.retryRequest(new IOException(throwable),  0, client.getHttpContext());
                 }
 
             }
