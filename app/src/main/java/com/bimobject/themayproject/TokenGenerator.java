@@ -2,7 +2,6 @@ package com.bimobject.themayproject;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.SyncHttpClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
