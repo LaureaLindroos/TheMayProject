@@ -42,7 +42,7 @@ public class SyncClient {
 
     private static class RequestRetryHandler {
 
-        private static final int timeout = 2000;
+        private static final int timeout = 1000;
 
         private void timeoutAndRetryRequest(String url, RequestParams params, AsyncHttpResponseHandler responseHandler){
             try {

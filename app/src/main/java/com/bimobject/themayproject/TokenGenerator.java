@@ -30,7 +30,7 @@ public abstract class TokenGenerator {
                     super.onSuccess(statusCode, headers, response);
 
                     try {
-                        SyncClient.setHeader("Authorization: ", "Bearer " + response.get("access_token").toString());
+                        SyncClient.setHeader("Authorization", "Bearer " + response.get("access_token").toString());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
