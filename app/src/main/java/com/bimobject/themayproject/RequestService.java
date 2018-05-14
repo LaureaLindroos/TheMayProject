@@ -20,6 +20,7 @@ public class RequestService {
 
     public static String getImageUrl(String search, final String path){
 
+        //TODO: Implement better solution to handle response
         responseBuilder.setLength(0);
 
         //Adding some parameters, pagesize=1 for testing purposes
@@ -48,6 +49,7 @@ public class RequestService {
 
                         //If request is Unauthorized, token probably expired
                         if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                            //TODO: Extend with errorHandler
                             SyncClient.generateTokenAndRetry(path, params, this);
                         }
 
