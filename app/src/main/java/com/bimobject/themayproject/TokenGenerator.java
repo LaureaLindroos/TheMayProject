@@ -11,14 +11,8 @@ import cz.msebera.android.httpclient.Header;
 
 public abstract class TokenGenerator {
 
-    private static String access_token;
-    private static SyncHttpClient client = new SyncHttpClient();
-
     private static RequestParams params = new RequestParams();
     static {
-        //TODO: Implement better solution for first generating token
-        generateNewAccess_token();
-
         //TODO: Encrypt client crendentials
         params.put("grant_type", "client_credentials");
         params.put("scope", "search_api");
@@ -29,14 +23,14 @@ public abstract class TokenGenerator {
     //Method that collects AccessToken and sets the value.
     public static void generateNewAccess_token() {
 
-            client.post("https://accounts.bimobject.com/identity/connect/token", params, new JsonHttpResponseHandler(
+            SyncClient.post("https://accounts.bimobject.com/identity/connect/token", params, new JsonHttpResponseHandler(
             ) {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
 
                     try {
-                        setToken(response.get("access_token").toString());
+                        SyncClient.setHeader("Authorization: ", "Bearer " + response.get("access_token").toString());
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -50,13 +44,5 @@ public abstract class TokenGenerator {
 
             });
         }
-
-    private static void setToken(String new_token) {
-        access_token = new_token;
-    }
-
-    public static String getAccess_token() {
-        return access_token;
-    }
 }
 

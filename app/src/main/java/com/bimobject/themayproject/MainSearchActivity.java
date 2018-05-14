@@ -61,7 +61,7 @@ public class MainSearchActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            return RequestService.getRequest(strings[0], "/products");
+            return RequestService.getImageUrl(strings[0], "/products");
         }
     }
 
