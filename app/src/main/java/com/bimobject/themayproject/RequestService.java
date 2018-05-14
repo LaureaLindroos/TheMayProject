@@ -19,7 +19,7 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class RequestService {
-
+    static String accessToken;
     private static SyncHttpClient client = new SyncHttpClient();
     private static final String BASE_URL = "https://api.bimobject.com/search/v1/";
 
@@ -27,7 +27,7 @@ public class RequestService {
 
         //Stringbuilder is final as callback-methods are in inner class
         final StringBuilder responseBuilder = new StringBuilder();
-
+        accessToken =Token.getToken();
         //Adding some parameters, pagesize=1 for testing purposes
         RequestParams params = new RequestParams();
         params.put("pageSize", "1");
@@ -35,7 +35,7 @@ public class RequestService {
         params.put("fields", "name,brand");
 
         //TODO:Exchange hardcoded header with authorizationService
-        client.addHeader("Authorization", "Bearer 4aa56da6a1814b555b0f560ab58f2947");
+        client.addHeader("Authorization", "Bearer "+accessToken);
         client.get(BASE_URL + path, params, new JsonHttpResponseHandler() {
 
             //If response is a JSONObject

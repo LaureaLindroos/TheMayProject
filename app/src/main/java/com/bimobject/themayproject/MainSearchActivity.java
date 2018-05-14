@@ -16,6 +16,7 @@ public class MainSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Token token = Token.getInstance();
         setContentView(R.layout.activity_main_search);
 
         //Getting button from layout

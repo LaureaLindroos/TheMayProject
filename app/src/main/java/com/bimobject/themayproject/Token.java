@@ -17,8 +17,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class Token {
 
-    private String accessToken;
-    final int expieryTime = 60 * 1000;
+    private static String accessToken;
+    final int expieryTime = 1350 * 1000;
     private static Token instance;
     Timer t;
 
@@ -41,7 +41,7 @@ public class Token {
         this.accessToken = accessToken;
     }
 
-    public String getToken() {
+    public static String getToken() {
 
         return accessToken;
     }
