@@ -1,5 +1,6 @@
 package com.bimobject.themayproject;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,10 +28,15 @@ public class MainSearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
+                startActivity(intent);
+
+                /*
                 EditText searchBox = findViewById(R.id.searchBox);
                 String search = searchBox.getText().toString();
 
                 new setTextAsyncTask().execute(search);
+                */
 
             }
         });
