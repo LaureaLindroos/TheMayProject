@@ -39,7 +39,7 @@ public class RequestService {
         accessToken = Token.getToken();
         //Adding some parameters, pagesize=1 for testing purposes
         RequestParams params = new RequestParams();
-        params.put("pageSize", "1");
+        params.put("pageSize", "10");
         params.put("filter.fullText", search);
         params.put("fields", "name,imageUrl,brand");
 

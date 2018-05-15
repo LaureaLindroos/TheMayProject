@@ -1,13 +1,13 @@
 package com.bimobject.themayproject;
 
 public class Product{
-    public String id;
-    public String name;
-    public String status;
-    public String permalink;
-    public String imageUrl;
+    private String id;
+    private String name;
+    private String status;
+    private String permalink;
+    private String imageUrl;
 
-    public Brand brand;
+    private Brand brand;
 
     public Product() {
     }
