@@ -22,8 +22,6 @@ import java.util.Collection;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-
-import static com.bimobject.themayproject.SyncClient.BASE_URL;
 import static com.bimobject.themayproject.SyncClient.client;
 
 /**
@@ -43,13 +41,12 @@ public class RequestService {
         RequestParams params = new RequestParams();
         params.put("pageSize", "1");
         params.put("filter.fullText", search);
-        params.put("fields", "name,brand");
-
+        params.put("fields", "name,imageUrl,brand");
 
             //TODO:Exchange hardcoded header with authorizationService
 
             SyncClient.client.addHeader("Authorization", "Bearer " + accessToken);
-            SyncClient.get(BASE_URL + path, params, new JsonHttpResponseHandler() {
+            SyncClient.get(path, params, new JsonHttpResponseHandler() {
 
                 //If response is a JSONObject
                 @Override
@@ -84,6 +81,8 @@ public class RequestService {
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                     super.onFailure(statusCode, headers, throwable, errorResponse);
                 }
+
+
             });
 
             return products;

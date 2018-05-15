@@ -7,6 +7,8 @@ public class Product{
     public String permalink;
     public String imageUrl;
 
+    public Brand brand;
+
     public Product() {
     }
 
@@ -16,6 +18,7 @@ public class Product{
         this.status = status;
         this.permalink = permalink;
         this.imageUrl = imageUrl;
+
     }
 
 
@@ -57,5 +60,9 @@ public class Product{
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Brand getBrand() {
+        return brand;
     }
 }
