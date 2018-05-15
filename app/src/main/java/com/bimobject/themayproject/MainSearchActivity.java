@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class MainSearchActivity extends AppCompatActivity {
 
     @Override
@@ -28,42 +30,16 @@ public class MainSearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
-                startActivity(intent);
-
-                /*
                 EditText searchBox = findViewById(R.id.searchBox);
                 String search = searchBox.getText().toString();
 
-                new setTextAsyncTask().execute(search);
-                */
+                Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
+                intent.putExtra("search", search);
+                startActivity(intent);
 
             }
         });
 
-    }
-
-
-    private class setTextAsyncTask extends AsyncTask<String, String, String>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            ImageView searchResult = findViewById(R.id.searchResult);
-            Picasso.with(MainSearchActivity.this).load(s).into(searchResult);
-
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            return RequestService.getRequest(strings[0], "/products");
-        }
     }
 
 }

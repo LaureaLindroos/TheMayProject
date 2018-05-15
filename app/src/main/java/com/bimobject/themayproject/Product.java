@@ -1,6 +1,6 @@
 package com.bimobject.themayproject;
 
-public class Product {
+public class Product{
     public String id;
     public String name;
     public String status;

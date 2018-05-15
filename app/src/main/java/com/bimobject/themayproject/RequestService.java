@@ -2,6 +2,9 @@ package com.bimobject.themayproject;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -11,6 +14,12 @@ import com.loopj.android.http.TextHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -25,10 +34,10 @@ public class RequestService {
     static String accessToken;
 
 
-    public static String getRequest(String search, String path) {
+    public static List<Product> getRequest(String search, String path) {
 
         //Stringbuilder is final as callback-methods are in inner class
-        final StringBuilder responseBuilder = new StringBuilder();
+        final ArrayList<Product> products = new ArrayList<>();
         accessToken = Token.getToken();
         //Adding some parameters, pagesize=1 for testing purposes
         RequestParams params = new RequestParams();
@@ -48,7 +57,13 @@ public class RequestService {
                     super.onSuccess(statusCode, headers, response);
                     try {
                         JSONArray data = (JSONArray) response.get("data");
-                        responseBuilder.append(data.getJSONObject(0).getJSONObject("brand").get("imageUrl").toString());
+
+                        Gson gson = new GsonBuilder().create();
+
+                        Type listType = new TypeToken<List<Product>>(){}.getType();
+                        ArrayList<Product> products1 = gson.fromJson(data.toString(), listType);
+                        products.addAll(products1);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -71,7 +86,7 @@ public class RequestService {
                 }
             });
 
-            return responseBuilder.toString();
+            return products;
 
         }
     }
