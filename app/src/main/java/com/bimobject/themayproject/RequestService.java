@@ -26,8 +26,6 @@ public class RequestService {
 
 
     public static String getRequest(String search, String path) {
-        SyncHttpClient client = new SyncHttpClient();
-
 
         //Stringbuilder is final as callback-methods are in inner class
         final StringBuilder responseBuilder = new StringBuilder();
@@ -42,7 +40,7 @@ public class RequestService {
             //TODO:Exchange hardcoded header with authorizationService
 
             SyncClient.client.addHeader("Authorization", "Bearer " + accessToken);
-            SyncClient.client.get(BASE_URL + path, params, new JsonHttpResponseHandler() {
+            SyncClient.get(BASE_URL + path, params, new JsonHttpResponseHandler() {
 
                 //If response is a JSONObject
                 @Override
