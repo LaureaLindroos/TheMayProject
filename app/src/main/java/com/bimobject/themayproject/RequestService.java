@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.bimobject.themayproject.SyncClient.BASE_URL;
+
 import static com.bimobject.themayproject.SyncClient.client;
 
 /**
@@ -40,7 +40,7 @@ public class RequestService {
             //TODO:Exchange hardcoded header with authorizationService
 
             SyncClient.client.addHeader("Authorization", "Bearer " + accessToken);
-            SyncClient.get(BASE_URL + path, params, new JsonHttpResponseHandler() {
+            SyncClient.get(path, params, new JsonHttpResponseHandler() {
 
                 //If response is a JSONObject
                 @Override
