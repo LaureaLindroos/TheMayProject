@@ -15,13 +15,13 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
 
         if(getIntent().hasExtra("search")){
-        new setTextAsyncTask().execute(getIntent().getStringExtra("search"));
+        new loadListItemTask().execute(getIntent().getStringExtra("search"));
         }
 
     }
 
 
-    private class setTextAsyncTask extends AsyncTask<String, String, List<Product>> {
+    private class loadListItemTask extends AsyncTask<String, String, List<Product>> {
 
         @Override
         protected void onPreExecute() {

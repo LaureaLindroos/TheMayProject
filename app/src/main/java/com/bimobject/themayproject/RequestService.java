@@ -23,11 +23,11 @@ public class RequestService {
         final ArrayList<Product> products = new ArrayList<>();
 
         RequestParams params = new RequestParams();
-        params.put("pageSize", "10");
+        params.put("pageSize", "50");
         params.put("filter.fullText", search);
         params.put("fields", "name,imageUrl,brand");
 
-            SyncClient.client.addHeader("Authorization", "Bearer " + Token.getToken());
+            SyncClient.client.addHeader("Authorization", "Bearer " + TokenGenerator.getToken());
             SyncClient.get(path, params, new JsonHttpResponseHandler() {
 
                 @Override
