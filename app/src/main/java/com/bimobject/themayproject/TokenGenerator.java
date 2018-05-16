@@ -14,7 +14,7 @@ import cz.msebera.android.httpclient.Header;
 public abstract class TokenGenerator {
 
     private static String accessToken;
-    private final static int expieryTime = 1350 * 1000;
+    private final static int expiryTime = 1350 * 1000;
     private final static RequestParams params = new RequestParams();
     private final static Timer t = new Timer();
 
@@ -26,7 +26,7 @@ public abstract class TokenGenerator {
     }
 
     public static void start(){
-        t.scheduleAtFixedRate(new CollectAccessToken(), 0, expieryTime);
+        t.scheduleAtFixedRate(new CollectAccessToken(), 0, expiryTime);
     }
 
 
