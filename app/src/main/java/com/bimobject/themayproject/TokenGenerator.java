@@ -29,8 +29,9 @@ public abstract class TokenGenerator {
 
         if(t == null) {
             t = new Timer();
-            t.scheduleAtFixedRate(new CollectAccessToken(), 0, expiryTime);
         }
+
+        t.scheduleAtFixedRate(new CollectAccessToken(), 0, expiryTime);
     }
 
 
