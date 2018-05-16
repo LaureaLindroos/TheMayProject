@@ -39,7 +39,7 @@ public class RequestService {
                         Gson gson = new GsonBuilder().create();
 
                         Type listType = new TypeToken<List<Product>>(){}.getType();
-                        //TODO: Implement better response-handling solution
+                        //TODO: Implement better solution for handling response
                         ArrayList<Product> responseArray = gson.fromJson(data.toString(), listType);
                         products.addAll(responseArray);
 

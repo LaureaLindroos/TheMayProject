@@ -18,7 +18,6 @@ public class Product{
         this.status = status;
         this.permalink = permalink;
         this.imageUrl = imageUrl;
-
     }
 
 
