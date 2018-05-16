@@ -45,7 +45,7 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-                if (view.getLastVisiblePosition() == adapter.getCount() - 1 && loadListItemsTask.getStatus() == AsyncTask.Status.FINISHED){
+                if (view.getLastVisiblePosition() == totalItemCount - 1 && loadListItemsTask.getStatus() == AsyncTask.Status.FINISHED){
                     loadListItemsTask = new LoadListItemsTask();
                     loadListItemsTask.execute(search);
                 }

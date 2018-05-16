@@ -23,7 +23,7 @@ public class RequestService {
         final ArrayList<Product> products = new ArrayList<>();
 
         RequestParams params = new RequestParams();
-        params.put("pageSize", "50");
+        params.put("pageSize", "20");
         params.put("filter.fullText", search);
         params.put("fields", "name,imageUrl,brand");
         params.put("page", page);
