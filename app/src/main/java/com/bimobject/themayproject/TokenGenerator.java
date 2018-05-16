@@ -16,7 +16,7 @@ public abstract class TokenGenerator {
     private static String accessToken;
     private final static int expiryTime = 1350 * 1000;
     private final static RequestParams params = new RequestParams();
-    private static Timer t;
+    private static Timer t = new Timer();
 
     static {
         params.put("grant_type", "client_credentials");
@@ -26,11 +26,7 @@ public abstract class TokenGenerator {
     }
 
     public static void start(){
-
-        if(t == null) {
-            t = new Timer();
-        }
-
+        t.cancel();
         t.scheduleAtFixedRate(new CollectAccessToken(), 0, expiryTime);
     }
 
