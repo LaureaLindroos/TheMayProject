@@ -27,7 +27,6 @@ public class RequestService {
         params.put("filter.fullText", search);
         params.put("fields", "name,imageUrl,brand");
 
-            SyncClient.client.addHeader("Authorization", "Bearer " + TokenGenerator.getToken());
             SyncClient.get(path, params, new JsonHttpResponseHandler() {
 
                 @Override

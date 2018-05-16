@@ -9,6 +9,8 @@ public class SyncClient {
     static final String BASE_URL = "https://api.bimobject.com/search/v1";
 
     public static void get(String url, RequestParams params, JsonHttpResponseHandler responseHandler) {
+        client.removeAllHeaders();
+        client.addHeader("Authorization", "Bearer " + TokenGenerator.getToken());
         client.get(getAbsoluteUrl(url), params, responseHandler);
     }
 
