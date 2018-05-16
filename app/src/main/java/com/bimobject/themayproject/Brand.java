@@ -1,11 +1,11 @@
 package com.bimobject.themayproject;
 
 public class Brand {
-    public String id;
-    public String name;
-    public String permalink;
-    public String visibility;
-    public String imageUrl;
+    private String id;
+    private String name;
+    private String permalink;
+    private String visibility;
+    private String imageUrl;
 
     public Brand() {
     }

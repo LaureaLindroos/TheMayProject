@@ -1,11 +1,13 @@
 package com.bimobject.themayproject;
 
-public class Product {
-    public String id;
-    public String name;
-    public String status;
-    public String permalink;
-    public String imageUrl;
+public class Product{
+    private String id;
+    private String name;
+    private String status;
+    private String permalink;
+    private String imageUrl;
+
+    private Brand brand;
 
     public Product() {
     }
@@ -16,6 +18,7 @@ public class Product {
         this.status = status;
         this.permalink = permalink;
         this.imageUrl = imageUrl;
+
     }
 
 
@@ -57,5 +60,9 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Brand getBrand() {
+        return brand;
     }
 }
