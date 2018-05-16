@@ -13,7 +13,7 @@ public class SyncClient {
     }
 
     public static void post(String url, RequestParams params, JsonHttpResponseHandler responseHandler) {
-        client.post(getAbsoluteUrl(url), params, responseHandler);
+        client.post(url, params, responseHandler);
     }
 
     private static String getAbsoluteUrl(String relativeUrl) {
