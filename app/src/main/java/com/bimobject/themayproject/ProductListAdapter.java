@@ -38,7 +38,10 @@ public class ProductListAdapter extends ArrayAdapter<Product>{
 
         product_title.setText(product.getName());
         brand_name.setText(product.getBrand().getName());
-        Picasso.with(parent.getContext()).load(product.getImageUrl()).into(image);
+        Picasso.with(parent.getContext())
+                .load(product.getImageUrl())
+                .placeholder(R.drawable.progress_animation)
+                .into(image);
         Picasso.with(parent.getContext()).load(product.getBrand().getImageUrl()).into(brand_logo);
 
         return convertView;
