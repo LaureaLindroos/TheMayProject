@@ -18,7 +18,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class RequestService {
 
-    public static List<Product> getRequest(String search, String path) {
+    public static List<Product> getRequest(String search, String path, int page) {
 
         final ArrayList<Product> products = new ArrayList<>();
 
@@ -26,6 +26,7 @@ public class RequestService {
         params.put("pageSize", "50");
         params.put("filter.fullText", search);
         params.put("fields", "name,imageUrl,brand");
+        params.put("page", page);
 
             SyncClient.get(path, params, new JsonHttpResponseHandler() {
 
@@ -33,6 +34,7 @@ public class RequestService {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
                     try {
+
                         JSONArray data = (JSONArray) response.get("data");
 
                         Gson gson = new GsonBuilder().create();
