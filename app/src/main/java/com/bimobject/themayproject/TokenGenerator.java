@@ -2,7 +2,6 @@ package com.bimobject.themayproject;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.SyncHttpClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,13 +11,12 @@ import java.util.TimerTask;
 
 import cz.msebera.android.httpclient.Header;
 
-public final class Token {
+public abstract class TokenGenerator {
 
     private static String accessToken;
-    private final int expieryTime = 1350 * 1000;
-    private static Token instance;
-    private static final RequestParams params = new RequestParams();
-    private final Timer t;
+    private final static int expieryTime = 1350 * 1000;
+    private final static RequestParams params = new RequestParams();
+    private final static Timer t = new Timer();
 
     static {
         params.put("grant_type", "client_credentials");
@@ -27,22 +25,13 @@ public final class Token {
         params.put("client_secret", "3yUKdB0agDKJlw7ltRwQ4eRTeZC2Fw22KmMNcRYfvgzQ0WxekewFfUJxhkknM7Lb");
     }
 
-    private Token() {
-        t = new Timer();
+    public static void start(){
         t.scheduleAtFixedRate(new CollectAccessToken(), 0, expieryTime);
     }
 
-    public static Token getInstance(){
-        if (instance==null){
 
-            instance=new Token();
-        }
-        return instance;
-    }
-
-
-    public void setToken(String accessToken) {
-        this.accessToken = accessToken;
+    private static void setToken(String newAccessToken) {
+        accessToken = newAccessToken;
     }
 
     public static String getToken() {
@@ -50,18 +39,16 @@ public final class Token {
         return accessToken;
     }
 
-    class CollectAccessToken extends TimerTask {
-        SyncHttpClient client = new SyncHttpClient();
+    private static class CollectAccessToken extends TimerTask {
 
         @Override
         public void run() {
 
-            client.post("https://accounts.bimobject.com/identity/connect/token", params, new JsonHttpResponseHandler(
+            SyncClient.post("https://accounts.bimobject.com/identity/connect/token", params, new JsonHttpResponseHandler(
             ) {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
-                    System.out.println("success post");
 
                     try {
                         String responseToken = response.get("access_token").toString();
