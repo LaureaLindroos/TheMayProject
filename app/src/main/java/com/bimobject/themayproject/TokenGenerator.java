@@ -26,8 +26,14 @@ public abstract class TokenGenerator {
     }
 
     public static void start(){
-        t.cancel();
+
+        if(t != null){
+            t.cancel();
+            t = new Timer();
+        }
+
         t.scheduleAtFixedRate(new CollectAccessToken(), 0, expiryTime);
+
     }
 
 
