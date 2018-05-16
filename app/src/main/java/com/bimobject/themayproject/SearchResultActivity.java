@@ -14,15 +14,16 @@ import java.util.List;
 
 public class SearchResultActivity extends AppCompatActivity {
 
-    static int page = 1;
-    static ProductListAdapter adapter;
-    String search;
-    LoadListItemsTask loadListItemsTask;
+    private static int page;
+    private static ProductListAdapter adapter;
+    private static String search;
+    private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+        page = 1;
 
         if(getIntent().hasExtra("search")){
             search = getIntent().getStringExtra("search");
@@ -32,14 +33,12 @@ public class SearchResultActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.search_result_list);
         listView.setAdapter(adapter);
 
-        loadListItemsTask = new LoadListItemsTask();
         loadListItemsTask.execute(search);
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
 
             }
 
@@ -56,6 +55,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
 
     private class LoadListItemsTask extends AsyncTask<String, String, List<Product>> {
+
 
         @Override
         protected void onPreExecute() {
