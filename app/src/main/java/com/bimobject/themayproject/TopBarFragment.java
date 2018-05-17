@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class TopBarFragment extends Fragment {
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -27,12 +28,12 @@ public class TopBarFragment extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-      Button searchButtonTopBar = view.findViewById(R.id.searchButtonTopBar);
+      ImageButton searchButtonTopBar = view.findViewById(R.id.searchButtonTopBar);
         searchButtonTopBar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                EditText searchBox = view.findViewById(R.id.searchBox);
+                EditText searchBox = view.getRootView().findViewById(R.id.searchBoxTopBar);
                 String search = searchBox.getText().toString();
 
                 Intent intent = new Intent(getContext(), SearchResultActivity.class);
