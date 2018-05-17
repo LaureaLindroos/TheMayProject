@@ -1,4 +1,8 @@
 package com.bimobject.themayproject;
+
+import android.app.Activity;
+import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,11 +38,18 @@ public class TopBarFragment extends Fragment {
             public void onClick(View view) {
 
                 EditText searchBox = view.getRootView().findViewById(R.id.searchBoxTopBar);
-                String search = searchBox.getText().toString();
+                String topBarSearch = searchBox.getText().toString();
 
-                Intent intent = new Intent(getContext(), SearchResultActivity.class);
-                intent.putExtra("search", search);
-                startActivity(intent);
+                SearchResultActivity parentActivity = ((SearchResultActivity)getActivity());
+
+                if(parentActivity.isTaskFinished()) {
+                    parentActivity.getAdapter().clear();
+                    parentActivity.setPage(1);
+                    parentActivity.setSearch(topBarSearch);
+                    parentActivity.setLoadListItemsTask(parentActivity.createNewTask());
+                    parentActivity.getLoadListItemsTask().execute(topBarSearch);
+                }
+
             }
 
 
