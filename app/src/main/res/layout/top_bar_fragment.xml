@@ -13,32 +13,33 @@
 
         <ImageView
             android:id="@+id/topBarBimLogo"
-            android:layout_width="111dp"
+            android:layout_width="129dp"
             android:layout_height="53dp"
             android:layout_weight="1"
             android:background="@android:color/black"
             android:contentDescription="bimlogoTopBar"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             app:srcCompat="@drawable/ic_logo_bimobject_white" />
 
         <EditText
             android:id="@+id/searchBoxTopBar"
-            android:layout_width="106dp"
+            android:layout_width="116dp"
             android:layout_height="53dp"
             android:layout_weight="1"
-            android:paddingLeft="10dp"
+            android:background="@android:color/black"
             android:ems="10"
             android:inputType="textPersonName"
-            android:background="@android:color/black"
-            android:textColor="@android:color/white"/>
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@android:color/white" />
 
-        <ImageButton
-            android:id="@+id/searchButtonTopBar"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/searchButtonTopBarImage"
+            android:layout_width="53dp"
             android:layout_height="53dp"
             android:layout_weight="1"
-            android:background="@android:color/black"
-            android:contentDescription="topBarSearchButton"
-            app:srcCompat="@android:drawable/ic_search_category_default" />
+            android:background="@android:color/black" />
 
     </LinearLayout>
 
