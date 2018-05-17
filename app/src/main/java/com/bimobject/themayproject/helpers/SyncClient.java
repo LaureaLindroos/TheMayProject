@@ -1,4 +1,4 @@
-package com.bimobject.themayproject;
+package com.bimobject.themayproject.helpers;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

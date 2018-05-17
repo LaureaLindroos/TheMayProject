@@ -1,7 +1,4 @@
-package com.bimobject.themayproject;
-
-import android.app.Activity;
-import android.content.Context;
+package com.bimobject.themayproject.ui.searchresultactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.ui.mainsearchactivity.MainSearchActivity;
 
 public class TopBarFragment extends Fragment {
     // The onCreateView method is called when Fragment should create its View object hierarchy,

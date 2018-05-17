@@ -1,4 +1,4 @@
-package com.bimobject.themayproject;
+package com.bimobject.themayproject.ui.mainsearchactivity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.TokenGenerator;
+import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 
 public class MainSearchActivity extends AppCompatActivity {
 

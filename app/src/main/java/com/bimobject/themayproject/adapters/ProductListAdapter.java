@@ -1,4 +1,4 @@
-package com.bimobject.themayproject;
+package com.bimobject.themayproject.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

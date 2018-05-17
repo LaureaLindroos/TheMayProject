@@ -1,22 +1,25 @@
-package com.bimobject.themayproject;
+package com.bimobject.themayproject.dto;
 
-public class Brand {
+public class Product{
     private String id;
     private String name;
+    private String status;
     private String permalink;
-    private String visibility;
     private String imageUrl;
 
-    public Brand() {
+    private Brand brand;
+
+    public Product() {
     }
 
-    public Brand(String id, String name, String permalink, String visibility, String imageUrl) {
+    public Product(String id, String name, String status, String permalink, String imageUrl) {
         this.id = id;
         this.name = name;
+        this.status = status;
         this.permalink = permalink;
-        this.visibility = visibility;
         this.imageUrl = imageUrl;
     }
+
 
     public String getId() {
         return id;
@@ -34,6 +37,14 @@ public class Brand {
         this.name = name;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getPermalink() {
         return permalink;
     }
@@ -42,19 +53,15 @@ public class Brand {
         this.permalink = permalink;
     }
 
-    public String getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(String visibility) {
-        this.visibility = visibility;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Brand getBrand() {
+        return brand;
     }
 }
