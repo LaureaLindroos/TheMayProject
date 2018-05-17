@@ -34,13 +34,30 @@
             android:paddingRight="10dp"
             android:textColor="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/searchButtonTopBarImage"
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/searchButtonTopBar"
             android:layout_width="53dp"
             android:layout_height="53dp"
-            android:layout_weight="1"
-            android:background="@android:color/black" />
+            android:layout_gravity="right"
+            android:background="@android:color/black"
+            android:paddingBottom="2dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="1dp"
+            android:paddingTop="1dp">
 
+            <ImageView
+                android:id="@+id/searchIconTopBar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:contentDescription="image inside button"
+                android:scaleType="fitCenter"
+                app:srcCompat="@android:drawable/ic_menu_search" />
+
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
