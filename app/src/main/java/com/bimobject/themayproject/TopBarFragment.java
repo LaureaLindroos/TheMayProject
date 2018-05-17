@@ -1,6 +1,8 @@
 package com.bimobject.themayproject;
+
 import android.app.Activity;
 import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 public class TopBarFragment extends Fragment {
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -30,7 +32,7 @@ public class TopBarFragment extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-      ImageView searchButtonTopBar = view.findViewById(R.id.searchButtonTopBarImage);
+      RelativeLayout searchButtonTopBar = view.findViewById(R.id.searchButtonTopBar);
         searchButtonTopBar.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
