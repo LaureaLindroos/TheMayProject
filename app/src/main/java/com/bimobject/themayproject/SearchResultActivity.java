@@ -18,6 +18,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private static ProductListAdapter adapter;
     private static String search;
     private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
+    private ListView listView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
-        ListView listView = findViewById(R.id.search_result_list);
+        listView = findViewById(R.id.search_result_list);
         listView.setAdapter(adapter);
 
         loadListItemsTask.execute(search);
@@ -45,7 +46,7 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-                if (view.getLastVisiblePosition() == totalItemCount - 1 && loadListItemsTask.getStatus() == AsyncTask.Status.FINISHED){
+                if (isTaskFinished() && view.getLastVisiblePosition() == totalItemCount - 1){
                     loadListItemsTask = new LoadListItemsTask();
                     loadListItemsTask.execute(search);
                 }
@@ -54,8 +55,11 @@ public class SearchResultActivity extends AppCompatActivity {
     }
 
 
-    private class LoadListItemsTask extends AsyncTask<String, String, List<Product>> {
+    public class LoadListItemsTask extends AsyncTask<String, String, List<Product>> {
 
+        public LoadListItemsTask() {
+            super();
+        }
 
         @Override
         protected void onPreExecute() {
@@ -76,5 +80,33 @@ public class SearchResultActivity extends AppCompatActivity {
         protected List<Product> doInBackground(String... strings) {
             return RequestService.getRequest(strings[0], "/products", page++);
         }
+    }
+
+    public LoadListItemsTask getLoadListItemsTask() {
+        return loadListItemsTask;
+    }
+
+    public void setLoadListItemsTask(LoadListItemsTask loadListItemsTask) {
+        this.loadListItemsTask = loadListItemsTask;
+    }
+
+    public ProductListAdapter getAdapter() {
+        return adapter;
+    }
+
+    public boolean isTaskFinished(){
+        return loadListItemsTask.getStatus() == AsyncTask.Status.FINISHED;
+    }
+
+    public LoadListItemsTask createNewTask(){
+        return new LoadListItemsTask();
+    }
+
+    public void setPage(int page) {
+        SearchResultActivity.page = page;
+    }
+
+    public void setSearch(String search) {
+        SearchResultActivity.search = search;
     }
 }
