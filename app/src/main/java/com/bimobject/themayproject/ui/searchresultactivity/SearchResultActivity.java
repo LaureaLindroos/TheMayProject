@@ -8,6 +8,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
 import com.bimobject.themayproject.R;
@@ -82,7 +83,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         @Override
         protected List<Product> doInBackground(String... strings) {
-            return RequestService.getRequest(strings[0], "/products", page++);
+            return RequestService.getRequest(strings[0], URL.GET_PRODUCTS, page++);
         }
     }
 
