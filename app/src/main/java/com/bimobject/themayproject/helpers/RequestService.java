@@ -66,6 +66,7 @@ public class RequestService {
 
             }
         });
+        //TODO: Implement better solution for returning single object
         return productDetails.get(0);
         }
 
