@@ -29,5 +29,8 @@ public class ProductInfoActivity extends AppCompatActivity {
         String productId = getIntent().getStringExtra("productId");
 
 
+
+
+
     }
 }
