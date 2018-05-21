@@ -19,58 +19,60 @@ import cz.msebera.android.httpclient.Header;
 
 public class RequestService {
 
-    public static List<Product> getRequest(String search, String path, int page) {
+    public static List<Product> getRequest(String search, String path, int page, String category) {
 
         final ArrayList<Product> products = new ArrayList<>();
 
         RequestParams params = new RequestParams();
         params.put("pageSize", "20");
         params.put("filter.fullText", search);
+        params.put("filter.category.id", category);
         params.put("fields", "name,imageUrl,brand");
         params.put("page", page);
 
-            SyncClient.get(path, params, new JsonHttpResponseHandler() {
+        SyncClient.get(path, params, new JsonHttpResponseHandler() {
 
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    super.onSuccess(statusCode, headers, response);
-                    try {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
 
-                        JSONArray data = (JSONArray) response.get("data");
+                    JSONArray data = (JSONArray) response.get("data");
 
-                        Gson gson = new GsonBuilder().create();
+                    Gson gson = new GsonBuilder().create();
 
-                        Type listType = new TypeToken<List<Product>>(){}.getType();
-                        //TODO: Implement better solution for handling response
-                        ArrayList<Product> responseArray = gson.fromJson(data.toString(), listType);
-                        products.addAll(responseArray);
+                    Type listType = new TypeToken<List<Product>>() {
+                    }.getType();
+                    //TODO: Implement better solution for handling response
+                    ArrayList<Product> responseArray = gson.fromJson(data.toString(), listType);
+                    products.addAll(responseArray);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+            }
 
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    super.onFailure(statusCode, headers, throwable, errorResponse);
-                }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
 
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                    super.onSuccess(statusCode, headers, response);
-                }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
 
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                    super.onFailure(statusCode, headers, throwable, errorResponse);
-                }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
 
 
-            });
+        });
 
-            return products;
+        return products;
 
-        }
     }
+}
 
 
