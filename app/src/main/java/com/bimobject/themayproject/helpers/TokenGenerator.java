@@ -1,5 +1,6 @@
 package com.bimobject.themayproject.helpers;
 
+import com.bimobject.themayproject.constants.URL;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -51,7 +52,7 @@ public abstract class TokenGenerator {
         @Override
         public void run() {
 
-            SyncClient.post("https://accounts.bimobject.com/identity/connect/token", params, new JsonHttpResponseHandler(
+            SyncClient.post(URL.CONNECT_TOKEN, params, new JsonHttpResponseHandler(
             ) {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
