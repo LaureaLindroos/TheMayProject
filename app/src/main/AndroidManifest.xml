@@ -20,7 +20,7 @@
         </activity>
 
         <activity android:name=".ui.searchresultactivity.SearchResultActivity"></activity>
-        <activity android:name=".ProductInfoActivity"></activity>
+        <activity android:name=".ui.productinfoactivity.ProductInfoActivity"></activity>
 
     </application>
 

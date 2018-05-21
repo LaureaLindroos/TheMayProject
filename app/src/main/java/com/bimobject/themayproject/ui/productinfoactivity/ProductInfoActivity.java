@@ -1,8 +1,11 @@
-package com.bimobject.themayproject;
+package com.bimobject.themayproject.ui.productinfoactivity;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.adapters.ViewPagerAdapter;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
