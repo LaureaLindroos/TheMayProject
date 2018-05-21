@@ -1,10 +1,13 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -13,6 +16,7 @@ import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.helpers.RequestService;
+import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +35,24 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
         page = 1;
 
+        adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
+        listView = findViewById(R.id.search_result_list);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
+
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailIntent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
+                detailIntent.putExtra("productId", ((Product)view.getTag()).getId());
+                startActivity(detailIntent);
+            }
+        });
+
         if(getIntent().hasExtra("search")){
             search = getIntent().getStringExtra("search");
         }
-
-        adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
-        listView = findViewById(R.id.activity_search_result_lv_list);
-        listView.setAdapter(adapter);
 
         loadListItemsTask.execute(search);
 
