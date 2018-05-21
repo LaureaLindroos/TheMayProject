@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentTopBar"
-        class ="com.bimobject.themayproject.TopBarFragment"
+        class ="com.bimobject.themayproject.ui.searchresultactivity.TopBarFragment"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:layout_alignParentStart="true"

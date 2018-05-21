@@ -1,13 +1,17 @@
-package com.bimobject.themayproject;
+package com.bimobject.themayproject.ui.searchresultactivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.AbsListView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.adapters.ProductListAdapter;
+import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.RequestService;
 
 import java.util.ArrayList;
 import java.util.List;
