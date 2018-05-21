@@ -36,7 +36,7 @@ public class SearchResultActivity extends AppCompatActivity {
         page = 1;
 
         adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
-        listView = findViewById(R.id.search_result_list);
+        listView = findViewById(R.id.activity_search_result_lv_list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
