@@ -1,6 +1,8 @@
 package com.bimobject.themayproject.helpers;
 
+import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.dto.ProductDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -56,6 +58,26 @@ public class RequestService {
             return products;
 
         }
+        public static ProductDetails getProductDetails(String id){
+
+        final ArrayList<ProductDetails> productDetails = new ArrayList<>();
+
+        SyncClient.get(URL.GET_PRODUCTS + "/" + id, null, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+
+                Gson gson = new GsonBuilder().create();
+                ProductDetails responseObject = gson.fromJson(response.toString(), ProductDetails.class);
+
+                productDetails.add(responseObject);
+
+            }
+        });
+        return productDetails.get(0);
+        }
+
     }
 
 
