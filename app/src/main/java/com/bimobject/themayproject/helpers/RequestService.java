@@ -28,7 +28,6 @@ public class RequestService {
         RequestParams params = new RequestParams();
         params.put("pageSize", "20");
         params.put("filter.fullText", search);
-        params.put("fields", "name,imageUrl,brand");
         params.put("page", page);
 
             SyncClient.get(path, params, new JsonHttpResponseHandler() {
@@ -68,10 +67,16 @@ public class RequestService {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
 
-                Gson gson = new GsonBuilder().create();
-                ProductDetails responseObject = gson.fromJson(response.toString(), ProductDetails.class);
+                try {
+                    JSONObject data = (JSONObject) response.get("data");
 
-                productDetails.add(responseObject);
+                    Gson gson = new GsonBuilder().create();
+                    ProductDetails responseObject = gson.fromJson(data.toString(), ProductDetails.class);
+
+                    productDetails.add(responseObject);
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
 
             }
         });
