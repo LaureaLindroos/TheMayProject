@@ -52,7 +52,7 @@ public class RequestService {
 
         final ArrayList<ProductDetails> productDetails = new ArrayList<>();
 
-        SyncClient.get(URL.GET_PRODUCTS + "/" + id, null, new JsonHttpResponseHandler(){
+        SyncClient.get(URL.GET_PRODUCTS + id, null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
