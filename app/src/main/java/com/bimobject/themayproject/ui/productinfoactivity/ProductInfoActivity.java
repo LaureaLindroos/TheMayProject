@@ -22,31 +22,13 @@ public class ProductInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
 
-        ImageView productImage = findViewById(R.id.product_Image);
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
 
         String productId = getIntent().getStringExtra("productId");
-        new getProductInfoTask().execute(productId);
 
 
-    }
-
-    private class getProductInfoTask extends AsyncTask<String, String, ProductDetails> {
-
-        @Override
-        protected void onPostExecute(ProductDetails product) {
-            TextView product_info = findViewById(R.id.product_Info);
-            String desc = ((ProductDetails) product).getDescriptionHtml();
-            product_info.setText((CharSequence) product);
-        }
-
-        @Override
-        protected ProductDetails doInBackground(String... strings) {
-            return RequestService.getRequestdetails("/products/" + strings[0]);
-        }
     }
 }
-
-

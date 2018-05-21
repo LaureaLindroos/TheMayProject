@@ -34,15 +34,9 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
         page = 1;
 
-        if (getIntent().hasExtra("search")) {
-            search = getIntent().getStringExtra("search");
-        }
-
-        adapter = new ProductListAdapter(SearchResultActivity.this, R.layout.list_item_layout, new ArrayList<Product>());
-        ListView listView = findViewById(R.id.search_result_list);
+        adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
+        listView = findViewById(R.id.search_result_list);
         listView.setAdapter(adapter);
-
-        loadListItemsTask.execute(search);
 
         listView.setOnItemClickListener(new ListView.OnItemClickListener() {
 
@@ -59,9 +53,7 @@ public class SearchResultActivity extends AppCompatActivity {
             search = getIntent().getStringExtra("search");
         }
 
-        adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
-        listView = findViewById(R.id.search_result_list);
-        listView.setAdapter(adapter);
+
 
         loadListItemsTask.execute(search);
 

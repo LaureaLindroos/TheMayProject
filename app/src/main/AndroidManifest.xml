@@ -14,8 +14,6 @@
        
        <activity android:name=".ui.mainsearchactivity.MainSearchActivity">
 
-        
-        <activity android:name=".MainSearchActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
