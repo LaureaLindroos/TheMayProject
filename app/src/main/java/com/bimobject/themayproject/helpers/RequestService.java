@@ -36,21 +36,12 @@ public class RequestService {
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     super.onSuccess(statusCode, headers, response);
                     try {
-
-                        JSONArray data = (JSONArray) response.get("data");
-
-                        Gson gson = new GsonBuilder().create();
-
-                        Type listType = new TypeToken<List<Product>>(){}.getType();
-                        //TODO: Implement better solution for handling response
-                        ArrayList<Product> responseArray = gson.fromJson(data.toString(), listType);
-                        products.addAll(responseArray);
+                        products.addAll(JSONParser.parseToProductList(response));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-
 
             });
 
@@ -68,12 +59,7 @@ public class RequestService {
                 super.onSuccess(statusCode, headers, response);
 
                 try {
-                    JSONObject data = (JSONObject) response.get("data");
-
-                    Gson gson = new GsonBuilder().create();
-                    ProductDetails responseObject = gson.fromJson(data.toString(), ProductDetails.class);
-
-                    productDetails.add(responseObject);
+                    productDetails.add(JSONParser.parseToProductDetails(response));
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
