@@ -33,10 +33,10 @@ public class ProductListAdapter extends ArrayAdapter<Product>{
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_layout, parent, false);
         }
 
-        TextView product_title = convertView.findViewById(R.id.list_item_product_name);
-        TextView brand_name = convertView.findViewById(R.id.list_item_product_brand);
-        ImageView image = convertView.findViewById(R.id.list_item_product_image);
-        ImageView brand_logo = convertView.findViewById(R.id.list_item_product_logo);
+        TextView product_title = convertView.findViewById(R.id.layout_list_item_tv_product_name);
+        TextView brand_name = convertView.findViewById(R.id.layout_list_item_tv_product_brand);
+        ImageView image = convertView.findViewById(R.id.layout_list_item_img_product);
+        ImageView brand_logo = convertView.findViewById(R.id.layout_list_item_img_product_logo);
 
         product_title.setText(product.getName());
         brand_name.setText(product.getBrand().getName());

@@ -11,11 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-       
-       <activity android:name=".ui.mainsearchactivity.MainSearchActivity">
 
-        
-        <activity android:name=".MainSearchActivity">
+        <activity android:name=".ui.mainsearchactivity.MainSearchActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

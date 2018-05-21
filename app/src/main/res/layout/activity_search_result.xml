@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:id="@+id/activity_search_result_fr_bar"
+        android:id="@+id/top_bar_fragment"
         class ="com.bimobject.themayproject.ui.searchresultactivity.TopBarFragment"
         android:layout_width="match_parent"
         android:layout_height="61dp"
@@ -21,7 +21,7 @@
         android:layout_alignParentTop="false"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="0dp"
-        android:layout_below="@id/activity_search_result_fr_bar"
+        android:layout_below="@id/top_bar_fragment"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 

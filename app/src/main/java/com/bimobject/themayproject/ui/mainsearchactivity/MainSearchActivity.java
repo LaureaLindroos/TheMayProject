@@ -22,13 +22,13 @@ public class MainSearchActivity extends AppCompatActivity {
         TokenGenerator.start();
         setContentView(R.layout.activity_main_search);
 
-        Button searchButton = findViewById(R.id.searchButton);
+        Button searchButton = findViewById(R.id.activity_main_btn_search);
 
         searchButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                EditText searchBox = findViewById(R.id.searchBox);
+                EditText searchBox = findViewById(R.id.activity_main_search_et_value);
                 String search = searchBox.getText().toString();
 
                 Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
@@ -63,7 +63,7 @@ public class MainSearchActivity extends AppCompatActivity {
             }
 
             private void onRightButtonClicked() {
-                EditText searchBox = findViewById(R.id.searchBox);
+                EditText searchBox = findViewById(R.id.activity_main_search_et_value);
                 String search = searchBox.getText().toString();
 
 
