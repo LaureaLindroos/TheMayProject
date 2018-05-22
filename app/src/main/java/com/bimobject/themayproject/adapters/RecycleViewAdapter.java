@@ -18,7 +18,6 @@ import com.bimobject.themayproject.helpers.RequestService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -49,7 +48,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public int getItemCount() {
-        //Return size of list
         return products.size();
     }
 
@@ -95,9 +93,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         @Override
         protected void onPostExecute(List<Product> products) {
-
             addAll(products);
-
         }
 
         @Override
