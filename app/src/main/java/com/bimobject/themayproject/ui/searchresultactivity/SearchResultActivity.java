@@ -5,9 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,15 +37,10 @@ public class SearchResultActivity extends AppCompatActivity {
         listView = findViewById(R.id.activity_search_result_lv_list);
         listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
-
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent detailIntent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
-                detailIntent.putExtra("productId", ((Product)view.getTag()).getId());
-                startActivity(detailIntent);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent detailIntent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
+            detailIntent.putExtra("productId", ((Product)view.getTag()).getId());
+            startActivity(detailIntent);
         });
 
         if(getIntent().hasExtra("search")){
