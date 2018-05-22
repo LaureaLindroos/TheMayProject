@@ -74,7 +74,6 @@ public class SearchResultActivity extends AppCompatActivity {
         protected void onPostExecute(List<Product> products) {
 
             adapter.addAll(products);
-            adapter.notifyDataSetChanged();
 
         }
 

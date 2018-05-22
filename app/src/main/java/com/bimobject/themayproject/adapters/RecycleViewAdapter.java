@@ -84,5 +84,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     public void addAll(List<Product> objects){
         products.addAll(objects);
+        notifyDataSetChanged();
     }
 }
