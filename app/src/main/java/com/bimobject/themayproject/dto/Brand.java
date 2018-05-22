@@ -1,4 +1,4 @@
-package com.bimobject.themayproject;
+package com.bimobject.themayproject.dto;
 
 public class Brand {
     private String id;

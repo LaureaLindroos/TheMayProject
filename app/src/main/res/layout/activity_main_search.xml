@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bimobject.themayproject.MainSearchActivity"
+    tools:context="com.bimobject.themayproject.ui.mainsearchactivity.MainSearchActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <EditText
-        android:id="@+id/searchBox"
+        android:id="@+id/activity_main_search_et_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -16,24 +16,37 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Enter product"
         android:inputType="textPersonName"
-        android:hint="Sökord"
+        android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/activity_main_btn_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@android:string/search_go"
+        android:text="Search product"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBox" />
+        app:layout_constraintTop_toBottomOf="@+id/activity_main_search_et_value" />
+
+    <ImageView
+        android:id="@+id/activity_main_img_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/activity_main_btn_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_bim_logo_black_large" />
 
 
 </android.support.constraint.ConstraintLayout>

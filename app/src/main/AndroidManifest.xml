@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bimobject.themayproject">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -9,15 +10,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainSearchActivity">
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+
+        <activity android:name=".ui.mainsearchactivity.MainSearchActivity">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchResultActivity"></activity>
+
+        <activity android:name=".ui.searchresultactivity.SearchResultActivity"></activity>
+        <activity android:name=".ui.productinfoactivity.ProductInfoActivity"></activity>
+
     </application>
 
 </manifest>

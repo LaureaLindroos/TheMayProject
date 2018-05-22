@@ -1,4 +1,4 @@
-package com.bimobject.themayproject;
+package com.bimobject.themayproject.dto;
 
 public class Product{
     private String id;
@@ -18,7 +18,6 @@ public class Product{
         this.status = status;
         this.permalink = permalink;
         this.imageUrl = imageUrl;
-
     }
 
 
