@@ -5,9 +5,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.RequestParameters;
 import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
@@ -30,11 +34,24 @@ public class SearchResultActivity extends AppCompatActivity {
     private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
     private ListView listView;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
         page = 1;
+
+        RequestParameters requestParams = RequestParameters.getRequestParametersInstance();
+        Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
+        buttonCategory.setOnClickListener(view -> {
+                requestParams.addCategory("137");
+                });
+
+        Button btnClear = findViewById(R.id.activity_search_result_btn_filter_clear);
+        btnClear.setOnClickListener(view -> {
+            requestParams.clearParams();
+        });
+
 
         adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
         listView = findViewById(R.id.activity_search_result_lv_list);
@@ -61,6 +78,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         loadListItemsTask.execute(search);
 
+
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -71,7 +89,7 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-                if (isTaskFinished() && view.getLastVisiblePosition() == totalItemCount - 1){
+                if (isTaskFinished() && view.getLastVisiblePosition() == totalItemCount - 1) {
                     loadListItemsTask = new LoadListItemsTask();
                     loadListItemsTask.execute(search);
                 }
@@ -88,7 +106,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            if(adapter.getCount() != 0) {
+            if (adapter.getCount() != 0) {
                 Toast.makeText(SearchResultActivity.this, "Fetching more products..", Toast.LENGTH_SHORT).show();
             }
         }
@@ -101,9 +119,12 @@ public class SearchResultActivity extends AppCompatActivity {
 
         }
 
+
         @Override
-        protected List<Product> doInBackground(String... strings) {
+        protected List<Product>doInBackground(String... strings){
             return RequestService.getRequest(strings[0], URL.GET_PRODUCTS, page++);
+
+            
         }
     }
 
@@ -119,11 +140,11 @@ public class SearchResultActivity extends AppCompatActivity {
         return adapter;
     }
 
-    public boolean isTaskFinished(){
+    public boolean isTaskFinished() {
         return loadListItemsTask.getStatus() == AsyncTask.Status.FINISHED;
     }
 
-    public LoadListItemsTask createNewTask(){
+    public LoadListItemsTask createNewTask() {
         return new LoadListItemsTask();
     }
 

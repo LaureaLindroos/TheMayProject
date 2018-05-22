@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.RequestParameters;
 import com.bimobject.themayproject.ui.mainsearchactivity.MainSearchActivity;
 
 public class TopBarFragment extends Fragment {
@@ -32,6 +33,7 @@ public class TopBarFragment extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
       RelativeLayout searchButtonTopBar = view.findViewById(R.id.searchButtonTopBar);
         searchButtonTopBar.setOnClickListener(new Button.OnClickListener() {
             @Override
