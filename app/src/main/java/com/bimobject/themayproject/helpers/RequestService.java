@@ -25,6 +25,7 @@ public class RequestService {
 
         final ArrayList<Product> products = new ArrayList<>();
 
+
         SyncClient.get(path, request.getParams(), new JsonHttpResponseHandler() {
 
             @Override

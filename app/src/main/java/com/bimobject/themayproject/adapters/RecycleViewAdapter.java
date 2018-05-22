@@ -17,9 +17,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by octoboss on 2018-05-21.
- */
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
 
@@ -85,8 +82,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return new ArrayList<>();
     }
 
-    public void addToDataSet(List<Product> newEntries){
-        products.addAll(newEntries);
-        notifyDataSetChanged();
+    public void addAll(List<Product> objects){
+        products.addAll(objects);
     }
 }
