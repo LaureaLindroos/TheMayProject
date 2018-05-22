@@ -46,6 +46,8 @@ public class ProductListAdapter extends ArrayAdapter<Product>{
                 .into(image);
         Picasso.with(parent.getContext()).load(product.getBrand().getImageUrl()).into(brand_logo);
 
+        convertView.setTag(product);
+
         return convertView;
     }
 

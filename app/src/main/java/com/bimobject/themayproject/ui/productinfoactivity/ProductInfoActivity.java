@@ -27,7 +27,20 @@ public class ProductInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
 
         String productId = getIntent().getStringExtra("productId");
+        new getProductDetailsTask().execute(productId);
 
+    }
+    private class getProductDetailsTask extends AsyncTask<String, String, ProductDetails>{
+        @Override
+        protected void onPostExecute(ProductDetails productDetails) {
 
+            TextView product_title = findViewById(R.id.activity_product_info_tv_product_title);
+            product_title.setText(productDetails.getName());
+        }
+
+        @Override
+        protected ProductDetails doInBackground(String... strings) {
+            return RequestService.getProductDetails(strings[0]);
+        }
     }
 }
