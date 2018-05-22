@@ -1,6 +1,7 @@
 package com.bimobject.themayproject.adapters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.helpers.Request;
+import com.bimobject.themayproject.helpers.RequestService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -20,11 +24,10 @@ import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
 
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
+    private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
+    private Request request;
 
-    public RecycleViewAdapter() {
-        products = createNewDataSet();
-    }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -62,6 +65,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return position;
     }
 
+    public void addAll(List<Product> objects){
+        products.addAll(objects);
+        notifyDataSetChanged();
+    }
+
+    public void makeNewRequest(Request req){
+        this.request = req;
+        loadListItemsTask.execute(req);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView product_title;
@@ -78,12 +91,18 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
-    public ArrayList<Product> createNewDataSet(){
-        return new ArrayList<>();
-    }
+    public class LoadListItemsTask extends AsyncTask<Request, String, List<Product>> {
 
-    public void addAll(List<Product> objects){
-        products.addAll(objects);
-        notifyDataSetChanged();
+        @Override
+        protected void onPostExecute(List<Product> products) {
+
+            addAll(products);
+
+        }
+
+        @Override
+        protected List<Product> doInBackground(Request... requests) {
+            return RequestService.getRequest(URL.GET_PRODUCTS, requests[0]);
+        }
     }
 }

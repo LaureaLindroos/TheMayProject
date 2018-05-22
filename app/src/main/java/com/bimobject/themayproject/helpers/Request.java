@@ -9,10 +9,11 @@ public class Request {
     private RequestParams params;
     private int page;
 
-    private Request() {
+    public Request() {
         hasNextPage=true;
         params = new RequestParams();
         page = 1;
+        this.params.put("pageSize", "20");
     }
 
     public RequestParams getParams() {
@@ -33,10 +34,6 @@ public class Request {
     public void addPage(int page){
         this.params.put("page", page);
 
-    }
-
-    public void addPageSize(){
-        this.params.put("pageSize", "20");
     }
 
     //TODO:fix a better clearer for when we have several categories and brands.

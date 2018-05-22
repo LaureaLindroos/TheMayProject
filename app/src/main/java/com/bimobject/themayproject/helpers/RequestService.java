@@ -21,7 +21,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class RequestService {
 
-    public static List<Product> getRequest(String path,Request request) {
+    public static List<Product> getRequest(String path, Request request) {
 
         final ArrayList<Product> products = new ArrayList<>();
 

@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bimobject.themayproject.R;
-import com.bimobject.themayproject.helpers.RequestParameters;
 import com.bimobject.themayproject.ui.mainsearchactivity.MainSearchActivity;
 
 public class TopBarFragment extends Fragment {

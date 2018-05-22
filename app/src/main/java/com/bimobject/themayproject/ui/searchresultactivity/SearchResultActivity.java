@@ -20,7 +20,6 @@ import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.helpers.Request;
-import com.bimobject.themayproject.helpers.RequestParameters;
 import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
@@ -31,7 +30,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
     private static RecycleViewAdapter adapter;
     private static String search;
-    private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
     private RecyclerView recyclerView;
 
 
@@ -40,7 +38,7 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
 
-        RequestParameters requestParams = RequestParameters.getRequestParametersInstance();
+        /*
         Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
         buttonCategory.setOnClickListener(view -> {
                 requestParams.addCategory("137");
@@ -50,6 +48,7 @@ public class SearchResultActivity extends AppCompatActivity {
         btnClear.setOnClickListener(view -> {
             requestParams.clearParams();
         });
+        */
 
         adapter = new RecycleViewAdapter();
         recyclerView = findViewById(R.id.activity_search_result_rv_list);
@@ -62,26 +61,13 @@ public class SearchResultActivity extends AppCompatActivity {
             search = getIntent().getStringExtra("search");
         }
 
-        loadListItemsTask.execute(search);
+        Request request = new Request();
+        request.addSearch(search);
+
+        adapter.makeNewRequest(request);
 
 
     }
 
 
-    public class LoadListItemsTask extends AsyncTask<String, String, List<Product>> {
-
-        @Override
-        protected void onPostExecute(List<Product> products) {
-
-            adapter.addAll(products);
-
-        }
-
-        @Override
-        protected List<Product>doInBackground(String... strings){
-
-            return RequestService.getRequest(strings[0], URL.GET_PRODUCTS);
-
-        }
-    }
 }
