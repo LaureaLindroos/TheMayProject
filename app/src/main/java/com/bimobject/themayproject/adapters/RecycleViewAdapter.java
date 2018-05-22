@@ -24,7 +24,7 @@ import java.util.List;
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
 
     private List<Product> products = new ArrayList<>();
-    private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
+    private LoadListItemsTask loadListItemsTask;
     private Request request;
 
 
@@ -70,6 +70,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     public void makeNewRequest(Request req){
         this.request = req;
+        products.clear();
+        loadListItemsTask = new LoadListItemsTask();
         loadListItemsTask.execute(req);
     }
 
