@@ -1,5 +1,6 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.helpers.RequestService;
+import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,7 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
         page = 1;
 
+<<<<<<< HEAD
         if (getIntent().hasExtra("search")) {
             search = getIntent().getStringExtra("search");
             EditText searchBox = findViewById(R.id.searchBoxTopBar);
@@ -61,6 +64,23 @@ public class SearchResultActivity extends AppCompatActivity {
                 getLoadListItemsTask().execute(topBarSearch, category);
             }
         });
+=======
+        adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
+        listView = findViewById(R.id.activity_search_result_lv_list);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent detailIntent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
+            detailIntent.putExtra("productId", ((Product)view.getTag()).getId());
+            startActivity(detailIntent);
+        });
+
+        if(getIntent().hasExtra("search")){
+            search = getIntent().getStringExtra("search");
+        }
+
+        loadListItemsTask.execute(search);
+>>>>>>> 9f480577e4127bee0608cbf9aff2946a82beb9f0
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
