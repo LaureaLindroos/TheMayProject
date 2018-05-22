@@ -5,10 +5,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
@@ -36,6 +39,15 @@ public class SearchResultActivity extends AppCompatActivity {
         adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
         listView = findViewById(R.id.activity_search_result_lv_list);
         listView.setAdapter(adapter);
+
+        /*
+        //Code to set up recycleView
+        adapter = new RecycleViewAdapter();
+        recyclerView = findViewById(R.id.activity_search_result_rv_list);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+        */
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Intent detailIntent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
