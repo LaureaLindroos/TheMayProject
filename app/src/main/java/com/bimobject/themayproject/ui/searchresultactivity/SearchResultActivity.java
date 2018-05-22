@@ -16,6 +16,7 @@ import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.RequestParameters;
 import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
@@ -29,13 +30,25 @@ public class SearchResultActivity extends AppCompatActivity {
     private static String search;
     private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
     private ListView listView;
-    
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
         page = 1;
+
+        RequestParameters requestParams = RequestParameters.getRequestParametersInstance();
+        Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
+        buttonCategory.setOnClickListener(view -> {
+                requestParams.addCategory("137");
+                });
+
+        Button btnClear = findViewById(R.id.activity_search_result_btn_filter_clear);
+        btnClear.setOnClickListener(view -> {
+            requestParams.clearParams();
+        });
+
 
         adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
         listView = findViewById(R.id.activity_search_result_lv_list);
@@ -97,7 +110,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         @Override
         protected List<Product>doInBackground(String... strings){
-            return RequestService.getRequest(strings[0], URL.GET_PRODUCTS, page++, strings[1]);
+            return RequestService.getRequest(strings[0], URL.GET_PRODUCTS, page++);
 
             
         }

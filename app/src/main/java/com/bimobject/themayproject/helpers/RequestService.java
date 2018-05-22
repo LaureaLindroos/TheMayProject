@@ -16,19 +16,21 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
 import cz.msebera.android.httpclient.Header;
+
 
 public class RequestService {
 
-    public static List<Product> getRequest(String search, String path, int page, String category) {
+    public static List<Product> getRequest(String search, String path, int page) {
 
         final ArrayList<Product> products = new ArrayList<>();
+        RequestParameters requestParams=RequestParameters.getRequestParametersInstance();
+        requestParams.addPage(page);
+        requestParams.addSearch(search);
+        requestParams.addPageSize();
+        RequestParams params = requestParams.getRequestParameters();
+        System.out.println(params.toString());
 
-        RequestParams params = new RequestParams();
-        params.put("pageSize", "20");
-        params.put("filter.fullText", search);
-        params.put("page", page);
 
         SyncClient.get(path, params, new JsonHttpResponseHandler() {
 
