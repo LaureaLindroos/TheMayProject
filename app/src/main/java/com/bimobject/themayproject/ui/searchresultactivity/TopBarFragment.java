@@ -44,6 +44,7 @@ public class TopBarFragment extends Fragment {
 
                 SearchResultActivity parentActivity = ((SearchResultActivity)getActivity());
 
+                //TODO: Build funcitonality for starting search from fragment
                 /*
                 if(parentActivity.isTaskFinished()) {
                     parentActivity.getAdapter().clear();
