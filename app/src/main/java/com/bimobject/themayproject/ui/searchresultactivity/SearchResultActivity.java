@@ -19,6 +19,7 @@ import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.RequestParameters;
 import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
@@ -122,7 +123,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         @Override
         protected List<Product>doInBackground(String... strings){
-            return RequestService.getRequest(strings[0], URL.GET_PRODUCTS, page++);
+            return RequestService.getRequest(URL.GET_PRODUCTS, Request);
 
             
         }
