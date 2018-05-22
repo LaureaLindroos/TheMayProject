@@ -53,7 +53,6 @@ public class SearchResultActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-
         adapter.makeNewRequest(request);
 
 
