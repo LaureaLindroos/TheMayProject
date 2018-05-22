@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.helpers.TokenGenerator;
@@ -24,32 +23,26 @@ public class MainSearchActivity extends AppCompatActivity {
 
         Button searchButton = findViewById(R.id.activity_main_btn_search);
 
-        searchButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        searchButton.setOnClickListener(view -> {
 
-                EditText searchBox = findViewById(R.id.activity_main_search_et_value);
-                String search = searchBox.getText().toString();
+            EditText searchBox = findViewById(R.id.activity_main_search_et_value);
+            String search = searchBox.getText().toString();
 
-                Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
-                intent.putExtra("search", search);
-                startActivity(intent);
+            Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
+            intent.putExtra("search", search);
+            startActivity(intent);
 
-            }
         });
 
-        searchButton.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        searchButton.setOnEditorActionListener((v, actionId, event) -> {
 
-                switch (actionId) {
+            switch (actionId) {
 
-                    case EditorInfo.IME_ACTION_DONE:
-                        return true;
+                case EditorInfo.IME_ACTION_DONE:
+                    return true;
 
-                    default:
-                        return false;
-                }
+                default:
+                    return false;
             }
         });
         searchButton.setOnKeyListener(new View.OnKeyListener() {

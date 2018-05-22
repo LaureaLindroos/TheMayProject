@@ -1,6 +1,8 @@
 package com.bimobject.themayproject.helpers;
 
+import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.dto.ProductDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -26,8 +28,6 @@ public class RequestService {
         RequestParams params = new RequestParams();
         params.put("pageSize", "20");
         params.put("filter.fullText", search);
-        params.put("filter.category.id", category);
-        params.put("fields", "name,imageUrl,brand");
         params.put("page", page);
 
         SyncClient.get(path, params, new JsonHttpResponseHandler() {
@@ -52,27 +52,34 @@ public class RequestService {
                 }
             }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-            }
+            });
+
+            return products;
+
+        }
+        public static ProductDetails getProductDetails(String id){
+
+        final ArrayList<ProductDetails> productDetails = new ArrayList<>();
+
+        SyncClient.get(URL.GET_PRODUCTS + id, null, new JsonHttpResponseHandler(){
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
+
+                try {
+                    productDetails.add(JSONParser.parseToProductDetails(response));
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+
             }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-            }
-
-
         });
-
-        return products;
+        //TODO: Implement better solution for returning single object
+        return productDetails.get(0);
+        }
 
     }
-}
+
 
 

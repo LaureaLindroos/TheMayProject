@@ -1,5 +1,6 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.adapters.ProductListAdapter;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.helpers.RequestService;
+import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private static String search;
     private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
     private ListView listView;
-    private String category = "137";
+    
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,32 +37,22 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
         page = 1;
 
-        if (getIntent().hasExtra("search")) {
-            search = getIntent().getStringExtra("search");
-            EditText searchBox = findViewById(R.id.searchBoxTopBar);
-            searchBox.setText(search);
-            System.out.println(search);
-        }
-
-        adapter = new ProductListAdapter(SearchResultActivity.this, R.layout.list_item_layout, new ArrayList<Product>());
+        adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
         listView = findViewById(R.id.activity_search_result_lv_list);
         listView.setAdapter(adapter);
 
-        loadListItemsTask.execute(search, category);
-
-        Button buttonFilter = findViewById(R.id.activity_serch_result_btn_filter);
-        buttonFilter.setOnClickListener(view -> {
-            EditText searchBox = view.getRootView().findViewById(R.id.searchBoxTopBar);
-            String topBarSearch = searchBox.getText().toString();
-
-            if (isTaskFinished()) {
-                getAdapter().clear();
-                setPage(1);
-                setSearch(topBarSearch);
-                setLoadListItemsTask(createNewTask());
-                getLoadListItemsTask().execute(topBarSearch, category);
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent detailIntent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
+            detailIntent.putExtra("productId", ((Product)view.getTag()).getId());
+            startActivity(detailIntent);
         });
+
+        if(getIntent().hasExtra("search")){
+            search = getIntent().getStringExtra("search");
+        }
+
+        loadListItemsTask.execute(search);
+
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
