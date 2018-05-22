@@ -1,5 +1,7 @@
 package com.bimobject.themayproject.dto;
 
+import android.graphics.Bitmap;
+
 public class ProductDetails {
     public String name;
     public String permalink;
@@ -7,11 +9,11 @@ public class ProductDetails {
     public String height;
     public String depth;
     public String descriptionHtml;
-    public static String[] imageUrls;
+    public static Bitmap imageUrls;
     public Brand brand;
     public Files[] files;
 
-    public ProductDetails(String name, String permalink, String width, String height, String depth, String descriptionHtml, String[] imageUrls, Brand brand, Files[] files) {
+    public ProductDetails(String name, String permalink, String width, String height, String depth, String descriptionHtml, Bitmap imageUrls, Brand brand, Files[] files) {
         this.name = name;
         this.permalink = permalink;
         this.width = width;
@@ -71,11 +73,11 @@ public class ProductDetails {
         this.descriptionHtml = descriptionHtml;
     }
 
-    public String[] getImageUrls() {
+    public Bitmap getImageUrls() {
         return imageUrls;
     }
 
-    public void setImageUrls(String[] imageUrls) {
+    public void setImageUrls(Bitmap imageUrls) {
         this.imageUrls = imageUrls;
     }
 
