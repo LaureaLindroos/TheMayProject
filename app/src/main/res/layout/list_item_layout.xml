@@ -52,11 +52,13 @@
 
     <ImageView
         android:id="@+id/layout_list_item_img_product_logo"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="18dp"
         android:layout_marginBottom="@dimen/general_margin"
         android:layout_marginEnd="@dimen/general_margin"
         android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:scaleType="fitEnd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_list_item_tv_product_brand"
