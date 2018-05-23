@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--   Bim Blues   -->
+    <!--The blues are mostly used for icons, buttons, borders and active components-->
+    <color name="colorBimPrimary">#0099e6</color>
+    <color name="colorBimDarker">#0077b3</color>
+
+    <!---   Bim Greys   -->
+    <!--The dark  is mostly used for text and icons-->
+    <color name="colorDarkestGrey">#333</color>
+    <color name="colorDarkerGrey">#555</color>
+    <color name="colorDarkGrey">#777</color>
+
+    <!--medium is mostly used for borders-->
+    <color name="colorMediumGrey">#adadad</color>
+
+    <!--light is mostly used for backgrounds on sections and buttons-->
+    <color name="colorLightGrey">#e6e6e6</color>
+    <color name="colorLighterGrey">#eee</color>
+    <color name="colorLightestGrey">#f9f9f9</color>
 </resources>
