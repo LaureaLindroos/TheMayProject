@@ -4,7 +4,6 @@ import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.dto.ProductDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;

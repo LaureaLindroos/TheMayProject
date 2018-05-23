@@ -1,14 +1,12 @@
 package com.bimobject.themayproject.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +19,6 @@ import com.bimobject.themayproject.helpers.OnBottomReachedListener;
 import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.RequestService;
-import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
-import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -64,7 +60,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 .into(holder.brand_logo);
 
         //TODO: Also weird way of getting context here
-        //TODO: Also hardcode string value
         //If bottom is reached
         if ((position == data.size() - 1)){
             onBottomReachedListener.onBottomReached(position);
@@ -141,7 +136,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         @Override
         public void onClick(View v) {
-            onRecycleViewItemClickListener.onItemClick(v, getAdapterPosition(), this.productId);
+            onRecycleViewItemClickListener.onItemClick(v, this.productId);
         }
 
         public void setProductId(String productId) {
