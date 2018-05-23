@@ -5,10 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.AbsListView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,7 +26,6 @@ public class SearchResultActivity extends AppCompatActivity {
     private static String search;
     private LoadListItemsTask loadListItemsTask = new LoadListItemsTask();
     private ListView listView;
-    private String category = "137";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,34 +33,6 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
         page = 1;
 
-<<<<<<< HEAD
-        if (getIntent().hasExtra("search")) {
-            search = getIntent().getStringExtra("search");
-            EditText searchBox = findViewById(R.id.searchBoxTopBar);
-            searchBox.setText(search);
-            System.out.println(search);
-        }
-
-        adapter = new ProductListAdapter(SearchResultActivity.this, R.layout.list_item_layout, new ArrayList<Product>());
-        listView = findViewById(R.id.activity_search_result_lv_list);
-        listView.setAdapter(adapter);
-
-        loadListItemsTask.execute(search, category);
-
-        Button buttonFilter = findViewById(R.id.activity_serch_result_btn_filter);
-        buttonFilter.setOnClickListener(view -> {
-            EditText searchBox = view.getRootView().findViewById(R.id.searchBoxTopBar);
-            String topBarSearch = searchBox.getText().toString();
-
-            if (isTaskFinished()) {
-                getAdapter().clear();
-                setPage(1);
-                setSearch(topBarSearch);
-                setLoadListItemsTask(createNewTask());
-                getLoadListItemsTask().execute(topBarSearch, category);
-            }
-        });
-=======
         adapter = new ProductListAdapter(SearchResultActivity.this,R.layout.list_item_layout, new ArrayList<Product>());
         listView = findViewById(R.id.activity_search_result_lv_list);
         listView.setAdapter(adapter);
@@ -80,7 +48,6 @@ public class SearchResultActivity extends AppCompatActivity {
         }
 
         loadListItemsTask.execute(search);
->>>>>>> 9f480577e4127bee0608cbf9aff2946a82beb9f0
 
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -92,7 +59,7 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-                if (isTaskFinished() && view.getLastVisiblePosition() == totalItemCount - 1) {
+                if (isTaskFinished() && view.getLastVisiblePosition() == totalItemCount - 1){
                     loadListItemsTask = new LoadListItemsTask();
                     loadListItemsTask.execute(search);
                 }
@@ -109,7 +76,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            if (adapter.getCount() != 0) {
+            if(adapter.getCount() != 0) {
                 Toast.makeText(SearchResultActivity.this, "Fetching more products..", Toast.LENGTH_SHORT).show();
             }
         }
@@ -122,12 +89,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
         }
 
-
         @Override
-        protected List<Product>doInBackground(String... strings){
-            return RequestService.getRequest(strings[0], URL.GET_PRODUCTS, page++, strings[1]);
-
-            
+        protected List<Product> doInBackground(String... strings) {
+            return RequestService.getRequest(strings[0], URL.GET_PRODUCTS, page++);
         }
     }
 
@@ -143,11 +107,11 @@ public class SearchResultActivity extends AppCompatActivity {
         return adapter;
     }
 
-    public boolean isTaskFinished() {
+    public boolean isTaskFinished(){
         return loadListItemsTask.getStatus() == AsyncTask.Status.FINISHED;
     }
 
-    public LoadListItemsTask createNewTask() {
+    public LoadListItemsTask createNewTask(){
         return new LoadListItemsTask();
     }
 

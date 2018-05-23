@@ -15,7 +15,6 @@ import java.util.List;
 import cz.msebera.android.httpclient.Header;
 
 public class RequestService {
-
     public static List<Product> getRequest(String search, String path, int page) {
 
         final ArrayList<Product> products = new ArrayList<>();
@@ -37,17 +36,16 @@ public class RequestService {
                     e.printStackTrace();
                 }
             }
-
         });
-
         return products;
 
     }
-    public static ProductDetails getProductDetails(String id){
+
+    public static ProductDetails getProductDetails(String id) {
 
         final ArrayList<ProductDetails> productDetails = new ArrayList<>();
 
-        SyncClient.get(URL.GET_PRODUCTS + id, null, new JsonHttpResponseHandler(){
+        SyncClient.get(URL.GET_PRODUCTS + id, null, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -55,7 +53,7 @@ public class RequestService {
 
                 try {
                     productDetails.add(JSONParser.parseToProductDetails(response));
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
