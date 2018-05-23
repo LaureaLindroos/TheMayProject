@@ -30,7 +30,12 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return images.length;
+        if(images != null) {
+
+            return images.length;
+        }
+        else
+            return 0;
     }
 
     @Override
@@ -47,7 +52,6 @@ public class ViewPagerAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.view_pager_image_view);
         Picasso.with(context)
                 .load(images[position])
-                .centerCrop()
                 .fit()
                 .into(imageView);
 
