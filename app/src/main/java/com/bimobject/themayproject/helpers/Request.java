@@ -1,4 +1,5 @@
 package com.bimobject.themayproject.helpers;
+import com.bimobject.themayproject.constants.VALUES;
 import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
@@ -10,10 +11,9 @@ public class Request {
     private int page;
 
     public Request() {
-        hasNextPage=true;
         params = new RequestParams();
         page = 1;
-        this.params.put("pageSize", "20");
+        this.params.put("pageSize", VALUES.PAGE_SIZE);
     }
 
     public RequestParams getParams() {
