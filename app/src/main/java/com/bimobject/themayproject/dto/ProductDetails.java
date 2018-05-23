@@ -7,7 +7,7 @@ public class ProductDetails {
     public String height;
     public String depth;
     public String descriptionHtml;
-    public static String[] imageUrls;
+    public String[] imageUrls;
     public Brand brand;
     public Files[] files;
 

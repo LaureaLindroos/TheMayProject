@@ -96,6 +96,7 @@ public class SearchResultActivity extends AppCompatActivity {
     }
 
     public LoadListItemsTask getLoadListItemsTask() {
+
         return loadListItemsTask;
     }
 
