@@ -33,6 +33,9 @@ public class RequestService {
                 super.onSuccess(statusCode, headers, response);
                 try {
 
+                    Boolean hasNextPage = ((JSONObject)response.get("meta")).getBoolean("hasNextPage");
+                    request.setHasNextPage(hasNextPage);
+
                     products.addAll(JSONParser.parseToProductList(response));
 
                 } catch (JSONException e) {
