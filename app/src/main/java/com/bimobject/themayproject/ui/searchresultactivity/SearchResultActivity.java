@@ -1,15 +1,19 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
 import com.bimobject.themayproject.helpers.Request;
+import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
 public class SearchResultActivity extends AppCompatActivity {
 
@@ -50,6 +54,15 @@ public class SearchResultActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new OnRecycleViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position, String productId) {
+                Intent intent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
+                intent.putExtra("productId", productId);
+                startActivity(intent);
+            }
+        });
 
         adapter.makeNewRequest(request);
 
