@@ -28,7 +28,7 @@ import java.util.List;
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
 
     private List<Product> data = new ArrayList<>();
-    private LoadListItemsTask loadListItemsTask;
+    private static LoadListItemsTask loadListItemsTask;
     private Request request;
     private Context context;
     private OnBottomReachedListener onBottomReachedListener = position -> loadNextPage();

@@ -1,15 +1,15 @@
 package com.bimobject.themayproject.dto;
 
 public class ProductDetails {
-    public String name;
-    public String permalink;
-    public String width;
-    public String height;
-    public String depth;
-    public String descriptionHtml;
-    public String[] imageUrls;
-    public Brand brand;
-    public Files[] files;
+    private String name;
+    private String permalink;
+    private String width;
+    private String height;
+    private String depth;
+    private String descriptionHtml;
+    private String[] imageUrls;
+    private Brand brand;
+    private transient Files[] files;
 
     public ProductDetails(String name, String permalink, String width, String height, String depth, String descriptionHtml, String[] imageUrls, Brand brand, Files[] files) {
         this.name = name;
