@@ -24,16 +24,14 @@ public class ProductInfoActivity extends AppCompatActivity {
     ViewPager viewPager;
     ArrayList<String> listDataHeader;
     HashMap <String,List<String>> listDataChild;
+    String[] imageUrls;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
-
-
-
-
 
 
         String productId = getIntent().getStringExtra("productId");
@@ -57,7 +55,6 @@ public class ProductInfoActivity extends AppCompatActivity {
             prepareListData();
             ExpandableListAdapter listAdapter = new ExpandableListAdapter(getApplicationContext(), listDataHeader, listDataChild);
             expandableListView.setAdapter(listAdapter);
-
 
 
         }
