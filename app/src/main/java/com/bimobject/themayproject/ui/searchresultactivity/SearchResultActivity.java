@@ -46,7 +46,7 @@ public class SearchResultActivity extends AppCompatActivity {
         });
 
 
-        adapter = new RecycleViewAdapter();
+        adapter = new RecycleViewAdapter(getApplicationContext());
         recyclerView = findViewById(R.id.activity_search_result_rv_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);

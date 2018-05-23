@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.helpers.OnBottomReachedListener;
@@ -28,8 +29,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private List<Product> data = new ArrayList<>();
     private LoadListItemsTask loadListItemsTask;
     private Request request;
+    Context context;
     private OnBottomReachedListener onBottomReachedListener = position -> loadNextPage();
 
+
+    public RecycleViewAdapter(Context context) {
+        this.context = context;
+    }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -54,7 +60,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         //If bottom is reached
         if ((position == data.size() - 1)){
             onBottomReachedListener.onBottomReached(position);
-            Toast.makeText(holder.image.getContext(), "Fetching more products..", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -99,6 +105,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
         //TODO: What else?
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
