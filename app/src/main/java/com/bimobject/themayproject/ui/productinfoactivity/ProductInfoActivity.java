@@ -41,21 +41,6 @@ public class ProductInfoActivity extends AppCompatActivity {
         String productId = getIntent().getStringExtra("productId");
         new getProductDetailsTask().execute(productId);
 
-        viewpager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
-
-        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                pager.getParent().requestDisallowInterceptTouchEvent(true);
-            }
-        });
-
     }
 
     private class getProductDetailsTask extends AsyncTask<String, String, ProductDetails> {
