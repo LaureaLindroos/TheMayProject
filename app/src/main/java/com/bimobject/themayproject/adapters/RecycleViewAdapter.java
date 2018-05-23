@@ -1,12 +1,14 @@
 package com.bimobject.themayproject.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +18,11 @@ import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.helpers.OnBottomReachedListener;
+import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.RequestService;
+import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
+import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -29,8 +34,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private List<Product> data = new ArrayList<>();
     private LoadListItemsTask loadListItemsTask;
     private Request request;
-    Context context;
+    private Context context;
     private OnBottomReachedListener onBottomReachedListener = position -> loadNextPage();
+    private OnRecycleViewItemClickListener onRecycleViewItemClickListener;
 
 
     public RecycleViewAdapter(Context context) {
@@ -41,6 +47,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Product product = data.get(position);
+        holder.setProductId(product.getId());
+
         holder.product_title.setText(product.getName());
         holder.brand_name.setText(product.getBrand().getName());
 
@@ -106,13 +114,19 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         //TODO: What else?
     }
 
+    public void setOnItemClickListener(OnRecycleViewItemClickListener onRecycleViewItemClickListener) {
+        this.onRecycleViewItemClickListener = onRecycleViewItemClickListener;
+    }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView product_title;
         TextView brand_name;
         ImageView image;
         ImageView brand_logo;
+
+        String productId;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -120,6 +134,18 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             brand_name = itemView.findViewById(R.id.layout_list_item_tv_product_brand);
             image = itemView.findViewById(R.id.layout_list_item_img_product);
             brand_logo = itemView.findViewById(R.id.layout_list_item_img_product_logo);
+
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            onRecycleViewItemClickListener.onItemClick(v, getAdapterPosition(), this.productId);
+        }
+
+        public void setProductId(String productId) {
+            this.productId = productId;
         }
     }
 
