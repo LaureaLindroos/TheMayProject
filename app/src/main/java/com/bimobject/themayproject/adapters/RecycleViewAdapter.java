@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.helpers.OnBottomReachedListener;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.RequestService;
 import com.squareup.picasso.Picasso;
@@ -23,14 +25,16 @@ import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
 
-    private List<Product> products = new ArrayList<>();
+    private List<Product> data = new ArrayList<>();
     private LoadListItemsTask loadListItemsTask;
     private Request request;
+    OnBottomReachedListener onBottomReachedListener = position -> loadNextPage();
 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Product product = products.get(position);
+
+        Product product = data.get(position);
         holder.product_title.setText(product.getName());
         holder.brand_name.setText(product.getBrand().getName());
 
@@ -44,11 +48,18 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 .load(product.getBrand().getImageUrl())
                 .placeholder(R.drawable.progress_animation)
                 .into(holder.brand_logo);
+
+        //TODO: Also here
+        //If bottom is reached
+        if ((position == data.size() - 1)){
+            onBottomReachedListener.onBottomReached(position);
+            Toast.makeText(holder.image.getContext(), "Fetching more products..", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return data.size();
     }
 
     @NonNull
@@ -64,7 +75,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     public void addAll(List<Product> objects){
-        products.addAll(objects);
+        data.addAll(objects);
         notifyDataSetChanged();
     }
 
@@ -72,7 +83,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         loadListItemsTask = new LoadListItemsTask();
 
         this.request = req;
-        products.clear();
+        data.clear();
         loadListItemsTask.execute(req);
     }
 
