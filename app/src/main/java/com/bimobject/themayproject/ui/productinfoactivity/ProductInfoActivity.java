@@ -24,7 +24,6 @@ public class ProductInfoActivity extends AppCompatActivity {
     ViewPager viewPager;
     ArrayList<String> listDataHeader;
     HashMap <String,List<String>> listDataChild;
-    String[] imageUrls;
 
 
     @Override
@@ -34,16 +33,7 @@ public class ProductInfoActivity extends AppCompatActivity {
 
 
 
-        // get the listview
-        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.activity_product_info_lvExp);
 
-        // preparing list data
-        prepareListData();
-
-        ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
-
-        // setting list adapter
-        expandableListView.setAdapter(listAdapter);
 
 
         String productId = getIntent().getStringExtra("productId");
@@ -62,6 +52,12 @@ public class ProductInfoActivity extends AppCompatActivity {
             viewPager = (ViewPager) findViewById(R.id.activity_product_info_view_pager);
             ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), productDetails.getImageUrls());
             viewPager.setAdapter(viewPagerAdapter);
+
+            ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.activity_product_info_lvExp);
+            prepareListData();
+            ExpandableListAdapter listAdapter = new ExpandableListAdapter(getApplicationContext(), listDataHeader, listDataChild);
+            expandableListView.setAdapter(listAdapter);
+
 
 
         }
