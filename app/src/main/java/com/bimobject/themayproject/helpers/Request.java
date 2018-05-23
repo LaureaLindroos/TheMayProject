@@ -42,7 +42,7 @@ public class Request {
     }
 
 
-    public boolean getHasNextPage() {
+    public boolean hasNextPage() {
         return hasNextPage;
     }
 

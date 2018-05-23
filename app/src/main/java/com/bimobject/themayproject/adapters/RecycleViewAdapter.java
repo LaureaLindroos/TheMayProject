@@ -77,11 +77,15 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     public void loadNextPage(){
-        loadListItemsTask = new LoadListItemsTask();
-        int page = this.request.getPage();
 
-        this.request.addPage(page + 1);
-        loadListItemsTask.execute(this.request);
+        if(this.request.hasNextPage()) {
+            loadListItemsTask = new LoadListItemsTask();
+            int page = this.request.getPage();
+
+            this.request.addPage(page + 1);
+            loadListItemsTask.execute(this.request);
+        }
+        //TODO: What else?
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
