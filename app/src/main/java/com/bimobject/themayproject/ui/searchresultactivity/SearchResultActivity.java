@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -78,7 +77,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
         loadListItemsTask.execute(search);
 
-
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -89,7 +87,7 @@ public class SearchResultActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-                if (isTaskFinished() && view.getLastVisiblePosition() == totalItemCount - 1) {
+                if (isTaskFinished() && view.getLastVisiblePosition() == totalItemCount - 1){
                     loadListItemsTask = new LoadListItemsTask();
                     loadListItemsTask.execute(search);
                 }
@@ -106,7 +104,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            if (adapter.getCount() != 0) {
+            if(adapter.getCount() != 0) {
                 Toast.makeText(SearchResultActivity.this, "Fetching more products..", Toast.LENGTH_SHORT).show();
             }
         }
@@ -119,16 +117,15 @@ public class SearchResultActivity extends AppCompatActivity {
 
         }
 
-
         @Override
         protected List<Product>doInBackground(String... strings){
             return RequestService.getRequest(strings[0], URL.GET_PRODUCTS, page++);
 
-            
         }
     }
 
     public LoadListItemsTask getLoadListItemsTask() {
+
         return loadListItemsTask;
     }
 
@@ -140,11 +137,11 @@ public class SearchResultActivity extends AppCompatActivity {
         return adapter;
     }
 
-    public boolean isTaskFinished() {
+    public boolean isTaskFinished(){
         return loadListItemsTask.getStatus() == AsyncTask.Status.FINISHED;
     }
 
-    public LoadListItemsTask createNewTask() {
+    public LoadListItemsTask createNewTask(){
         return new LoadListItemsTask();
     }
 
