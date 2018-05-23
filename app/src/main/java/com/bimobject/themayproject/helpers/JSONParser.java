@@ -30,4 +30,8 @@ public abstract class JSONParser {
             JSONObject data = (JSONObject) response.get("data");
             return gson.fromJson(data.toString(), ProductDetails.class);
     }
+
+    public static String parseToAccessToken(JSONObject response) throws JSONException{
+        return response.get("access_token").toString();
+    }
 }

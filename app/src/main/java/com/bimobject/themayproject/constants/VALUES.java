@@ -6,4 +6,6 @@ package com.bimobject.themayproject.constants;
 
 public final class VALUES {
     public static final String PAGE_SIZE = "20";
+    public static final int EXPIRY_TIME = 3600;
+    public static final int SECOND_TO_MILLISECONDS = 1000;
 }
