@@ -14,21 +14,26 @@ import com.bimobject.themayproject.helpers.RequestService;
 public class ProductInfoActivity extends AppCompatActivity {
 
     ViewPager viewPager;
+    private String[] images = new String[]{
+            "https://cdn.atwilltech.com/flowerdatabase/s/sweetly-scented-bouquet-of-flowers-VA02810.425.jpg",
+            "http://images.shopflowers.net/images/products/VL_768618.jpg",
+            "https://fyf.tac-cdn.net/images/products/large/TEV49-1.jpg"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
 
-        viewPager = findViewById(R.id.activity_product_info_vp_slide);
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPager = (ViewPager) findViewById(R.id.activity_product_info_view_pager);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, images);
         viewPager.setAdapter(viewPagerAdapter);
 
         String productId = getIntent().getStringExtra("productId");
         new getProductDetailsTask().execute(productId);
 
     }
-    private class getProductDetailsTask extends AsyncTask<String, String, ProductDetails>{
+
+    private class getProductDetailsTask extends AsyncTask<String, String, ProductDetails> {
         @Override
         protected void onPostExecute(ProductDetails productDetails) {
 

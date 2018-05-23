@@ -34,15 +34,15 @@ public class SearchResultActivity extends AppCompatActivity {
         Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
         buttonCategory.setOnClickListener(view -> {
 
-                request.addCategory("137");
-                adapter.makeNewRequest(request);
+            request.addCategory("137");
+            adapter.makeNewRequest(request);
 
-                });
+        });
 
         Button btnClear = findViewById(R.id.activity_search_result_btn_filter_clear);
         btnClear.setOnClickListener(view -> {
-                request.clearParams();
-                adapter.makeNewRequest(request);
+            request.clearParams();
+            adapter.makeNewRequest(request);
         });
 
 

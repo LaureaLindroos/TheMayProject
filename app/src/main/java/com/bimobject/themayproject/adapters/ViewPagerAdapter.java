@@ -10,17 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
+import com.squareup.picasso.Picasso;
 
 public class ViewPagerAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.drawable.slide1, R.drawable.slide2, R.drawable.slide3};
+    private String[] images;
 
-    public ViewPagerAdapter(Context context) {
+    public ViewPagerAdapter(Context context, String[] images) {
         this.context = context;
+        this.images = images;
     }
 
     @Override
@@ -30,21 +35,24 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
+        return view == ((LinearLayout)object);
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
-        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.custom_layout, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.layout_product_info_img_display);
-        imageView.setImageResource(images[position]);
+        ImageView imageView = (ImageView) view.findViewById(R.id.view_pager_image_view);
+        Picasso.with(context)
+                .load(images[position])
+                .centerCrop()
+                .fit()
+                .into(imageView);
 
         ViewPager vp = (ViewPager) container;
         vp.addView(view, 0);
-
         return view;
     }
 

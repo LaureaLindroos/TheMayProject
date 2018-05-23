@@ -44,12 +44,12 @@ public class RequestService {
                 }
             }
 
-            });
+        });
 
-            return products;
+        return products;
 
-        }
-        public static ProductDetails getProductDetails(String id){
+    }
+    public static ProductDetails getProductDetails(String id){
 
         final ArrayList<ProductDetails> productDetails = new ArrayList<>();
 
@@ -69,9 +69,8 @@ public class RequestService {
         });
         //TODO: Implement better solution for returning single object
         return productDetails.get(0);
-        }
-
     }
 
+}
 
 
