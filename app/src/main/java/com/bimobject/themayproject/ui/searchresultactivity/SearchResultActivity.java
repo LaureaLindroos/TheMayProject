@@ -16,7 +16,6 @@ public class SearchResultActivity extends AppCompatActivity {
     private static RecycleViewAdapter adapter;
     private static String search;
     private RecyclerView recyclerView;
-    Request request;
 
 
     @Override
@@ -28,7 +27,7 @@ public class SearchResultActivity extends AppCompatActivity {
             search = getIntent().getStringExtra("search");
         }
 
-        request = new Request();
+        Request request = new Request();
         request.addSearch(search);
 
 
