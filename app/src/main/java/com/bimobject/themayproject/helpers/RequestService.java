@@ -21,23 +21,21 @@ import cz.msebera.android.httpclient.Header;
 
 public class RequestService {
 
-    public static List<Product> getRequest(String search, String path, int page) {
+    public static List<Product> getRequest(String path, Request request) {
 
         final ArrayList<Product> products = new ArrayList<>();
-        RequestParameters requestParams=RequestParameters.getRequestParametersInstance();
-        requestParams.addPage(page);
-        requestParams.addSearch(search);
-        requestParams.addPageSize();
-        RequestParams params = requestParams.getRequestParameters();
-        System.out.println(params.toString());
 
 
-        SyncClient.get(path, params, new JsonHttpResponseHandler() {
+        SyncClient.get(path, request.getParams(), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
+
+
+                    Boolean hasNextPage = ((JSONObject)response.get("meta")).getBoolean("hasNextPage");
+                    request.setHasNextPage(hasNextPage);
 
                     products.addAll(JSONParser.parseToProductList(response));
 

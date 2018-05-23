@@ -1,6 +1,7 @@
 package com.bimobject.themayproject.adapters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,30 +9,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.constants.STRINGS;
+import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.helpers.OnBottomReachedListener;
+import com.bimobject.themayproject.helpers.Request;
+import com.bimobject.themayproject.helpers.RequestService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by octoboss on 2018-05-21.
- */
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
 
-    private List<Product> products;
+    private List<Product> data = new ArrayList<>();
+    private LoadListItemsTask loadListItemsTask;
+    private Request request;
+    Context context;
+    private OnBottomReachedListener onBottomReachedListener = position -> loadNextPage();
 
-    public RecycleViewAdapter() {
-        products = createNewDataSet();
+
+    public RecycleViewAdapter(Context context) {
+        this.context = context;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Product product = products.get(position);
+
+        Product product = data.get(position);
         holder.product_title.setText(product.getName());
         holder.brand_name.setText(product.getBrand().getName());
 
@@ -45,12 +54,19 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 .load(product.getBrand().getImageUrl())
                 .placeholder(R.drawable.progress_animation)
                 .into(holder.brand_logo);
+
+        //TODO: Also weird way of getting context here
+        //TODO: Also hardcode string value
+        //If bottom is reached
+        if ((position == data.size() - 1)){
+            onBottomReachedListener.onBottomReached(position);
+            Toast.makeText(context, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public int getItemCount() {
-        //Return size of list
-        return products.size();
+        return data.size();
     }
 
     @NonNull
@@ -64,6 +80,32 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public int getItemViewType(int position) {
         return position;
     }
+
+    public void addAll(List<Product> objects){
+        data.addAll(objects);
+        notifyDataSetChanged();
+    }
+
+    public void makeNewRequest(Request req){
+        loadListItemsTask = new LoadListItemsTask();
+
+        this.request = req;
+        data.clear();
+        loadListItemsTask.execute(req);
+    }
+
+    public void loadNextPage(){
+
+        if(this.request.hasNextPage()) {
+            loadListItemsTask = new LoadListItemsTask();
+            int page = this.request.getPage();
+
+            this.request.addPage(page + 1);
+            loadListItemsTask.execute(this.request);
+        }
+        //TODO: What else?
+    }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -81,12 +123,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
-    public ArrayList<Product> createNewDataSet(){
-        return new ArrayList<>();
-    }
+    public class LoadListItemsTask extends AsyncTask<Request, String, List<Product>> {
 
-    public void addToDataSet(List<Product> newEntries){
-        products.addAll(newEntries);
-        notifyDataSetChanged();
+        @Override
+        protected void onPostExecute(List<Product> products) {
+            addAll(products);
+        }
+
+        @Override
+        protected List<Product> doInBackground(Request... requests) {
+            return RequestService.getRequest(URL.GET_PRODUCTS, requests[0]);
+        }
     }
 }

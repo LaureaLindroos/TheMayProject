@@ -1,6 +1,7 @@
 package com.bimobject.themayproject.helpers;
 
 import com.bimobject.themayproject.constants.URL;
+import com.bimobject.themayproject.constants.VALUES;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -15,7 +16,7 @@ import cz.msebera.android.httpclient.Header;
 public abstract class TokenGenerator {
 
     private static String accessToken;
-    private final static int expiryTime = 1350 * 1000;
+    private final static int expiryTime = VALUES.EXPIRY_TIME * VALUES.SECOND_TO_MILLISECONDS;
     private final static RequestParams params = new RequestParams();
     private static Timer t;
 
@@ -59,8 +60,8 @@ public abstract class TokenGenerator {
                     super.onSuccess(statusCode, headers, response);
 
                     try {
-                        String responseToken = response.get("access_token").toString();
-                        setToken(responseToken);
+
+                        setToken(JSONParser.parseToAccessToken(response));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -75,5 +76,6 @@ public abstract class TokenGenerator {
             });
         }
     }
+
 }
 

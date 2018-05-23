@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bimobject.themayproject.R;
-import com.bimobject.themayproject.helpers.RequestParameters;
 import com.bimobject.themayproject.ui.mainsearchactivity.MainSearchActivity;
 
 public class TopBarFragment extends Fragment {
@@ -44,6 +43,8 @@ public class TopBarFragment extends Fragment {
 
                 SearchResultActivity parentActivity = ((SearchResultActivity)getActivity());
 
+                //TODO: Build funcitonality for starting search from fragment
+                /*
                 if(parentActivity.isTaskFinished()) {
                     parentActivity.getAdapter().clear();
                     parentActivity.setPage(1);
@@ -51,6 +52,7 @@ public class TopBarFragment extends Fragment {
                     parentActivity.setLoadListItemsTask(parentActivity.createNewTask());
                     parentActivity.getLoadListItemsTask().execute(topBarSearch);
                 }
+                */
 
             }
 
