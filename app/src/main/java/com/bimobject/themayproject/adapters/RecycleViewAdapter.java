@@ -28,7 +28,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private List<Product> data = new ArrayList<>();
     private LoadListItemsTask loadListItemsTask;
     private Request request;
-    OnBottomReachedListener onBottomReachedListener = position -> loadNextPage();
+    private OnBottomReachedListener onBottomReachedListener = position -> loadNextPage();
 
 
     @Override
@@ -49,7 +49,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 .placeholder(R.drawable.progress_animation)
                 .into(holder.brand_logo);
 
-        //TODO: Also here
+        //TODO: Also weird way of getting context here
+        //TODO: Also hardcode string value
         //If bottom is reached
         if ((position == data.size() - 1)){
             onBottomReachedListener.onBottomReached(position);

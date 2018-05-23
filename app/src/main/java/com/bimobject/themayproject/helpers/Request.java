@@ -1,11 +1,10 @@
 package com.bimobject.themayproject.helpers;
+import com.bimobject.themayproject.constants.FILTER;
 import com.bimobject.themayproject.constants.VALUES;
 import com.loopj.android.http.RequestParams;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Request {
+
     private boolean hasNextPage;
     private RequestParams params;
     private int page;
@@ -20,15 +19,15 @@ public class Request {
         return params;
     }
 
-    public void addBrand(String brand){ this.params.add("filter.brand.id",brand);
+    public void addBrand(String brand){ this.params.add(FILTER.BRAND,brand);
     }
 
     public void addCategory(String category){
-        this.params.add("filter.category.id",category);
+        this.params.add(FILTER.CATEGORY,category);
     }
 
     public void addSearch(String search){
-        this.params.put("filter.fullText", search);
+        this.params.put(FILTER.FULLTEXT, search);
     }
 
     public void addPage(int page){
@@ -38,7 +37,7 @@ public class Request {
 
     //TODO:fix a better clearer for when we have several categories and brands.
     public void clearParams(){
-        this.params.remove("filter.category.id");
+        this.params.remove(FILTER.CATEGORY);
     }
 
 
