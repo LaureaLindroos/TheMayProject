@@ -3,9 +3,17 @@ package com.bimobject.themayproject.ui.searchresultactivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
@@ -13,7 +21,8 @@ import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
-public class SearchResultActivity extends AppCompatActivity {
+public class SearchResultActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecycleViewAdapter adapter;
     private static String search;
@@ -29,10 +38,28 @@ public class SearchResultActivity extends AppCompatActivity {
             search = getIntent().getStringExtra("search");
         }
 
+        //DRAWER START
+
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //DRAWER END
+
         Request request = new Request();
         request.addSearch(search);
 
-
+/*
         Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
         buttonCategory.setOnClickListener(view -> {
 
@@ -45,7 +72,7 @@ public class SearchResultActivity extends AppCompatActivity {
         btnClear.setOnClickListener(view -> {
             request.clearParams();
             adapter.makeNewRequest(request);
-        });
+        });*/
 
 
         adapter = new RecycleViewAdapter(getApplicationContext());
@@ -65,5 +92,63 @@ public class SearchResultActivity extends AppCompatActivity {
 
     }
 
+    //DRAWER CONTINUE
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        //noinspection SimplifiableIfStatement
+        switch (item.getItemId()) {
+            case R.id.action_drawer:
+                drawer.openDrawer(GravityCompat.END);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+/*
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }*/
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.END);
+        return true;
+    }
+    //DRAWER FINISHED
 }
