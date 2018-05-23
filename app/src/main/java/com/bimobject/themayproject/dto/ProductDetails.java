@@ -7,17 +7,19 @@ public class ProductDetails {
     public String height;
     public String depth;
     public String descriptionHtml;
+    public String descriptionPlainText;
     public String[] imageUrls;
     public Brand brand;
     public Files[] files;
 
-    public ProductDetails(String name, String permalink, String width, String height, String depth, String descriptionHtml, String[] imageUrls, Brand brand, Files[] files) {
+    public ProductDetails(String name, String permalink, String width, String height, String depth, String descriptionHtml, String descriptionPlainText, String[] imageUrls, Brand brand, Files[] files) {
         this.name = name;
         this.permalink = permalink;
         this.width = width;
         this.height = height;
         this.depth = depth;
         this.descriptionHtml = descriptionHtml;
+        this.descriptionPlainText = descriptionPlainText;
         this.imageUrls = imageUrls;
         this.brand = brand;
         this.files = files;
@@ -69,6 +71,13 @@ public class ProductDetails {
 
     public void setDescriptionHtml(String descriptionHtml) {
         this.descriptionHtml = descriptionHtml;
+    }
+    public String getDescriptionPlainText() {
+        return descriptionPlainText;
+    }
+
+    public void setDescriptionPlainText(String descriptionPlainText) {
+        this.descriptionPlainText = descriptionPlainText;
     }
 
     public String[] getImageUrls() {

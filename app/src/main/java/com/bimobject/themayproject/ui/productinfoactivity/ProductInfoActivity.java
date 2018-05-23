@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,9 +15,11 @@ import com.bimobject.themayproject.adapters.ExpandableListAdapter;
 import com.bimobject.themayproject.adapters.ViewPagerAdapter;
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.ProductDetails;
+import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.RequestService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -37,6 +41,20 @@ public class ProductInfoActivity extends AppCompatActivity {
         String productId = getIntent().getStringExtra("productId");
         new getProductDetailsTask().execute(productId);
 
+        viewpager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                pager.getParent().requestDisallowInterceptTouchEvent(true);
+            }
+        });
 
     }
 
@@ -52,7 +70,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             viewPager.setAdapter(viewPagerAdapter);
 
             ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.activity_product_info_lvExp);
-            prepareListData();
+            prepareListData(productDetails);
             ExpandableListAdapter listAdapter = new ExpandableListAdapter(getApplicationContext(), listDataHeader, listDataChild);
             expandableListView.setAdapter(listAdapter);
 
@@ -65,16 +83,16 @@ public class ProductInfoActivity extends AppCompatActivity {
         }
     }
 
-    private void prepareListData() {
+    private void prepareListData(ProductDetails productDetails) {
         listDataHeader = new ArrayList<String>();
         listDataChild = new HashMap<String, List<String>>();
-
+        listDataHeader.add("General information");
         listDataHeader.add("Description");
-
+        ArrayList<String> generalInfo = new ArrayList<String>(Arrays.asList(productDetails.getName(),productDetails.getHeight(),productDetails.getDepth()));
         ArrayList <String> description = new ArrayList<String>();
-        description.add("Here is an awesome Description");
-
-        listDataChild.put(listDataHeader.get(0), description);
+        description.add(productDetails.getDescriptionPlainText());
+        listDataChild.put(listDataHeader.get(0),generalInfo);
+        listDataChild.put(listDataHeader.get(1), description);
 
     }
 }
