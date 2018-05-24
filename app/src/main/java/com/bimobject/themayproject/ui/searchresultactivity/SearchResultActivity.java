@@ -29,10 +29,9 @@ public class SearchResultActivity extends AppCompatActivity {
             search = getIntent().getStringExtra("search");
         }
 
-        Request request = new Request();
-        request.addSearch(search);
+        Request request = new Request(search);
 
-
+        /*
         Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
         buttonCategory.setOnClickListener(view -> {
 
@@ -46,6 +45,7 @@ public class SearchResultActivity extends AppCompatActivity {
             request.clearParams();
             adapter.makeNewRequest(request);
         });
+        */
 
 
         adapter = new RecycleViewAdapter(getApplicationContext());
