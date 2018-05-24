@@ -27,6 +27,8 @@ public class SearchResultActivity extends AppCompatActivity
     private RecycleViewAdapter adapter;
     private static String search;
     private RecyclerView recyclerView;
+    private DrawerLayout drawer;
+    private Request request;
 
 
     @Override
@@ -39,13 +41,13 @@ public class SearchResultActivity extends AppCompatActivity
         }
 
         //DRAWER START
+        drawer = findViewById(R.id.drawer_layout);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -56,18 +58,18 @@ public class SearchResultActivity extends AppCompatActivity
 
         //DRAWER END
 
-        Request request = new Request();
+        request = new Request();
         request.addSearch(search);
 
-/*
-        Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
+
+       /* Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
         buttonCategory.setOnClickListener(view -> {
 
             request.addCategory("137");
             adapter.makeNewRequest(request);
 
-        });
-
+        });*/
+/*
         Button btnClear = findViewById(R.id.activity_search_result_btn_filter_clear);
         btnClear.setOnClickListener(view -> {
             request.clearParams();
@@ -96,7 +98,6 @@ public class SearchResultActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
@@ -114,8 +115,6 @@ public class SearchResultActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
         //noinspection SimplifiableIfStatement
         switch (item.getItemId()) {
             case R.id.action_drawer:
@@ -131,22 +130,17 @@ public class SearchResultActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-/*
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+        if (id == R.id.drawer_filter_search_action) {
+            request.addCategory("137");
+            adapter.makeNewRequest(request);
+        } else if (id == R.id.drawer_filter_search_clear) {
+            request.clearParams();
+            adapter.makeNewRequest(request);
+        }
 
-        } else if (id == R.id.nav_manage) {
+        //TODO Functionality for buttons
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.END);
         return true;
     }
