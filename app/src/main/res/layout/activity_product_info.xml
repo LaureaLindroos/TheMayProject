@@ -14,7 +14,7 @@
         android:layout_marginBottom="8dp" />
 
     <LinearLayout
-        android:id="@+id/activity_product_info_ll_dot"
+        android:id="@+id/activity_product_info_ll_slider_dots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
