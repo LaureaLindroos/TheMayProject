@@ -50,7 +50,10 @@ public class RequestService {
 
         final ArrayList<ProductDetails> productDetails = new ArrayList<>();
 
-        SyncClient.get(URL.GET_PRODUCTS + id, null, new JsonHttpResponseHandler(){
+        RequestParams params = new RequestParams();
+        params.put("fields", "name,imageUrls");
+
+        SyncClient.get(URL.GET_PRODUCTS + id, params, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {

@@ -15,11 +15,6 @@ public class Request {
         this.params.put("pageSize", VALUES.PAGE_SIZE);
     }
 
-    public Request(String search) {
-        super();
-        addSearch(search);
-    }
-
     public RequestParams getParams() {
         return params;
     }

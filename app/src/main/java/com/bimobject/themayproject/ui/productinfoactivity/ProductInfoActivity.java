@@ -5,36 +5,56 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.adapters.ViewPagerAdapter;
+import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.dto.ProductDetails;
 import com.bimobject.themayproject.helpers.RequestService;
 
+import java.lang.ref.WeakReference;
+
 public class ProductInfoActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
 
-        String productId = getIntent().getStringExtra("productId");
-        new getProductDetailsTask().execute(productId);
+        ViewPager viewPager = findViewById(R.id.activity_product_info_view_pager);
+        viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), null);
+        viewPager.setAdapter(viewPagerAdapter);
 
+        if(getIntent().hasExtra("productId")) {
+            String productId = getIntent().getStringExtra("productId");
+            new getProductDetailsTask(this).execute(productId);
+        }
     }
 
-    private class getProductDetailsTask extends AsyncTask<String, String, ProductDetails> {
+    private static class getProductDetailsTask extends AsyncTask<String, String, ProductDetails> {
+
+        private WeakReference<ProductInfoActivity> activity;
+
+        public getProductDetailsTask(ProductInfoActivity context) {
+            this.activity = new WeakReference<>(context);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Toast.makeText(activity.get().getApplicationContext(), STRINGS.LOADING, Toast.LENGTH_SHORT).show();
+        }
+
         @Override
         protected void onPostExecute(ProductDetails productDetails) {
 
-            TextView product_title = findViewById(R.id.activity_product_info_tv_product_title);
+            TextView product_title = activity.get().findViewById(R.id.activity_product_info_tv_product_title);
             product_title.setText(productDetails.getName());
 
-            viewPager = findViewById(R.id.activity_product_info_view_pager);
-            ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), productDetails.getImageUrls());
-            viewPager.setAdapter(viewPagerAdapter);
+            activity.get().viewPagerAdapter.setImages(productDetails.getImageUrls());
+            activity.get().viewPagerAdapter.notifyDataSetChanged();
 
         }
 
