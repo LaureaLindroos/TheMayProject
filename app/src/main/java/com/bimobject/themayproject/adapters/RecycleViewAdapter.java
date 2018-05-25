@@ -42,12 +42,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         //TODO: Find better solution to find context
         Picasso.with(holder.image.getContext())
-                .load(product.getImageUrl())
+                .load(product.getImageUrl()).fit().centerInside()
                 .placeholder(R.drawable.progress_animation)
                 .into(holder.image);
 
         Picasso.with(holder.brand_logo.getContext())
-                .load(product.getBrand().getImageUrl())
+                .load(product.getBrand().getImageUrl()).fit().centerInside()
                 .placeholder(R.drawable.progress_animation)
                 .into(holder.brand_logo);
 
