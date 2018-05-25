@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +32,7 @@ public class SearchResultActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +84,6 @@ public class SearchResultActivity extends AppCompatActivity
             adapter.getHelper().loadNextPage();
             Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
         });
-
 
     }
 
