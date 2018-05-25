@@ -4,9 +4,12 @@ import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bimobject.themayproject.DotIndicator;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.adapters.ViewPagerAdapter;
 import com.bimobject.themayproject.constants.STRINGS;
@@ -17,18 +20,21 @@ import java.lang.ref.WeakReference;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
+    public  ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
+    public LinearLayout sliderDotspanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
 
-        ViewPager viewPager = findViewById(R.id.activity_product_info_view_pager);
+        viewPager = findViewById(R.id.activity_product_info_view_pager);
         viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), null);
         viewPager.setAdapter(viewPagerAdapter);
+        sliderDotspanel = (LinearLayout) findViewById(R.id.activity_product_info_ll_slider_dots);
 
-        if(getIntent().hasExtra("productId")) {
+        if (getIntent().hasExtra("productId")) {
             String productId = getIntent().getStringExtra("productId");
             new getProductDetailsTask(this).execute(productId);
         }
@@ -55,6 +61,13 @@ public class ProductInfoActivity extends AppCompatActivity {
 
             activity.get().viewPagerAdapter.setImages(productDetails.getImageUrls());
             activity.get().viewPagerAdapter.notifyDataSetChanged();
+
+            int dotsCount = activity.get().viewPagerAdapter.getCount();
+            ImageView[] dots = new ImageView[dotsCount];
+
+            // Unsure of which I need to send in....
+            DotIndicator dotIndicator = new DotIndicator(dotsCount, dots, activity);
+            dotIndicator.createIndicator();
 
         }
 
