@@ -10,14 +10,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
+
 
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
@@ -29,7 +33,6 @@ public class SearchResultActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,26 +65,14 @@ public class SearchResultActivity extends AppCompatActivity
         request.addSearch(search);
 
 
-       /* Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
-        buttonCategory.setOnClickListener(view -> {
+        adapter = new RecycleViewAdapter();
+        adapter.getHelper().makeNewRequest(request);
 
-            request.addCategory("137");
-            adapter.makeNewRequest(request);
-
-        });*/
-/*
-        Button btnClear = findViewById(R.id.activity_search_result_btn_filter_clear);
-        btnClear.setOnClickListener(view -> {
-            request.clearParams();
-            adapter.makeNewRequest(request);
-        });*/
-
-
-        adapter = new RecycleViewAdapter(getApplicationContext());
-        recyclerView = findViewById(R.id.activity_search_result_rv_list);
+        RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
 
         adapter.setOnItemClickListener((view, productId) -> {
             Intent intent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
@@ -89,7 +80,10 @@ public class SearchResultActivity extends AppCompatActivity
             startActivity(intent);
         });
 
-        adapter.makeNewRequest(request);
+        adapter.setOnBottomReachedListener(position -> {
+            adapter.getHelper().loadNextPage();
+            Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
+        });
 
 
     }

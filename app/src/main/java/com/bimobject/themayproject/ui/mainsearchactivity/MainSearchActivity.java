@@ -22,18 +22,19 @@ public class MainSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_search);
 
         Button searchButton = findViewById(R.id.activity_main_btn_search);
+        EditText searchBox = findViewById(R.id.activity_main_search_et_value);
 
-        searchButton.setOnClickListener(view -> {
+        searchButton.setOnClickListener(view -> makeSearch());
 
-            EditText searchBox = findViewById(R.id.activity_main_search_et_value);
-            String search = searchBox.getText().toString();
-
-            Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
-            intent.putExtra("search", search);
-            startActivity(intent);
-
+        searchBox.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                makeSearch();
+                return true;
+            }
+            return false;
         });
 
+        /*
         searchButton.setOnEditorActionListener((v, actionId, event) -> {
 
             switch (actionId) {
@@ -45,27 +46,19 @@ public class MainSearchActivity extends AppCompatActivity {
                     return false;
             }
         });
-        searchButton.setOnKeyListener(new View.OnKeyListener() {
-
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    onRightButtonClicked();
-                    return true;
-                }
-                return false;
-            }
-
-            private void onRightButtonClicked() {
-                EditText searchBox = findViewById(R.id.activity_main_search_et_value);
-                String search = searchBox.getText().toString();
-
-
-                Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
-                intent.putExtra("search", search);
-                startActivity(intent);
-            }
-        });
+        */
 
     }
+
+        private void makeSearch() {
+            EditText searchBox = findViewById(R.id.activity_main_search_et_value);
+            String search = searchBox.getText().toString();
+
+
+            Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
+            intent.putExtra("search", search);
+            startActivity(intent);
+        }
+
 
 }
