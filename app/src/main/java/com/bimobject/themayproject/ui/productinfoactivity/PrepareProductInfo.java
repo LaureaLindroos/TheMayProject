@@ -30,35 +30,35 @@ public class PrepareProductInfo {
     }
     private void setListDataChild(){
         ArrayList<String> generalInfo = new ArrayList<String>(Arrays.asList(
-                "Unique ref: " + productDetails.getPermalink(),
-                "Brand: " + productDetails.getBrand().getName(),
-                "Product Family: " + productDetails.getProductFamily().getName(),
-                "Width(mm): " + productDetails.getWidth(),
-                "Height(mm): " + productDetails.getHeight(),
-                "Depth(mm): " + productDetails.getDepth(),
-                "Date of publishing: " + productDetails.getDateOfPublishing(),
-                "Edition Number: " + productDetails.getEditionNumber()));
+                "Unique ref: " +ifNotNull( productDetails.getPermalink()),
+                "Brand: " + ifNotNull(productDetails.getBrand().getName()),
+                "Product Family: " + ifNotNull(productDetails.getProductFamily().getName()),
+                "Width(mm): " + ifNotNull(productDetails.getWidth()),
+                "Height(mm): " + ifNotNull(productDetails.getHeight()),
+                "Depth(mm): " + ifNotNull(productDetails.getDepth()),
+                "Date of publishing: " + ifNotNull(productDetails.getDateOfPublishing()),
+                "Edition Number: " + ifNotNull(productDetails.getEditionNumber().toString())));
 
-        ArrayList <String> description = new ArrayList<String>();
+        ArrayList <String> description = new ArrayList<String>(Arrays.asList(productDetails.getDescriptionPlainText()));
+
+
         ArrayList <String> links = new ArrayList<>(Arrays.asList(
-                "Product URL: " + productDetails.getLinks().getExternalProductUrl(),
-                "Installation instructions: " + productDetails.getLinks().getInstallationInstructionUrl(),
-                "COBie Product Data Sheet: " + productDetails.getLinks().getCobieProductDataSheetUrl(),
-                "Product certification: " + productDetails.getLinks().getProductCertificationUrl(),
-                "Technical description: " + productDetails.getLinks().getTechnicalDescriptionUrl(),
-                "Instruction video: " + productDetails.getLinks().getInstructionVideoUrl(),
-                "EAN code: " + productDetails.getEanCode()
+                "Product URL: " + ifNotNull(productDetails.getLinks().getExternalProductUrl()),
+                "Installation instructions: " + ifNotNull(productDetails.getLinks().getInstallationInstructionUrl()),
+                "COBie Product Data Sheet: " + ifNotNull(productDetails.getLinks().getCobieProductDataSheetUrl()),
+                "Product certification: " + ifNotNull(productDetails.getLinks().getProductCertificationUrl()),
+                "Technical description: " + ifNotNull(productDetails.getLinks().getTechnicalDescriptionUrl()),
+                "Instruction video: " + ifNotNull(productDetails.getLinks().getInstructionVideoUrl()),
+                "EAN code: " + ifNotNull(productDetails.getEanCode())
         ));
-        ArrayList <String> related = new ArrayList<>(Arrays.asList(
-               "Material main: " + productDetails.getMaterialMain().getName(),
+        ArrayList <String> related = new ArrayList<String>(Arrays.asList(
+               "Material main: " + ifNotNull(productDetails.getMaterialMain().getName()),
                 "Material secondary: " + ifNotNull(productDetails.getMaterialSecondary().getName()),
-                "Designed in: " + productDetails.getDesignedIn().getName(),
+                "Designed in: " + ifNotNull(productDetails.getDesignedIn().getName()),
 
                 "Weight Net(Kg): " + ifNotNull(productDetails.getWeight())
         ));
 
-
-        description.add(productDetails.getDescriptionPlainText());
         listDataChild.put(listDataHeader.get(0),generalInfo);
         listDataChild.put(listDataHeader.get(1), description);
         listDataChild.put(listDataHeader.get(2), links);
@@ -75,6 +75,7 @@ public class PrepareProductInfo {
     public HashMap<String, List<String>> getListDataChild() {
         return listDataChild;
     }
+
     public String ifNotNull(String productDetail){
         if(productDetail == null){
             return "n/a";

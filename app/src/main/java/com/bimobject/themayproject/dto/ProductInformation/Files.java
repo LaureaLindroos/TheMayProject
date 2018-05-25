@@ -41,6 +41,10 @@ public class Files {
     }
 
     public File getFiletype() {
+        if(filetype==null)
+        {
+          return new File(null, null, null);
+        }
         return filetype;
     }
 

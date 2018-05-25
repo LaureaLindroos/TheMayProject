@@ -1,6 +1,5 @@
 package com.bimobject.themayproject.dto.ProductInformation;
 
-import com.bimobject.themayproject.dto.ProductInformation.GeneralInfo.Brand;
 import com.bimobject.themayproject.dto.ProductInformation.GeneralInfo.ProductFamily;
 import com.bimobject.themayproject.dto.ProductInformation.GeneralInfo.ProductGroup;
 import com.bimobject.themayproject.dto.ProductInformation.Links.Links;
@@ -22,17 +21,18 @@ public class ProductDetails {
     public String descriptionHtml;
     public String descriptionPlainText;
     public String[] imageUrls;
+    public String eanCode;
+    public String weight;
+
+    public DesignedIn designedIn;
+    public ManufacturedIn manufacturedIn;
+    public MaterialMain materialMain;
+    public MaterialSecondary materialSecondary;
     public Brand brand;
     public Files[] files;
     public ProductFamily productFamily;
     public ProductGroup productGroup;
     public Links links;
-    public String eanCode;
-    public String weight;
-    public DesignedIn designedIn;
-    public ManufacturedIn manufacturedIn;
-    public MaterialMain materialMain;
-    public MaterialSecondary materialSecondary;
 
 
     public ProductDetails(String id, String status, String dateOfPublishing, Integer editionNumber, String name, String permalink, String width, String height, String depth, String descriptionHtml, String descriptionPlainText, String[] imageUrls, Brand brand, Files[] files, ProductFamily productFamily, ProductGroup productGroup, Links links, String eanCode, String weight, DesignedIn designedIn, ManufacturedIn manufacturedIn, MaterialMain materialMain, MaterialSecondary materialSecondary) {
@@ -60,6 +60,7 @@ public class ProductDetails {
         this.materialMain = materialMain;
         this.materialSecondary = materialSecondary;
     }
+
 
     public String getId() {
         return id;
@@ -157,46 +158,6 @@ public class ProductDetails {
         this.imageUrls = imageUrls;
     }
 
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
-    public Files[] getFiles() {
-        return files;
-    }
-
-    public void setFiles(Files[] files) {
-        this.files = files;
-    }
-
-    public ProductFamily getProductFamily() {
-        return productFamily;
-    }
-
-    public void setProductFamily(ProductFamily productFamily) {
-        this.productFamily = productFamily;
-    }
-
-    public ProductGroup getProductGroup() {
-        return productGroup;
-    }
-
-    public void setProductGroup(ProductGroup productGroup) {
-        this.productGroup = productGroup;
-    }
-
-    public Links getLinks() {
-        return links;
-    }
-
-    public void setLinks(Links links) {
-        this.links = links;
-    }
-
     public String getEanCode() {
         return eanCode;
     }
@@ -214,6 +175,10 @@ public class ProductDetails {
     }
 
     public DesignedIn getDesignedIn() {
+        if(designedIn==null)
+        {
+            return new DesignedIn(null,null);
+        }
         return designedIn;
     }
 
@@ -222,6 +187,10 @@ public class ProductDetails {
     }
 
     public ManufacturedIn getManufacturedIn() {
+        if(manufacturedIn==null)
+        {
+            return new ManufacturedIn(null,null);
+        }
         return manufacturedIn;
     }
 
@@ -230,6 +199,10 @@ public class ProductDetails {
     }
 
     public MaterialMain getMaterialMain() {
+        if(materialMain==null)
+        {
+            return new MaterialMain(null,null);
+        }
         return materialMain;
     }
 
@@ -238,10 +211,76 @@ public class ProductDetails {
     }
 
     public MaterialSecondary getMaterialSecondary() {
+        if(materialSecondary==null)
+        {
+           return new MaterialSecondary(null,null);
+        }
         return materialSecondary;
     }
 
+
     public void setMaterialSecondary(MaterialSecondary materialSecondary) {
         this.materialSecondary = materialSecondary;
+    }
+
+    public Brand getBrand() {
+        if(brand==null)
+        {
+          return new Brand(null, null, null, null, null);
+        }
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public Files[] getFiles() {
+        if(files==null)
+        {
+           return new Files[]{null,null,null,null};
+        }
+        return files;
+    }
+
+    public void setFiles(Files[] files) {
+        this.files = files;
+    }
+
+    public ProductFamily getProductFamily() {
+
+        if(productFamily==null)
+        {
+            return new ProductFamily(null, null);
+        }
+        return productFamily;
+    }
+
+    public void setProductFamily(ProductFamily productFamily) {
+        this.productFamily = productFamily;
+    }
+
+    public ProductGroup getProductGroup() {
+        if(productGroup==null)
+        {
+            return new ProductGroup(null, null);
+        }
+        return productGroup;
+    }
+
+    public void setProductGroup(ProductGroup productGroup) {
+        this.productGroup = productGroup;
+    }
+
+    public Links getLinks() {
+        if(links==null)
+        {
+            return new Links(null, null, null,null,null,null);
+        }
+        return links;
+    }
+
+    public void setLinks(Links links) {
+        this.links = links;
     }
 }

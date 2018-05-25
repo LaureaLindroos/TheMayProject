@@ -20,12 +20,15 @@
         android:layout_height="395dp"
         android:layout_marginBottom="8dp" />
 
-    <TextView
-        android:id="@+id/activity_product_info_tv_product_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="@dimen/headline_size"/>
+        <TextView
+            android:id="@+id/activity_product_info_tv_product_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/general_margin"
+            android:paddingBottom="@dimen/general_margin"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="@dimen/headline_size" />
 
     <com.bimobject.themayproject.helpers.NonScrollExpandableListView
         android:id="@+id/activity_product_info_lvExp"
