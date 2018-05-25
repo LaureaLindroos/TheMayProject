@@ -17,20 +17,12 @@ import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
 public class SearchResultActivity extends AppCompatActivity {
 
-    private RecycleViewAdapter adapter;
     private static String search;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-
-        if(getIntent().hasExtra("search")){
-            search = getIntent().getStringExtra("search");
-        }
-
-        Request request = new Request();
-        request.addSearch(search);
 
         /*
         Button buttonCategory = findViewById(R.id.activity_serch_result_btn_filter);
@@ -49,7 +41,15 @@ public class SearchResultActivity extends AppCompatActivity {
         */
 
 
-        adapter = new RecycleViewAdapter();
+        RecycleViewAdapter adapter = new RecycleViewAdapter();
+
+        if(getIntent().hasExtra("search")){
+            search = getIntent().getStringExtra("search");
+        }
+
+        Request request = new Request();
+        request.addSearch(search);
+
         adapter.getHelper().makeNewRequest(request);
 
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);

@@ -24,14 +24,14 @@ public class ProductInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
 
-        ViewPager viewPager = findViewById(R.id.activity_product_info_view_pager);
-        viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), null);
-        viewPager.setAdapter(viewPagerAdapter);
-
         if(getIntent().hasExtra("productId")) {
             String productId = getIntent().getStringExtra("productId");
             new getProductDetailsTask(this).execute(productId);
         }
+
+        ViewPager viewPager = findViewById(R.id.activity_product_info_view_pager);
+        viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), null);
+        viewPager.setAdapter(viewPagerAdapter);
     }
 
     private static class getProductDetailsTask extends AsyncTask<String, String, ProductDetails> {
