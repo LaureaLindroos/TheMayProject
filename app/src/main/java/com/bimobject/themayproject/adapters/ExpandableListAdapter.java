@@ -12,6 +12,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.bimobject.themayproject.R;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 

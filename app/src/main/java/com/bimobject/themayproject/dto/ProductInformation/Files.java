@@ -1,5 +1,7 @@
-package com.bimobject.themayproject.dto;
+package com.bimobject.themayproject.dto.ProductInformation;
 
+
+import com.bimobject.themayproject.dto.ProductInformation.File;
 
 public class Files {
     public String id;

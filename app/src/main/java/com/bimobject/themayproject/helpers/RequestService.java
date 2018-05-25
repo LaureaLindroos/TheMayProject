@@ -2,18 +2,12 @@ package com.bimobject.themayproject.helpers;
 
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
-import com.bimobject.themayproject.dto.ProductDetails;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
+import com.bimobject.themayproject.dto.ProductInformation.ProductDetails;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import cz.msebera.android.httpclient.Header;

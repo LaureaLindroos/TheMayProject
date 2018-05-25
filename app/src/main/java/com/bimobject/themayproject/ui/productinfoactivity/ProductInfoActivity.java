@@ -4,18 +4,13 @@ import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.adapters.ExpandableListAdapter;
 import com.bimobject.themayproject.adapters.ViewPagerAdapter;
-import com.bimobject.themayproject.constants.URL;
-import com.bimobject.themayproject.dto.ProductDetails;
-import com.bimobject.themayproject.helpers.Request;
+import com.bimobject.themayproject.dto.ProductInformation.ProductDetails;
 import com.bimobject.themayproject.helpers.RequestService;
 
 import java.util.ArrayList;
@@ -27,9 +22,8 @@ public class ProductInfoActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     ArrayList<String> listDataHeader;
-    HashMap <String,List<String>> listDataChild;
+    HashMap<String, List<String>> listDataChild;
     String[] imageUrls;
-
 
 
     @Override
@@ -55,8 +49,8 @@ public class ProductInfoActivity extends AppCompatActivity {
             viewPager.setAdapter(viewPagerAdapter);
 
             ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.activity_product_info_lvExp);
-            prepareListData(productDetails);
-            ExpandableListAdapter listAdapter = new ExpandableListAdapter(getApplicationContext(), listDataHeader, listDataChild);
+            PrepareProductInfo prepareProductInfo = new PrepareProductInfo(productDetails);
+            ExpandableListAdapter listAdapter = new ExpandableListAdapter(getApplicationContext(), prepareProductInfo.getListDataHeader(), prepareProductInfo.getListDataChild());
             expandableListView.setAdapter(listAdapter);
 
 
@@ -66,18 +60,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         protected ProductDetails doInBackground(String... strings) {
             return RequestService.getProductDetails(strings[0]);
         }
-    }
-
-    private void prepareListData(ProductDetails productDetails) {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-        listDataHeader.add("General information");
-        listDataHeader.add("Description");
-        ArrayList<String> generalInfo = new ArrayList<String>(Arrays.asList(productDetails.getName(),productDetails.getHeight(),productDetails.getDepth()));
-        ArrayList <String> description = new ArrayList<String>();
-        description.add(productDetails.getDescriptionPlainText());
-        listDataChild.put(listDataHeader.get(0),generalInfo);
-        listDataChild.put(listDataHeader.get(1), description);
 
     }
+
 }

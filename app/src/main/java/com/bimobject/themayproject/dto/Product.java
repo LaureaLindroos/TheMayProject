@@ -1,5 +1,7 @@
 package com.bimobject.themayproject.dto;
 
+import com.bimobject.themayproject.dto.ProductInformation.GeneralInfo.Brand;
+
 public class Product{
     private String id;
     private String name;
