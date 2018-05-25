@@ -127,10 +127,10 @@ public class SearchResultActivity extends AppCompatActivity
 
         if (id == R.id.drawer_filter_search_action) {
             request.addCategory("137");
-            adapter.makeNewRequest(request);
+            adapter.getHelper().makeNewRequest(request);
         } else if (id == R.id.drawer_filter_search_clear) {
             request.clearParams();
-            adapter.makeNewRequest(request);
+            adapter.getHelper().makeNewRequest(request);
         }
 
         //TODO Functionality for buttons
