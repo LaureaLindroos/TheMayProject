@@ -1,7 +1,6 @@
 package com.bimobject.themayproject.ui.productinfoactivity;
 
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bimobject.themayproject.DotIndicator;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.adapters.ViewPagerAdapter;
 import com.bimobject.themayproject.constants.STRINGS;
@@ -20,10 +20,9 @@ import java.lang.ref.WeakReference;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
-    ViewPager viewPager;
-    LinearLayout sliderDotspanel;
-
+    public  ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
+    public LinearLayout sliderDotspanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +32,9 @@ public class ProductInfoActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.activity_product_info_view_pager);
         viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), null);
         viewPager.setAdapter(viewPagerAdapter);
-
         sliderDotspanel = (LinearLayout) findViewById(R.id.activity_product_info_ll_slider_dots);
 
-        if(getIntent().hasExtra("productId")) {
+        if (getIntent().hasExtra("productId")) {
             String productId = getIntent().getStringExtra("productId");
             new getProductDetailsTask(this).execute(productId);
         }
@@ -64,50 +62,12 @@ public class ProductInfoActivity extends AppCompatActivity {
             activity.get().viewPagerAdapter.setImages(productDetails.getImageUrls());
             activity.get().viewPagerAdapter.notifyDataSetChanged();
 
-            int dotscount = activity.get().viewPagerAdapter.getCount();
-            ImageView[] dots = new ImageView[dotscount];
+            int dotsCount = activity.get().viewPagerAdapter.getCount();
+            ImageView[] dots = new ImageView[dotsCount];
 
-
-
-            for(int i = 0; i < dotscount; i++){
-
-                dots[i] = new ImageView(activity.get().getApplicationContext());
-                dots[i].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_default));
-
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                params.setMargins(8, 0, 8, 0);
-
-                activity.get().sliderDotspanel.addView(dots[i], params);
-
-            }
-
-            dots[0].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_selected));
-
-            activity.get().viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-
-                    for(int i = 0; i< dotscount; i++){
-                        dots[i].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_default));
-                    }
-
-                    dots[position].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_selected));
-
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
-
-
+            // Unsure of which I need to send in....
+            DotIndicator dotIndicator = new DotIndicator(dotsCount, dots, activity);
+            dotIndicator.createIndicator();
 
         }
 
