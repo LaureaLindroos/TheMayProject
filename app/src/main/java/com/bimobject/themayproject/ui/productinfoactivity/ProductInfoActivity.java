@@ -22,8 +22,6 @@ public class ProductInfoActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     LinearLayout sliderDotspanel;
-    int dotscount;
-    ImageView[] dots;
 
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -32,23 +30,16 @@ public class ProductInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_info);
 
-        ViewPager viewPager = findViewById(R.id.activity_product_info_view_pager);
+        viewPager = findViewById(R.id.activity_product_info_view_pager);
         viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), null);
         viewPager.setAdapter(viewPagerAdapter);
+
+        sliderDotspanel = (LinearLayout) findViewById(R.id.activity_product_info_ll_slider_dots);
 
         if(getIntent().hasExtra("productId")) {
             String productId = getIntent().getStringExtra("productId");
             new getProductDetailsTask(this).execute(productId);
         }
-     
-            viewPager = findViewById(R.id.activity_product_info_view_pager);
-            sliderDotspanel = (LinearLayout) findViewById(R.id.activity_product_info_ll_slider_dots);
-
-            viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), productDetails.getImageUrls());
-            viewPager.setAdapter(viewPagerAdapter);
-      
-            dotscount = viewPagerAdapter.getCount();
-            dots = new ImageView[dotscount];
     }
 
     private static class getProductDetailsTask extends AsyncTask<String, String, ProductDetails> {
@@ -73,24 +64,27 @@ public class ProductInfoActivity extends AppCompatActivity {
             activity.get().viewPagerAdapter.setImages(productDetails.getImageUrls());
             activity.get().viewPagerAdapter.notifyDataSetChanged();
 
-        
+            int dotscount = activity.get().viewPagerAdapter.getCount();
+            ImageView[] dots = new ImageView[dotscount];
+
+
 
             for(int i = 0; i < dotscount; i++){
 
-                dots[i] = new ImageView(getApplicationContext());
-                dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tab_indicator_default));
+                dots[i] = new ImageView(activity.get().getApplicationContext());
+                dots[i].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_default));
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
                 params.setMargins(8, 0, 8, 0);
 
-                sliderDotspanel.addView(dots[i], params);
+                activity.get().sliderDotspanel.addView(dots[i], params);
 
             }
 
-            dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tab_indicator_selected));
+            dots[0].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_selected));
 
-            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            activity.get().viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -100,10 +94,10 @@ public class ProductInfoActivity extends AppCompatActivity {
                 public void onPageSelected(int position) {
 
                     for(int i = 0; i< dotscount; i++){
-                        dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tab_indicator_default));
+                        dots[i].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_default));
                     }
 
-                    dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tab_indicator_selected));
+                    dots[position].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_selected));
 
                 }
 
