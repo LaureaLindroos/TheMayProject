@@ -20,9 +20,9 @@ import java.lang.ref.WeakReference;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
-    public  ViewPager viewPager;
+    private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
-    public LinearLayout sliderDotspanel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,17 @@ public class ProductInfoActivity extends AppCompatActivity {
             new getProductDetailsTask(this).execute(productId);
         }
 
-        ViewPager viewPager = findViewById(R.id.activity_product_info_view_pager);
+        viewPager = findViewById(R.id.activity_product_info_view_pager);
         viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), null);
         viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
+    public ViewPagerAdapter getViewPagerAdapter() {
+        return viewPagerAdapter;
     }
 
     private static class getProductDetailsTask extends AsyncTask<String, String, ProductDetails> {
@@ -61,13 +69,8 @@ public class ProductInfoActivity extends AppCompatActivity {
             activity.get().viewPagerAdapter.setImages(productDetails.getImageUrls());
             activity.get().viewPagerAdapter.notifyDataSetChanged();
 
-            int dotsCount = activity.get().viewPagerAdapter.getCount();
-            ImageView[] dots = new ImageView[dotsCount];
-
-            // Unsure of which I need to send in....
-            DotIndicator dotIndicator = new DotIndicator(dotsCount, dots, activity);
+            DotIndicator dotIndicator = new DotIndicator(activity);
             dotIndicator.createIndicator();
-
         }
 
         @Override
