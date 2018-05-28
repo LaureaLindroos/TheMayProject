@@ -11,11 +11,12 @@
 
     <ImageView
         android:id="@+id/layout_list_item_img_product"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/general_margin"
         android:layout_marginTop="@dimen/general_margin"
         android:adjustViewBounds="true"
+        android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher" />

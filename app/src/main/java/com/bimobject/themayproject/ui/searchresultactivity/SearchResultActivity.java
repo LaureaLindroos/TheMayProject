@@ -27,7 +27,6 @@ import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecycleViewAdapter adapter;
     private static String search;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
@@ -45,11 +44,9 @@ public class SearchResultActivity extends AppCompatActivity
 
         //DRAWER START
         drawer = findViewById(R.id.drawer_layout);
-
-
+        
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -58,14 +55,21 @@ public class SearchResultActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         //DRAWER END
 
         request = new Request();
         request.addSearch(search);
 
 
-        adapter = new RecycleViewAdapter();
+        RecycleViewAdapter adapter = new RecycleViewAdapter();
+
+        if(getIntent().hasExtra("search")){
+            search = getIntent().getStringExtra("search");
+        }
+
+        Request request = new Request();
+        request.addSearch(search);
+
         adapter.getHelper().makeNewRequest(request);
 
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
@@ -88,7 +92,6 @@ public class SearchResultActivity extends AppCompatActivity
     }
 
     //DRAWER CONTINUE
-
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.END)) {
@@ -131,8 +134,6 @@ public class SearchResultActivity extends AppCompatActivity
             request.clearParams();
             adapter.getHelper().makeNewRequest(request);
         }
-
-        //TODO Functionality for buttons
 
         drawer.closeDrawer(GravityCompat.END);
         return true;
