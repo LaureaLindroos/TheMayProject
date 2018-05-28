@@ -1,5 +1,6 @@
 package com.bimobject.themayproject;
 
+
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;

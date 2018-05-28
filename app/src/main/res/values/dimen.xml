@@ -3,4 +3,5 @@
     <dimen name="general_margin">16dp</dimen>
     <dimen name="general_font_size">16sp</dimen>
     <dimen name="small_font_size">14sp</dimen>
+    <dimen name="headline_size">18sp</dimen>
 </resources>
