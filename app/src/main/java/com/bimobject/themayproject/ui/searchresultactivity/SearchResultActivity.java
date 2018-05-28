@@ -31,6 +31,7 @@ public class SearchResultActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
+    private RecycleViewAdapter adapter;
 
 
     @Override
@@ -44,9 +45,11 @@ public class SearchResultActivity extends AppCompatActivity
 
         //DRAWER START
         drawer = findViewById(R.id.drawer_layout);
-        
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -61,15 +64,7 @@ public class SearchResultActivity extends AppCompatActivity
         request.addSearch(search);
 
 
-        RecycleViewAdapter adapter = new RecycleViewAdapter();
-
-        if(getIntent().hasExtra("search")){
-            search = getIntent().getStringExtra("search");
-        }
-
-        Request request = new Request();
-        request.addSearch(search);
-
+        adapter = new RecycleViewAdapter();
         adapter.getHelper().makeNewRequest(request);
 
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
@@ -88,7 +83,6 @@ public class SearchResultActivity extends AppCompatActivity
             adapter.getHelper().loadNextPage();
             Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
         });
-
     }
 
     //DRAWER CONTINUE
