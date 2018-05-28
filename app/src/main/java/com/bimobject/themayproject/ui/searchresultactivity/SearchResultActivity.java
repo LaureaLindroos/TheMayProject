@@ -80,8 +80,8 @@ public class SearchResultActivity extends AppCompatActivity
         });
 
         adapter.setOnBottomReachedListener(position -> {
-            adapter.getHelper().loadNextPage();
             Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
+            adapter.getHelper().loadNextPage();
         });
     }
 
