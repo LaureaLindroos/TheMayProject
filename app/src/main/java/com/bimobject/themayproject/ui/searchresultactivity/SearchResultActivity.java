@@ -27,11 +27,11 @@ import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private RecycleViewAdapter adapter;
     private static String search;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
+    private RecycleViewAdapter adapter;
 
 
     @Override
@@ -58,7 +58,6 @@ public class SearchResultActivity extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         //DRAWER END
 
         request = new Request();
@@ -84,11 +83,9 @@ public class SearchResultActivity extends AppCompatActivity
             adapter.getHelper().loadNextPage();
             Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
         });
-
     }
 
     //DRAWER CONTINUE
-
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.END)) {
@@ -131,8 +128,6 @@ public class SearchResultActivity extends AppCompatActivity
             request.clearParams();
             adapter.getHelper().makeNewRequest(request);
         }
-
-        //TODO Functionality for buttons
 
         drawer.closeDrawer(GravityCompat.END);
         return true;
