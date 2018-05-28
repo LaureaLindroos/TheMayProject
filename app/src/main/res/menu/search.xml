@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_action_search"
         android:title="Search"
         android:actionLayout="@layout/search_bar_edit_text"
         app:actionViewClass="android.widget.SearchView"
@@ -13,7 +13,7 @@
     <!-- TODO add filter icon -->
     <item
         android:id="@+id/action_drawer"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/ic_action_sort"
         android:title="Filter"
         app:showAsAction="always" />
 </menu>
