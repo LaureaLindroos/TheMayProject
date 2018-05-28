@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -54,7 +55,21 @@ public class ProductInfoActivity extends AppCompatActivity {
             expandableListView.setAdapter(listAdapter);
 
 
+            final int[] prevExpandPosition = {-1};
+            expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                @Override
+                public void onGroupExpand(int groupPosition) {
+                    if (prevExpandPosition[0] >= 0 && prevExpandPosition[0] != groupPosition) {
+                        expandableListView.collapseGroup(prevExpandPosition[0]);
+                    }
+                    prevExpandPosition[0] = groupPosition;
+
+                }
+            });
+
+
         }
+
 
         @Override
         protected ProductDetails doInBackground(String... strings) {

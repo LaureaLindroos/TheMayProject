@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class PrepareProductInfo {
-    ArrayList<String> listDataHeader;
-    HashMap<String, List<String>>listDataChild;
-    ProductDetails productDetails;
+   private ArrayList<String> listDataHeader;
+    private HashMap<String, List<String>>listDataChild;
+    private ProductDetails productDetails;
 
     public PrepareProductInfo(ProductDetails productDetails) {
         listDataHeader = new ArrayList<>();
@@ -29,6 +29,15 @@ public class PrepareProductInfo {
 
     }
     private void setListDataChild(){
+
+        setDataGeneralInfo();
+        setDataDescription();
+        setDataLinks();
+        setDataRelated();
+    }
+
+    private void setDataGeneralInfo() {
+
         ArrayList<String> generalInfo = new ArrayList<String>(Arrays.asList(
                 "Unique ref: " +ifNotNull( productDetails.getPermalink()),
                 "Brand: " + ifNotNull(productDetails.getBrand().getName()),
@@ -39,8 +48,17 @@ public class PrepareProductInfo {
                 "Date of publishing: " + ifNotNull(productDetails.getDateOfPublishing()),
                 "Edition Number: " + ifNotNull(productDetails.getEditionNumber().toString())));
 
-        ArrayList <String> description = new ArrayList<String>(Arrays.asList(productDetails.getDescriptionPlainText()));
+        listDataChild.put(listDataHeader.get(0),generalInfo);
+    }
 
+    private void setDataDescription() {
+        ArrayList <String> description = new ArrayList<String>(Arrays.asList(
+                productDetails.getDescriptionPlainText()));
+
+        listDataChild.put(listDataHeader.get(1), description);
+    }
+
+    private void setDataLinks() {
 
         ArrayList <String> links = new ArrayList<>(Arrays.asList(
                 "Product URL: " + ifNotNull(productDetails.getLinks().getExternalProductUrl()),
@@ -51,21 +69,20 @@ public class PrepareProductInfo {
                 "Instruction video: " + ifNotNull(productDetails.getLinks().getInstructionVideoUrl()),
                 "EAN code: " + ifNotNull(productDetails.getEanCode())
         ));
+
+        listDataChild.put(listDataHeader.get(2), links);
+    }
+
+    private void setDataRelated() {
         ArrayList <String> related = new ArrayList<String>(Arrays.asList(
-               "Material main: " + ifNotNull(productDetails.getMaterialMain().getName()),
+                "Material main: " + ifNotNull(productDetails.getMaterialMain().getName()),
                 "Material secondary: " + ifNotNull(productDetails.getMaterialSecondary().getName()),
                 "Designed in: " + ifNotNull(productDetails.getDesignedIn().getName()),
 
                 "Weight Net(Kg): " + ifNotNull(productDetails.getWeight())
         ));
 
-        listDataChild.put(listDataHeader.get(0),generalInfo);
-        listDataChild.put(listDataHeader.get(1), description);
-        listDataChild.put(listDataHeader.get(2), links);
         listDataChild.put(listDataHeader.get(3), related);
-
-
-
     }
 
     public ArrayList<String> getListDataHeader() {
@@ -76,7 +93,7 @@ public class PrepareProductInfo {
         return listDataChild;
     }
 
-    public String ifNotNull(String productDetail){
+    private String ifNotNull(String productDetail){
         if(productDetail == null){
             return "n/a";
         }
