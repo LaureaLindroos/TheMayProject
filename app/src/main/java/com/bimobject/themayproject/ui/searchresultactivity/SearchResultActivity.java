@@ -27,6 +27,7 @@ import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static RecycleViewAdapter adapter;
     private static String search;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
@@ -101,6 +102,7 @@ public class SearchResultActivity extends AppCompatActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search, menu);
         return true;
+
     }
 
     @Override

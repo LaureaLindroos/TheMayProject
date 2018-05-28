@@ -4,7 +4,7 @@ package com.bimobject.themayproject.dto;
 public class Categories {
     public String id;
     public String name;
-    private SubCategories[] children;
+    public SubCategories[] children;
 
     public Categories() {
     }
