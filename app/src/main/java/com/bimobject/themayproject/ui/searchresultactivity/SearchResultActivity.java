@@ -32,7 +32,6 @@ public class SearchResultActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
-    private RecycleViewAdapter adapter;
 
 
     @Override
