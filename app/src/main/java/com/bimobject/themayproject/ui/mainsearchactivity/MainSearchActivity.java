@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.dto.AllCategories;
+import com.bimobject.themayproject.dto.Categories;
+import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 

@@ -1,6 +1,8 @@
 package com.bimobject.themayproject.helpers;
 
 import com.bimobject.themayproject.constants.URL;
+import com.bimobject.themayproject.dto.AllCategories;
+import com.bimobject.themayproject.dto.Categories;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.dto.ProductDetails;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -71,6 +73,33 @@ public class RequestService {
         return productDetails.get(0);
     }
 
-}
+    public void getcategories() {
+
+            final ArrayList<AllCategories> categories = new ArrayList<>();
+
+        /*RequestParams params = new RequestParams();
+        params.put("fields", "name,imageUrls");*/
+
+            SyncClient.get(URL.GET_CATEGORIES, null, new JsonHttpResponseHandler(){
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+
+                    try {
+                        categories.add(JSONParser.parseToCategories(response));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+            //TODO: Implement better solution for returning single object
+
+
+        }
+    }
+
+
 
 
