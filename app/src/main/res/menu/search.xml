@@ -15,5 +15,5 @@
         android:id="@+id/action_drawer"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Filter"
-        app:showAsAction="withText|always" />
+        app:showAsAction="always" />
 </menu>

@@ -5,5 +5,7 @@
     android:layout_height="wrap_content"
     android:ems="10"
     android:inputType="textPersonName"
+    android:clickable="true"
+    android:focusable="true"
     android:text="Name"
     xmlns:android="http://schemas.android.com/apk/res/android" />

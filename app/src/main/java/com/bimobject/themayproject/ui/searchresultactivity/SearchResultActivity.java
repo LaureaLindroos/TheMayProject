@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class SearchResultActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private Request request;
     private RecycleViewAdapter adapter;
+    SearchView searchView;
 
 
     @Override
@@ -110,7 +112,11 @@ public class SearchResultActivity extends AppCompatActivity
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setIconifiedByDefault(false);
+        searchView.setIconified(false);
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
