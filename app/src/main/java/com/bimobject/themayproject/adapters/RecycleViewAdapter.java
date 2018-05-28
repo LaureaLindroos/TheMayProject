@@ -26,6 +26,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private RVAHelper helper;
     private OnBottomReachedListener onBottomReachedListener;
 
+
     public RecycleViewAdapter() {
         data = new ArrayList<>();
         helper = new RVAHelper(this);
@@ -36,9 +37,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         Product product = data.get(position);
         holder.setProductId(product.getId());
-
-        holder.product_title.setText(product.getName());
-        holder.brand_name.setText(product.getBrand().getName());
 
         //TODO: Find better solution to find context
         Picasso.with(holder.image.getContext())
@@ -51,6 +49,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 .placeholder(R.drawable.progress_animation)
                 .into(holder.brand_logo);
 
+        holder.product_title.setText(product.getName());
+        holder.brand_name.setText(product.getBrand().getName());
 
         //TODO: Also weird way of getting context here
         //If bottom is reached
@@ -100,12 +100,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView product_title;
-        TextView brand_name;
-        ImageView image;
-        ImageView brand_logo;
+        private TextView product_title;
+        private TextView brand_name;
+        private ImageView image;
+        private ImageView brand_logo;
 
-        String productId;
+        private String productId;
 
         private ProductViewHolder(View itemView) {
             super(itemView);
