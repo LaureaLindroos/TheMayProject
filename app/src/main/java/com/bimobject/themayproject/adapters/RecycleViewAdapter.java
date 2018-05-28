@@ -1,75 +1,63 @@
 package com.bimobject.themayproject.adapters;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bimobject.themayproject.R;
-import com.bimobject.themayproject.constants.STRINGS;
-import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.helpers.OnBottomReachedListener;
 import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
-import com.bimobject.themayproject.helpers.Request;
-import com.bimobject.themayproject.helpers.RequestService;
-import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
-import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
+import com.bimobject.themayproject.helpers.RVAHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MyViewHolder> {
+public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ProductViewHolder> {
 
-    private List<Product> data = new ArrayList<>();
-    private LoadListItemsTask loadListItemsTask;
-    private Request request;
-    private Context context;
-    private OnBottomReachedListener onBottomReachedListener = position -> loadNextPage();
+    private List<Product> data;
     private OnRecycleViewItemClickListener onRecycleViewItemClickListener;
+    private RVAHelper helper;
+    private OnBottomReachedListener onBottomReachedListener;
 
 
-    public RecycleViewAdapter(Context context) {
-        this.context = context;
+    public RecycleViewAdapter() {
+        data = new ArrayList<>();
+        helper = new RVAHelper(this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
 
         Product product = data.get(position);
         holder.setProductId(product.getId());
 
-        holder.product_title.setText(product.getName());
-        holder.brand_name.setText(product.getBrand().getName());
-
         //TODO: Find better solution to find context
         Picasso.with(holder.image.getContext())
-                .load(product.getImageUrl())
+                .load(product.getImageUrl()).fit().centerInside()
                 .placeholder(R.drawable.progress_animation)
                 .into(holder.image);
 
         Picasso.with(holder.brand_logo.getContext())
-                .load(product.getBrand().getImageUrl())
+                .load(product.getBrand().getImageUrl()).fit().centerInside()
                 .placeholder(R.drawable.progress_animation)
                 .into(holder.brand_logo);
 
+        holder.product_title.setText(product.getName());
+        holder.brand_name.setText(product.getBrand().getName());
+
         //TODO: Also weird way of getting context here
-        //TODO: Also hardcode string value
         //If bottom is reached
         if ((position == data.size() - 1)){
             onBottomReachedListener.onBottomReached(position);
-            Toast.makeText(context, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
         }
+
     }
 
     @Override
@@ -79,9 +67,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
-        return new MyViewHolder(itemView);
+        return new ProductViewHolder(itemView);
     }
 
     @Override
@@ -89,46 +77,37 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return position;
     }
 
+    public RVAHelper getHelper() {
+        return helper;
+    }
+
     public void addAll(List<Product> objects){
         data.addAll(objects);
         notifyDataSetChanged();
     }
 
-    public void makeNewRequest(Request req){
-        loadListItemsTask = new LoadListItemsTask();
-
-        this.request = req;
+    public void clear(){
         data.clear();
-        loadListItemsTask.execute(req);
-    }
-
-    public void loadNextPage(){
-
-        if(this.request.hasNextPage()) {
-            loadListItemsTask = new LoadListItemsTask();
-            int page = this.request.getPage();
-
-            this.request.addPage(page + 1);
-            loadListItemsTask.execute(this.request);
-        }
-        //TODO: What else?
     }
 
     public void setOnItemClickListener(OnRecycleViewItemClickListener onRecycleViewItemClickListener) {
         this.onRecycleViewItemClickListener = onRecycleViewItemClickListener;
     }
 
+    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener) {
+        this.onBottomReachedListener = onBottomReachedListener;
+    }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView product_title;
-        TextView brand_name;
-        ImageView image;
-        ImageView brand_logo;
+        private TextView product_title;
+        private TextView brand_name;
+        private ImageView image;
+        private ImageView brand_logo;
 
-        String productId;
+        private String productId;
 
-        public MyViewHolder(View itemView) {
+        private ProductViewHolder(View itemView) {
             super(itemView);
             product_title = itemView.findViewById(R.id.layout_list_item_tv_product_name);
             brand_name = itemView.findViewById(R.id.layout_list_item_tv_product_brand);
@@ -141,24 +120,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         @Override
         public void onClick(View v) {
-            onRecycleViewItemClickListener.onItemClick(v, getAdapterPosition(), this.productId);
+            onRecycleViewItemClickListener.onItemClick(v, this.productId);
         }
 
-        public void setProductId(String productId) {
+        private void setProductId(String productId) {
             this.productId = productId;
         }
     }
 
-    public class LoadListItemsTask extends AsyncTask<Request, String, List<Product>> {
 
-        @Override
-        protected void onPostExecute(List<Product> products) {
-            addAll(products);
-        }
-
-        @Override
-        protected List<Product> doInBackground(Request... requests) {
-            return RequestService.getRequest(URL.GET_PRODUCTS, requests[0]);
-        }
-    }
 }

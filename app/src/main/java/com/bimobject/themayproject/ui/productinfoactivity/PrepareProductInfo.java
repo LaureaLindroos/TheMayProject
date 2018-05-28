@@ -78,7 +78,6 @@ public class PrepareProductInfo {
                 "Material main: " + ifNotNull(productDetails.getMaterialMain().getName()),
                 "Material secondary: " + ifNotNull(productDetails.getMaterialSecondary().getName()),
                 "Designed in: " + ifNotNull(productDetails.getDesignedIn().getName()),
-
                 "Weight Net(Kg): " + ifNotNull(productDetails.getWeight())
         ));
 

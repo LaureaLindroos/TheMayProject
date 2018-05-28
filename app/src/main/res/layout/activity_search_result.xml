@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="end">
 
-    <fragment
+    <include
+        layout="@layout/app_bar_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/filter_header"
+        app:menu="@menu/activity_search_result_drawer"
+        />
+
+    <!--<fragment
         android:id="@+id/top_bar_fragment"
         class ="com.bimobject.themayproject.ui.searchresultactivity.TopBarFragment"
         android:layout_width="match_parent"
@@ -34,6 +52,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_bar_fragment" />
+        android:layout_below="@+id/top_bar_fragment" /> -->
 
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

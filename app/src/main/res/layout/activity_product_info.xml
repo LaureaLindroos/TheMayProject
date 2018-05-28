@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView android:orientation="vertical"
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:fillViewport="true">
+<LinearLayout
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fillViewport="true"
-        android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/activity_product_info_view_pager"
@@ -20,20 +22,28 @@
         android:layout_height="395dp"
         android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:id="@+id/activity_product_info_tv_product_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/general_margin"
-            android:paddingBottom="@dimen/general_margin"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textSize="@dimen/headline_size" />
+    <LinearLayout
+        android:id="@+id/activity_product_info_ll_slider_dots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" />
+
+    <TextView
+        android:id="@+id/activity_product_info_tv_product_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/general_margin"
+        android:paddingBottom="@dimen/general_margin"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="@dimen/headline_size" />
 
     <com.bimobject.themayproject.helpers.NonScrollExpandableListView
         android:id="@+id/activity_product_info_lvExp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    </LinearLayout>
+</LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

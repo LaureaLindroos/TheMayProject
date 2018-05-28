@@ -1,9 +1,7 @@
 package com.bimobject.themayproject.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -13,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bimobject.themayproject.R;
-import com.bimobject.themayproject.dto.Product;
-import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 import com.squareup.picasso.Picasso;
 
 public class ViewPagerAdapter extends PagerAdapter {
@@ -66,5 +62,9 @@ public class ViewPagerAdapter extends PagerAdapter {
         ViewPager vp = (ViewPager) container;
         View view = (View) object;
         vp.removeView(view);
+    }
+
+    public void setImages(String[] images) {
+        this.images = images;
     }
 }

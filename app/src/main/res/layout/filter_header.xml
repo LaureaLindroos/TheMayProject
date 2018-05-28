@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/general_margin"
+    android:paddingLeft="@dimen/general_margin"
+    android:paddingRight="@dimen/general_margin"
+    android:paddingTop="@dimen/general_margin"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="bimobject logo"
+        android:paddingTop="@dimen/general_margin"
+        app:srcCompat="@drawable/ic_bim_logo_black_large" />
+
+</LinearLayout>
