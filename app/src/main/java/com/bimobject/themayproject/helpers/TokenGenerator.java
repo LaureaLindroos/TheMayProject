@@ -20,6 +20,7 @@ public abstract class TokenGenerator {
     private final static RequestParams params = new RequestParams();
     private static Timer t;
 
+    //TODO: Encrypt client credentials
     static {
         params.put("grant_type", "client_credentials");
         params.put("scope", "search_api");
