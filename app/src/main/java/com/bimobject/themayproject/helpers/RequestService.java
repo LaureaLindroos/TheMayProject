@@ -4,10 +4,9 @@ import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.AllCategories;
 import com.bimobject.themayproject.dto.Categories;
 import com.bimobject.themayproject.dto.Product;
-import com.bimobject.themayproject.dto.ProductDetails;
+import com.bimobject.themayproject.dto.ProductInformation.ProductDetails;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,10 +25,12 @@ public class RequestService {
 
         SyncClient.get(path, request.getParams(), new JsonHttpResponseHandler() {
 
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
+
 
 
                     Boolean hasNextPage = ((JSONObject)response.get("meta")).getBoolean("hasNextPage");
@@ -41,21 +42,21 @@ public class RequestService {
                     e.printStackTrace();
                 }
             }
-
         });
-
         return products;
 
+
     }
+
     //TODO: Remove code duplication
     public static ProductDetails getProductDetails(String id){
 
         final ArrayList<ProductDetails> productDetails = new ArrayList<>();
 
-        RequestParams params = new RequestParams();
-        params.put("fields", "name,imageUrls");
+        /*RequestParams params = new RequestParams();
+        params.put("fields", "name,imageUrls");*/
 
-        SyncClient.get(URL.GET_PRODUCTS + id, params, new JsonHttpResponseHandler(){
+        SyncClient.get(URL.GET_PRODUCTS + id, null, new JsonHttpResponseHandler(){
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -63,7 +64,7 @@ public class RequestService {
 
                 try {
                     productDetails.add(JSONParser.parseToProductDetails(response));
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
@@ -71,6 +72,7 @@ public class RequestService {
         });
         //TODO: Implement better solution for returning single object
         return productDetails.get(0);
+
     }
 
     public void getcategories() {
@@ -99,6 +101,7 @@ public class RequestService {
 
         }
     }
+
 
 
 
