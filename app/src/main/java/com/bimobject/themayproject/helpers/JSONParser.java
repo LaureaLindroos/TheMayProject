@@ -33,10 +33,13 @@ public abstract class JSONParser {
 
     }
 
-    public static AllCategories parseToCategories(JSONObject response) throws JSONException{
-        JSONObject data = (JSONObject) response.get("data");
-        return gson.fromJson(data.toString(), AllCategories.class);
+    public static ArrayList<Categories> parseToCategories(JSONObject response) throws JSONException{
+        JSONArray data = (JSONArray) response.get("data");
+        Type listType = new TypeToken<List<Categories>>(){}.getType();
+        return gson.fromJson(data.toString(), listType);
     }
+
+
 
     public static String parseToAccessToken(JSONObject response) throws JSONException{
         return response.get("access_token").toString();

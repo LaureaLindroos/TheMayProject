@@ -1,15 +1,17 @@
 package com.bimobject.themayproject.dto;
 
 
+import java.util.ArrayList;
+
 public class Categories {
     public String id;
     public String name;
-    public SubCategories[] children;
+    public ArrayList<SubCategories> children;
 
     public Categories() {
     }
 
-    public Categories(String id, String name, SubCategories[] children) {
+    public Categories(String id, String name, ArrayList<SubCategories> children) {
         this.id = id;
         this.name = name;
         this.children = children;
@@ -31,11 +33,11 @@ public class Categories {
         this.name = name;
     }
 
-    public SubCategories[] getChildren() {
+    public ArrayList <SubCategories> getChildren() {
         return children;
     }
 
-    public void setChildren(SubCategories[] children) {
+    public void setChildren(ArrayList<SubCategories> children) {
         this.children = children;
     }
 }

@@ -1,8 +1,9 @@
 package com.bimobject.themayproject.dto;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
-public class AllCategories {
+public class AllCategories extends ArrayList<AllCategories> {
     ArrayList<Categories> allCategories;
 
     public AllCategories(ArrayList<Categories> allCategories) {
@@ -16,4 +17,5 @@ public class AllCategories {
     public void setAllCategories(ArrayList<Categories> allCategories) {
         this.allCategories = allCategories;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -14,15 +15,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
 
-import com.bimobject.themayproject.adapters.RecycleViewAdapter;
+
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.constants.STRINGS;
+import com.bimobject.themayproject.dto.Categories;
 import com.bimobject.themayproject.helpers.Request;
+import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
+
+import java.util.List;
 
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -98,6 +103,7 @@ public class SearchResultActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        new getCategoriesTask(this).execute();
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search, menu);
         return true;
@@ -132,6 +138,24 @@ public class SearchResultActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.END);
         return true;
+    }
+
+    private class getCategoriesTask extends AsyncTask<String, String, List<Categories>>{
+        public getCategoriesTask(SearchResultActivity searchResultActivity)  {
+        }
+
+        @Override
+        protected void onPostExecute(List<Categories> categories) {
+            super.onPostExecute(categories);
+            PrepareCategoriesEXLV prepareCategoriesEXLV = new PrepareCategoriesEXLV(categories);
+        }
+
+        @Override
+        protected List<Categories> doInBackground(String... strings) {
+            List<Categories> c2 = RequestService.getcategories();
+
+            return c2;
+        }
     }
     //DRAWER FINISHED
 }
