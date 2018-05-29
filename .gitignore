@@ -76,3 +76,7 @@ obj/
 /captures
 .externalNativeBuild
 
+#Keys
+app/src/main/res/values/secrets.xml
+
+
