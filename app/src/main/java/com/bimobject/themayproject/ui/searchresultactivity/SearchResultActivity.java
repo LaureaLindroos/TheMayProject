@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.constants.STRINGS;
+import com.bimobject.themayproject.helpers.OnNewRequestListener;
+import com.bimobject.themayproject.helpers.RVAHelper;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
@@ -51,10 +53,6 @@ public class SearchResultActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
 
-        if (getIntent().hasExtra("search")) {
-            search = getIntent().getStringExtra("search");
-        }
-
         //DRAWER START
         drawer = findViewById(R.id.drawer_layout);
 
@@ -76,11 +74,6 @@ public class SearchResultActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //DRAWER END
 
-        request = new Request();
-        request.addSearch(search);
-
-
-        adapter = new RecycleViewAdapter(this);
 
         if (getIntent().hasExtra("search")) {
             search = getIntent().getStringExtra("search");
@@ -89,10 +82,7 @@ public class SearchResultActivity extends AppCompatActivity
         Request request = new Request();
         request.addSearch(search);
 
-
-
         adapter = new RecycleViewAdapter(this);
-
         adapter.getHelper().makeNewRequest(request);
 
         totalCountView = findViewById(R.id.activity_search_result_tv_total_count);
@@ -111,6 +101,7 @@ public class SearchResultActivity extends AppCompatActivity
             Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
             adapter.getHelper().loadNextPage();
         });
+        adapter.setOnNewRequestListener(request1 -> Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + STRINGS.FOUND_PRODUCTS, Toast.LENGTH_LONG).show());
     }
 
     @Override

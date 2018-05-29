@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.helpers.OnBottomReachedListener;
+import com.bimobject.themayproject.helpers.OnNewRequestListener;
 import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
+import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 import com.squareup.picasso.Picasso;
 
@@ -26,8 +28,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     private List<Product> data;
     private OnRecycleViewItemClickListener onRecycleViewItemClickListener;
-    private RVAHelper helper;
     private OnBottomReachedListener onBottomReachedListener;
+    private OnNewRequestListener onNewRequestListener;
+
+    private RVAHelper helper;
     private WeakReference<SearchResultActivity> context;
 
 
@@ -70,9 +74,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return data.size();
     }
 
-    public void updateTotalCount(int totalCount){
-        (context.get().totalCountView).setText(String.valueOf(totalCount) + " objects found.");
-    }
 
     @NonNull
     @Override
@@ -116,6 +117,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener) {
         this.onBottomReachedListener = onBottomReachedListener;
+    }
+
+    public void setOnNewRequestListener(OnNewRequestListener onNewRequestListener) {
+        this.onNewRequestListener = onNewRequestListener;
+    }
+
+    public void onNewRequest(Request request){
+        onNewRequestListener.onNewRequest(request);
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

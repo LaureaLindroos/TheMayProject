@@ -37,6 +37,10 @@ public final class RVAHelper {
         //TODO: What else?
     }
 
+    public static Request getRequest() {
+        return request;
+    }
+
     private static class LoadListItemsTask extends AsyncTask<Request, String, List<Product>> {
 
         WeakReference<RVAHelper> context;
@@ -48,8 +52,10 @@ public final class RVAHelper {
         @Override
         protected void onPostExecute(List<Product> products) {
             context.get().adapter.addAll(products);
-            //TODO: Only update totalcount at new requests
-            context.get().adapter.updateTotalCount(request.getTotalCount());
+
+            if(request.getPage() == 1)
+                context.get().adapter.onNewRequest(request);
+
         }
 
         @Override
