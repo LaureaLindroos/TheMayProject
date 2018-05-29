@@ -32,12 +32,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     private RVAHelper helper;
 
-
-
     public RecycleViewAdapter() {
         data = new ArrayList<>();
         helper = new RVAHelper(this);
-
     }
 
     @Override
@@ -104,9 +101,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void addAll(List<Product> objects){
         data.addAll(objects);
         this.notifyDataSetChanged();
-        if(data.size() == 0){
-
-        }
     }
 
     public void clear(){

@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
-import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
