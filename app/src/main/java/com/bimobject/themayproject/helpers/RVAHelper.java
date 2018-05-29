@@ -5,13 +5,14 @@ import android.os.AsyncTask;
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.dto.Product;
+import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 public final class RVAHelper {
 
-    private Request request;
+    private static Request request;
     private RecycleViewAdapter adapter;
 
     public RVAHelper(RecycleViewAdapter adapter) {
@@ -19,19 +20,19 @@ public final class RVAHelper {
     }
 
     public void makeNewRequest(Request req){
-            this.request = req;
+            request = req;
             adapter.clear();
-            new LoadListItemsTask(this).execute(this.request);
+            new LoadListItemsTask(this).execute(request);
     }
 
     public void loadNextPage(){
 
-        if(this.request.hasNextPage()) {
-            int page = this.request.getPage();
-            this.request.setPage(page + 1);
+        if(request.hasNextPage()) {
+            int page = request.getPage();
+            request.setPage(page + 1);
 
-            this.request.addPage(this.request.getPage());
-            new LoadListItemsTask(this).execute(this.request);
+            request.addPage(request.getPage());
+            new LoadListItemsTask(this).execute(request);
         }
         //TODO: What else?
     }
@@ -47,7 +48,8 @@ public final class RVAHelper {
         @Override
         protected void onPostExecute(List<Product> products) {
             context.get().adapter.addAll(products);
-            context.get().adapter.notifyDataSetChanged();
+            //TODO: Only update totalcount at new requests
+            context.get().adapter.updateTotalCount(request.getTotalCount());
         }
 
         @Override

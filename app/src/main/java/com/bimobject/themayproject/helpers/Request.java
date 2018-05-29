@@ -8,6 +8,7 @@ public class Request {
     private boolean hasNextPage;
     private RequestParams params;
     private int page;
+    private int totalCount;
 
     public Request() {
         params = new RequestParams();
@@ -55,5 +56,13 @@ public class Request {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
     }
 }

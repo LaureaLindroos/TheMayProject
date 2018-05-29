@@ -16,7 +16,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.SearchView;
+
+import android.widget.TextView;
+
 import android.widget.Toast;
 
 
@@ -35,7 +39,11 @@ public class SearchResultActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
+
     SearchView searchView;
+
+    public TextView totalCountView;
+
 
 
     @Override
@@ -71,7 +79,8 @@ public class SearchResultActivity extends AppCompatActivity
         request = new Request();
         request.addSearch(search);
 
-        adapter = new RecycleViewAdapter();
+
+        adapter = new RecycleViewAdapter(this);
 
         if (getIntent().hasExtra("search")) {
             search = getIntent().getStringExtra("search");
@@ -80,8 +89,13 @@ public class SearchResultActivity extends AppCompatActivity
         Request request = new Request();
         request.addSearch(search);
 
+
+
+        adapter = new RecycleViewAdapter(this);
+
         adapter.getHelper().makeNewRequest(request);
 
+        totalCountView = findViewById(R.id.activity_search_result_tv_total_count);
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);

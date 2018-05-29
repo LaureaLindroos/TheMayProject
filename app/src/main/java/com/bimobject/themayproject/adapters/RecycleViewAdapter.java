@@ -1,5 +1,6 @@
 package com.bimobject.themayproject.adapters;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,8 +14,10 @@ import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.helpers.OnBottomReachedListener;
 import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
+import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 import com.squareup.picasso.Picasso;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +28,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private OnRecycleViewItemClickListener onRecycleViewItemClickListener;
     private RVAHelper helper;
     private OnBottomReachedListener onBottomReachedListener;
+    private WeakReference<SearchResultActivity> context;
 
 
-    public RecycleViewAdapter() {
+    public RecycleViewAdapter(SearchResultActivity activity) {
         data = new ArrayList<>();
         helper = new RVAHelper(this);
+        this.context = new WeakReference<>(activity);
     }
 
     @Override
@@ -63,6 +68,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public void updateTotalCount(int totalCount){
+        (context.get().totalCountView).setText(String.valueOf(totalCount) + " objects found.");
     }
 
     @NonNull
