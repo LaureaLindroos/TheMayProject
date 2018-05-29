@@ -20,6 +20,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        buildTypes.each{
+
+            it.buildConfigField ('String', 'CLIENT_ID',  "\"" + credentials.client_id + "\"")
+            it.buildConfigField ('String', 'CLIENT_SECRET', "\"" + credentials.client_secret + "\"")
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
