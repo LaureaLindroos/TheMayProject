@@ -53,7 +53,13 @@ public class MainSearchActivity extends AppCompatActivity {
 
     }
 
-        private void makeSearch() {
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
+    }
+
+    private void makeSearch() {
             EditText searchBox = findViewById(R.id.activity_main_search_et_value);
             String search = searchBox.getText().toString();
 

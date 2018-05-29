@@ -24,6 +24,7 @@ import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.helpers.Request;
+import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
 public class SearchResultActivity extends AppCompatActivity
@@ -97,6 +98,13 @@ public class SearchResultActivity extends AppCompatActivity
             adapter.getHelper().loadNextPage();
         });
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
+    }
+
 
     //DRAWER CONTINUE
     @Override
