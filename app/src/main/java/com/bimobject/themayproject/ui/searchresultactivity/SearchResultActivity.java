@@ -38,14 +38,12 @@ public class SearchResultActivity extends AppCompatActivity
 
     private static RecycleViewAdapter adapter;
     private static String search;
-    private RecyclerView recyclerView;
-    private DrawerLayout drawer;
-    private Request request;
-    View view_Group;
     FilterListAdapter mMenuAdapter;
     ExpandableListView expandableList;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    private DrawerLayout drawer;
+    private Request request;
 
     //Icons, use as you want
    /* static int[] icon = { R.drawable.ico1, R.drawable.ico1,
@@ -91,11 +89,7 @@ public class SearchResultActivity extends AppCompatActivity
 
         expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView expandableListView,
-                                        View view,
-                                        int groupPosition,
-                                        int childPosition, long id) {
-                //Log.d("DEBUG", "submenu item clicked");
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
                 Toast.makeText(SearchResultActivity.this,
                         "Header: "+String.valueOf(groupPosition) +
                                 "\nItem: "+ String.valueOf(childPosition), Toast.LENGTH_SHORT)
@@ -109,8 +103,11 @@ public class SearchResultActivity extends AppCompatActivity
         expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                //Log.d("DEBUG", "heading clicked");
-                return false;
+                if (listDataHeader.toString().equals("Reset")) {
+                    request.clearParams();
+                    adapter.getHelper().makeNewRequest(request);
+                }
+                    return false;
             }
         });
 
@@ -150,58 +147,25 @@ public class SearchResultActivity extends AppCompatActivity
 
     //DRAWER CONTINUE
     private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         // Adding data header
-        listDataHeader.add("menu1");
-        listDataHeader.add("menu2");
-        listDataHeader.add("menu3");
-        listDataHeader.add("menu4");
-        listDataHeader.add("menu5");
-        listDataHeader.add("menu6");
-        listDataHeader.add("menu7");
+        listDataHeader.add("Category");
+        listDataHeader.add("Reset");
+
 
         // Adding child data
-        List<String> heading1 = new ArrayList<String>();
+        List<String> heading1 = new ArrayList<>();
+        heading1.add("Category 137");
         heading1.add("Submenu");
         heading1.add("Submenu");
-        heading1.add("Submenu");
 
-        List<String> heading2 = new ArrayList<String>();
-        heading2.add("Submenu");
-        heading2.add("Submenu");
-        heading2.add("Submenu");
-        heading2.add("Submenu");
+        List<String> heading2 = new ArrayList<>();
 
-        List<String> heading3 = new ArrayList<String>();
-        heading3.add("Submenu");
-        heading3.add("Submenu");
-
-        List<String> heading4 = new ArrayList<String>();
-        heading4.add("Submenu");
-        heading4.add("Submenu");
-
-        List<String> heading5 = new ArrayList<String>();
-        heading5.add("Submenu");
-        heading5.add("Submenu");
-        heading5.add("Submenu");
-
-        List<String> heading6 = new ArrayList<String>();
-        heading6.add("Submenu");
-        heading6.add("Submenu");
-
-        List<String> heading7 = new ArrayList<String>();
-        heading4.add("Submenu");
-        heading4.add("Submenu");
 
         listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
         listDataChild.put(listDataHeader.get(1), heading2);
-        listDataChild.put(listDataHeader.get(2), heading3);
-        listDataChild.put(listDataHeader.get(3), heading4);
-        listDataChild.put(listDataHeader.get(4), heading5);
-        listDataChild.put(listDataHeader.get(5), heading6);
-        listDataChild.put(listDataHeader.get(6), heading7);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

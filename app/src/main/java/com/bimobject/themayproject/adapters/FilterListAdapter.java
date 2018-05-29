@@ -23,23 +23,15 @@ public class FilterListAdapter extends BaseExpandableListAdapter {
     private HashMap<String, List<String>> mListDataChild;
     ExpandableListView expandList;
 
-    public FilterListAdapter(Context context,
-                                 List<String> listDataHeader,
-                                 HashMap<String,
-                                         List<String>> listChildData
-                                 //        ,ExpandableListView mView
-    )
-    {
+    public FilterListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listChildData) {
         this.mContext = context;
         this.mListDataHeader = listDataHeader;
         this.mListDataChild = listChildData;
-        //this.expandList = mView;
     }
 
     @Override
     public int getGroupCount() {
         int i = mListDataHeader.size();
-        //Log.d("GROUPCOUNT", String.valueOf(i));
         return i;
     }
 
@@ -57,8 +49,6 @@ public class FilterListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        //Log.d("CHILD", mListDataChild.get(this.mListDataHeader.get(groupPosition))
-        //        .get(childPosition).toString());
         return this.mListDataChild.get(
                 this.mListDataHeader.get(groupPosition))
                 .get(childPosition);
@@ -87,10 +77,9 @@ public class FilterListAdapter extends BaseExpandableListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.expandable_filter_list_header, null);
         }
-        TextView lblListHeader = (TextView) convertView
+        TextView lblListHeader = convertView
                 .findViewById(R.id.expandable_filter_sublist_item);
         ImageView headerIcon = (ImageView) convertView.findViewById(R.id.iconimage);
-        //lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
         //lblListHeader.setText(headerTitle.getIconName());
         //headerIcon.setImageResource(SearchResultActivity.icon[groupPosition]);
@@ -107,7 +96,7 @@ public class FilterListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.expandable_filter_sublist, null);
         }
 
-        TextView txtListChild = (TextView) convertView
+        TextView txtListChild = convertView
                 .findViewById(R.id.expandable_filter_sublist_item);
 
         txtListChild.setText(childText);
