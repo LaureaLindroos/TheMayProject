@@ -1,5 +1,7 @@
-package com.bimobject.themayproject.dto;
+package com.bimobject.themayproject.dto.ProductInformation;
 
+
+import com.bimobject.themayproject.dto.ProductInformation.File;
 
 public class Files {
     public String id;
@@ -39,6 +41,10 @@ public class Files {
     }
 
     public File getFiletype() {
+        if(filetype==null)
+        {
+          return new File(null, null, null);
+        }
         return filetype;
     }
 

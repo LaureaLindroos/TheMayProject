@@ -28,8 +28,9 @@ public final class RVAHelper {
 
         if(this.request.hasNextPage()) {
             int page = this.request.getPage();
+            this.request.setPage(page + 1);
 
-            this.request.addPage(page + 1);
+            this.request.addPage(this.request.getPage());
             new LoadListItemsTask(this).execute(this.request);
         }
         //TODO: What else?
@@ -46,6 +47,7 @@ public final class RVAHelper {
         @Override
         protected void onPostExecute(List<Product> products) {
             context.get().adapter.addAll(products);
+            context.get().adapter.notifyDataSetChanged();
         }
 
         @Override

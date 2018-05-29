@@ -1,5 +1,6 @@
 package com.bimobject.themayproject.helpers;
 
+import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.constants.URL;
 import com.bimobject.themayproject.constants.VALUES;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 import cz.msebera.android.httpclient.Header;
 
@@ -24,11 +26,13 @@ public abstract class TokenGenerator {
     static {
         params.put("grant_type", "client_credentials");
         params.put("scope", "search_api");
-        params.put("client_id", "KaHKuGnJJduQ9Ek1ekXRw6PdLKTkdic7");
-        params.put("client_secret", "3yUKdB0agDKJlw7ltRwQ4eRTeZC2Fw22KmMNcRYfvgzQ0WxekewFfUJxhkknM7Lb");
+
     }
 
-    public static void start(){
+    public static void start(String client_id, String client_secret){
+
+        params.put("client_id", client_id);
+        params.put("client_secret", client_secret);
 
         if(t != null){
             t.cancel();

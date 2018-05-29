@@ -1,5 +1,6 @@
 package com.bimobject.themayproject;
 
+
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
@@ -11,19 +12,22 @@ import java.lang.ref.WeakReference;
 
 public class DotIndicator {
 
-    private int dotscount;
+    private int dotCount;
     private ImageView[] dots;
     private WeakReference<ProductInfoActivity> activity;
+    private LinearLayout sliderDotPanel;
 
-    public DotIndicator(int dotscount, ImageView[] dots, WeakReference<ProductInfoActivity> activity) {
-        this.dotscount = dotscount;
-        this.dots = dots;
+    public DotIndicator(WeakReference<ProductInfoActivity> activity) {
         this.activity = activity;
     }
 
     public void createIndicator() {
 
-        for (int i = 0; i < dotscount; i++) {
+        dotCount = activity.get().getViewPagerAdapter().getCount();
+        dots = new ImageView[dotCount];
+        sliderDotPanel = (LinearLayout) activity.get().findViewById(R.id.activity_product_info_ll_slider_dots);
+
+        for (int i = 0; i < dotCount; i++) {
 
             dots[i] = new ImageView(activity.get().getApplicationContext());
             dots[i].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_default));
@@ -32,12 +36,12 @@ public class DotIndicator {
 
             params.setMargins(8, 0, 8, 0);
 
-            activity.get().sliderDotspanel.addView(dots[i], params);
+            sliderDotPanel.addView(dots[i], params);
         }
 
         dots[0].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_selected));
 
-        activity.get().viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        activity.get().getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -45,7 +49,7 @@ public class DotIndicator {
             @Override
             public void onPageSelected(int position) {
 
-                for (int i = 0; i < dotscount; i++) {
+                for (int i = 0; i < dotCount; i++) {
                     dots[i].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_default));
                 }
                 dots[position].setImageDrawable(ContextCompat.getDrawable(activity.get().getApplicationContext(), R.drawable.tab_indicator_selected));
@@ -57,12 +61,13 @@ public class DotIndicator {
         });
     }
 
-    public int getDotscount() {
-        return dotscount;
+
+    public int getDotCount() {
+        return dotCount;
     }
 
-    public void setDotscount(int dotscount) {
-        this.dotscount = dotscount;
+    public void setDotCount(int dotCount) {
+        this.dotCount = dotCount;
     }
 
     public ImageView[] getDots() {
@@ -79,5 +84,13 @@ public class DotIndicator {
 
     public void setActivity(WeakReference<ProductInfoActivity> activity) {
         this.activity = activity;
+    }
+
+    public LinearLayout getSliderDotPanel() {
+        return sliderDotPanel;
+    }
+
+    public void setSliderDotPanel(LinearLayout sliderDotPanel) {
+        this.sliderDotPanel = sliderDotPanel;
     }
 }

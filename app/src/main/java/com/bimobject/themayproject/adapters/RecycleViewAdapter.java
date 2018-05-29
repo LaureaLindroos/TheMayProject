@@ -73,6 +73,17 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     @Override
+    public void onViewDetachedFromWindow(@NonNull ProductViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+
+        Picasso.with(holder.image.getContext())
+                .cancelRequest(holder.image);
+        Picasso.with(holder.brand_logo.getContext())
+                .cancelRequest(holder.brand_logo);
+
+    }
+
+    @Override
     public int getItemViewType(int position) {
         return position;
     }
@@ -83,7 +94,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     public void addAll(List<Product> objects){
         data.addAll(objects);
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     public void clear(){
@@ -122,6 +133,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         public void onClick(View v) {
             onRecycleViewItemClickListener.onItemClick(v, this.productId);
         }
+
+
 
         private void setProductId(String productId) {
             this.productId = productId;

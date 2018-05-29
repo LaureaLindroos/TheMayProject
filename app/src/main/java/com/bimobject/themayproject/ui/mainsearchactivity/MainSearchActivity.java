@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.dto.AllCategories;
+import com.bimobject.themayproject.dto.Categories;
+import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 
@@ -18,7 +21,7 @@ public class MainSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TokenGenerator.start();
+        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
         setContentView(R.layout.activity_main_search);
 
         Button searchButton = findViewById(R.id.activity_main_btn_search);

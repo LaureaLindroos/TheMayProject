@@ -29,11 +29,11 @@ import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static RecycleViewAdapter adapter;
     private static String search;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
-    private RecycleViewAdapter adapter;
     SearchView searchView;
 
 
@@ -51,10 +51,12 @@ public class SearchResultActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null)
+        if (getSupportActionBar() != null) {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         toolbar.setLogo(R.drawable.ic_logo_bimobject_black);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -67,7 +69,6 @@ public class SearchResultActivity extends AppCompatActivity
 
         request = new Request();
         request.addSearch(search);
-
 
         adapter = new RecycleViewAdapter();
 
@@ -92,10 +93,9 @@ public class SearchResultActivity extends AppCompatActivity
         });
 
         adapter.setOnBottomReachedListener(position -> {
-            adapter.getHelper().loadNextPage();
             Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
+            adapter.getHelper().loadNextPage();
         });
-
     }
 
     //DRAWER CONTINUE
@@ -136,6 +136,7 @@ public class SearchResultActivity extends AppCompatActivity
             }
         });
         return true;
+
     }
 
     @Override
