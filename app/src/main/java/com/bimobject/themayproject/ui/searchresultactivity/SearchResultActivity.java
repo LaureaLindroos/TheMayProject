@@ -1,6 +1,6 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
-
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,9 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 
+import com.bimobject.themayproject.adapters.FilterListAdapter;
+import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
@@ -31,6 +34,11 @@ import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.bimobject.themayproject.helpers.RequestService;
+
 import java.util.List;
 
 public class SearchResultActivity extends AppCompatActivity
@@ -38,11 +46,18 @@ public class SearchResultActivity extends AppCompatActivity
 
     private static RecycleViewAdapter adapter;
     private static String search;
-    private RecyclerView recyclerView;
+    FilterListAdapter mMenuAdapter;
+    ExpandableListView expandableList;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
     private DrawerLayout drawer;
     private Request request;
     SearchView searchView;
 
+    //Icons, use as you want
+   /* static int[] icon = { R.drawable.ico1, R.drawable.ico1,
+            R.drawable.ico1, R.drawable.ico1,
+            R.drawable.ico1, R.drawable.ico1, R.drawable.ico1};*/
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,8 +85,45 @@ public class SearchResultActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        expandableList = findViewById(R.id.expandable_filter_list);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
+
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
+        prepareListData();
+        mMenuAdapter = new FilterListAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        expandableList.setAdapter(mMenuAdapter);
+
+        expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
+                Toast.makeText(SearchResultActivity.this,
+                        "Header: "+String.valueOf(groupPosition) +
+                                "\nItem: "+ String.valueOf(childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                view.setSelected(true);
+
+                drawer.closeDrawers();
+                return false;
+            }
+        });
+        expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                if (listDataHeader.toString().equals("Reset")) {
+                    request.clearParams();
+                    adapter.getHelper().makeNewRequest(request);
+                }
+                    return false;
+            }
+        });
+
         //DRAWER END
 
         request = new Request();
@@ -113,6 +165,40 @@ public class SearchResultActivity extends AppCompatActivity
 
 
     //DRAWER CONTINUE
+    private void prepareListData() {
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
+
+        // Adding data header
+        listDataHeader.add("Category");
+        listDataHeader.add("Reset");
+
+
+        // Adding child data
+        List<String> heading1 = new ArrayList<>();
+        heading1.add("Category 137");
+        heading1.add("Submenu");
+        heading1.add("Submenu");
+
+        List<String> heading2 = new ArrayList<>();
+
+
+        listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
+        listDataChild.put(listDataHeader.get(1), heading2);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        drawer.closeDrawers();
+                        return true;
+                    }
+                });
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.END)) {
