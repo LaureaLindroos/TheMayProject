@@ -6,5 +6,5 @@
     <string name="loading_product">Loading product</string>
     <string name="found_product">&#160;products found</string>
     <string name="no_data_available">No data available</string>
-
+    <string name="zero_results">0 products found. Try something else!</string>
 </resources>

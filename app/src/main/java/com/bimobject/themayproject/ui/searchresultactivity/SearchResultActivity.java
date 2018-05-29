@@ -90,6 +90,7 @@ public class SearchResultActivity extends AppCompatActivity
 
         adapter.setOnNewRequestListener(request1 -> {
             if (request1.getTotalCount() == 0){
+                Toast.makeText(SearchResultActivity.this, getString(R.string.zero_results), Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
             }
