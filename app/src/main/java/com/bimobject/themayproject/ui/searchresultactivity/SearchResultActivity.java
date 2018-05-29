@@ -109,6 +109,13 @@ public class SearchResultActivity extends AppCompatActivity
     }
 
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
+    }
+
+
     //DRAWER CONTINUE
     @Override
     public void onBackPressed() {
