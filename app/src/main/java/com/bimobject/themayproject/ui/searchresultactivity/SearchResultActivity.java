@@ -51,6 +51,10 @@ public class SearchResultActivity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null)
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        toolbar.setLogo(R.drawable.ic_logo_bimobject_black);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
