@@ -14,10 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.OnNewRequestListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.TokenGenerator;
@@ -65,10 +68,11 @@ public class SearchResultActivity extends AppCompatActivity
         Request request = new Request();
         request.addSearch(search);
 
-        adapter = new RecycleViewAdapter(this);
+        adapter = new RecycleViewAdapter();
         adapter.getHelper().makeNewRequest(request);
 
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
+        TextView emptyView = findViewById(R.id.activity_search_result_empty_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -83,7 +87,18 @@ public class SearchResultActivity extends AppCompatActivity
             Toast.makeText(SearchResultActivity.this, getString(R.string.load_more_products), Toast.LENGTH_LONG).show();
             adapter.getHelper().loadNextPage();
         });
-        adapter.setOnNewRequestListener(request1 -> Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + getString(R.string.found_product), Toast.LENGTH_LONG).show());
+
+        adapter.setOnNewRequestListener(request1 -> {
+            if (request1.getTotalCount() == 0){
+                recyclerView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
+            }
+            else{
+                Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + getString(R.string.found_product), Toast.LENGTH_LONG).show();
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyView.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.bimobject.themayproject.adapters;
 
-import android.app.Activity;
+
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,10 +16,9 @@ import com.bimobject.themayproject.helpers.OnNewRequestListener;
 import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
 import com.bimobject.themayproject.helpers.Request;
-import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 import com.squareup.picasso.Picasso;
 
-import java.lang.ref.WeakReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +31,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private OnNewRequestListener onNewRequestListener;
 
     private RVAHelper helper;
-    private WeakReference<SearchResultActivity> context;
 
 
-    public RecycleViewAdapter(SearchResultActivity activity) {
+
+    public RecycleViewAdapter() {
         data = new ArrayList<>();
         helper = new RVAHelper(this);
-        this.context = new WeakReference<>(activity);
+
     }
 
     @Override
@@ -105,6 +104,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     public void addAll(List<Product> objects){
         data.addAll(objects);
         this.notifyDataSetChanged();
+        if(data.size() == 0){
+
+        }
     }
 
     public void clear(){

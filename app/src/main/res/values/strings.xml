@@ -5,5 +5,6 @@
     <string name="load_more_products">Loading more products</string>
     <string name="loading_product">Loading product</string>
     <string name="found_product">&#160;products found</string>
+    <string name="no_data_available">No data available</string>
 
 </resources>
