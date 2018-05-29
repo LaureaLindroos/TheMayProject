@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <!--TODO add filter -->
-    <!--TODO add buttons as menu items! -->
+    <!-- TODO add filters -->
+    <!-- TODO icons -->
 
     <group android:checkableBehavior="single">
         <item
@@ -18,23 +18,6 @@
             android:title="Clear filter"
             android:icon="@android:drawable/dialog_holo_light_frame"
             />
-    </group>
-
-
-   <!-- <Button
-        android:id="@+id/activity_search_result_btn_filter_clear"
-        android:layout_width="180dp"
-        android:layout_height="53dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Clear Filter" />-->
-
-   <!-- <Button
-        android:id="@+id/activity_serch_result_btn_filter"
-        android:layout_width="180dp"
-        android:layout_height="53dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Filter" />-->
+    </group>-->
 
 </menu>

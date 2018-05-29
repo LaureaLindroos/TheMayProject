@@ -1,6 +1,7 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -14,15 +15,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 
+import com.bimobject.themayproject.adapters.FilterListAdapter;
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,6 +40,16 @@ public class SearchResultActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private Request request;
     private RecycleViewAdapter adapter;
+    View view_Group;
+    FilterListAdapter mMenuAdapter;
+    ExpandableListView expandableList;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
+
+    //Icons, use as you want
+   /* static int[] icon = { R.drawable.ico1, R.drawable.ico1,
+            R.drawable.ico1, R.drawable.ico1,
+            R.drawable.ico1, R.drawable.ico1, R.drawable.ico1};*/
 
 
     @Override
@@ -56,8 +74,46 @@ public class SearchResultActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        expandableList = findViewById(R.id.expandable_filter_list);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
+
+        if (navigationView != null) {
+            setupDrawerContent(navigationView);
+        }
+        prepareListData();
+        mMenuAdapter = new FilterListAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        expandableList.setAdapter(mMenuAdapter);
+
+        expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView,
+                                        View view,
+                                        int groupPosition,
+                                        int childPosition, long id) {
+                //Log.d("DEBUG", "submenu item clicked");
+                Toast.makeText(SearchResultActivity.this,
+                        "Header: "+String.valueOf(groupPosition) +
+                                "\nItem: "+ String.valueOf(childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                view.setSelected(true);
+
+                drawer.closeDrawers();
+                return false;
+            }
+        });
+        expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                //Log.d("DEBUG", "heading clicked");
+                return false;
+            }
+        });
+
         //DRAWER END
 
         request = new Request();
@@ -86,6 +142,73 @@ public class SearchResultActivity extends AppCompatActivity
     }
 
     //DRAWER CONTINUE
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        // Adding data header
+        listDataHeader.add("menu1");
+        listDataHeader.add("menu2");
+        listDataHeader.add("menu3");
+        listDataHeader.add("menu4");
+        listDataHeader.add("menu5");
+        listDataHeader.add("menu6");
+        listDataHeader.add("menu7");
+
+        // Adding child data
+        List<String> heading1 = new ArrayList<String>();
+        heading1.add("Submenu");
+        heading1.add("Submenu");
+        heading1.add("Submenu");
+
+        List<String> heading2 = new ArrayList<String>();
+        heading2.add("Submenu");
+        heading2.add("Submenu");
+        heading2.add("Submenu");
+        heading2.add("Submenu");
+
+        List<String> heading3 = new ArrayList<String>();
+        heading3.add("Submenu");
+        heading3.add("Submenu");
+
+        List<String> heading4 = new ArrayList<String>();
+        heading4.add("Submenu");
+        heading4.add("Submenu");
+
+        List<String> heading5 = new ArrayList<String>();
+        heading5.add("Submenu");
+        heading5.add("Submenu");
+        heading5.add("Submenu");
+
+        List<String> heading6 = new ArrayList<String>();
+        heading6.add("Submenu");
+        heading6.add("Submenu");
+
+        List<String> heading7 = new ArrayList<String>();
+        heading4.add("Submenu");
+        heading4.add("Submenu");
+
+        listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
+        listDataChild.put(listDataHeader.get(1), heading2);
+        listDataChild.put(listDataHeader.get(2), heading3);
+        listDataChild.put(listDataHeader.get(3), heading4);
+        listDataChild.put(listDataHeader.get(4), heading5);
+        listDataChild.put(listDataHeader.get(5), heading6);
+        listDataChild.put(listDataHeader.get(6), heading7);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        drawer.closeDrawers();
+                        return true;
+                    }
+                });
+    }
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.END)) {

@@ -19,39 +19,19 @@
         android:layout_height="match_parent"
         android:layout_gravity="right"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/filter_header"
-        app:menu="@menu/activity_search_result_drawer"
-        />
+        app:headerLayout="@layout/filter_header">
 
-    <!--<fragment
-        android:id="@+id/top_bar_fragment"
-        class ="com.bimobject.themayproject.ui.searchresultactivity.TopBarFragment"
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        <ExpandableListView
+            android:id="@+id/expandable_filter_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="160dp"
+            android:choiceMode="singleChoice"
+            android:listSelector="@color/colorMediumGrey">
 
-    <Button
-        android:id="@+id/activity_search_result_btn_filter_clear"
-        android:layout_width="180dp"
-        android:layout_height="53dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Clear Filter" />
+        </ExpandableListView>
 
-    <Button
-        android:id="@+id/activity_serch_result_btn_filter"
-        android:layout_width="180dp"
-        android:layout_height="53dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Filter" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_search_result_rv_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_bar_fragment" /> -->
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
