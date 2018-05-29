@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 import cz.msebera.android.httpclient.Header;
 
 public abstract class TokenGenerator {
@@ -25,11 +26,13 @@ public abstract class TokenGenerator {
     static {
         params.put("grant_type", "client_credentials");
         params.put("scope", "search_api");
-        params.put("client_id", R.string.client_id);
-        params.put("client_secret", R.string.client_secret);
+
     }
 
-    public static void start(){
+    public static void start(String client_id, String client_secret){
+
+        params.put("client_id", client_id);
+        params.put("client_secret", client_secret);
 
         if(t != null){
             t.cancel();

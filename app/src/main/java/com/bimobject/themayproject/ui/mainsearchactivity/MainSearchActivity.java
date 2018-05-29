@@ -21,7 +21,7 @@ public class MainSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TokenGenerator.start();
+        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
         setContentView(R.layout.activity_main_search);
 
         Button searchButton = findViewById(R.id.activity_main_btn_search);
