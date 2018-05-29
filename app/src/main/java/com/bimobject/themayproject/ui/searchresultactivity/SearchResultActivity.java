@@ -35,11 +35,11 @@ import java.util.List;
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static RecycleViewAdapter adapter;
     private static String search;
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
-    private RecycleViewAdapter adapter;
     View view_Group;
     FilterListAdapter mMenuAdapter;
     ExpandableListView expandableList;
@@ -50,7 +50,6 @@ public class SearchResultActivity extends AppCompatActivity
    /* static int[] icon = { R.drawable.ico1, R.drawable.ico1,
             R.drawable.ico1, R.drawable.ico1,
             R.drawable.ico1, R.drawable.ico1, R.drawable.ico1};*/
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,8 +135,8 @@ public class SearchResultActivity extends AppCompatActivity
         });
 
         adapter.setOnBottomReachedListener(position -> {
-            adapter.getHelper().loadNextPage();
             Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
+            adapter.getHelper().loadNextPage();
         });
     }
 
@@ -224,6 +223,7 @@ public class SearchResultActivity extends AppCompatActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search, menu);
         return true;
+
     }
 
     @Override

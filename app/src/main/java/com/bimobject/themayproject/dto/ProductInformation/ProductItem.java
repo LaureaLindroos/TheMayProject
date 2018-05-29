@@ -1,14 +1,14 @@
-package com.bimobject.themayproject.dto;
+package com.bimobject.themayproject.dto.ProductInformation;
 
-public class File {
+public class ProductItem {
     public String id;
     public String name;
-    public String imageUrl;
+    public String imageLink;
 
-    public File(String id, String name, String imageUrl) {
+    public ProductItem(String id, String name, String imageLink) {
         this.id = id;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.imageLink = imageLink;
     }
 
     public String getId() {
@@ -27,11 +27,11 @@ public class File {
         this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageLink() {
+        return imageLink;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 }

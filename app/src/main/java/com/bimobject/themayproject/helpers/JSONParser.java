@@ -1,7 +1,9 @@
 package com.bimobject.themayproject.helpers;
 
+import com.bimobject.themayproject.dto.AllCategories;
+import com.bimobject.themayproject.dto.Categories;
 import com.bimobject.themayproject.dto.Product;
-import com.bimobject.themayproject.dto.ProductDetails;
+import com.bimobject.themayproject.dto.ProductInformation.ProductDetails;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +30,12 @@ public abstract class JSONParser {
     public static ProductDetails parseToProductDetails(JSONObject response) throws JSONException{
             JSONObject data = (JSONObject) response.get("data");
             return gson.fromJson(data.toString(), ProductDetails.class);
+
+    }
+
+    public static AllCategories parseToCategories(JSONObject response) throws JSONException{
+        JSONObject data = (JSONObject) response.get("data");
+        return gson.fromJson(data.toString(), AllCategories.class);
     }
 
     public static String parseToAccessToken(JSONObject response) throws JSONException{
