@@ -14,20 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-
 import android.widget.SearchView;
-
-import android.widget.TextView;
-
 import android.widget.Toast;
-
-
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
-import com.bimobject.themayproject.constants.STRINGS;
-import com.bimobject.themayproject.helpers.OnNewRequestListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.TokenGenerator;
@@ -38,14 +28,7 @@ public class SearchResultActivity extends AppCompatActivity
 
     private static RecycleViewAdapter adapter;
     private static String search;
-    private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private Request request;
-
-    SearchView searchView;
-
-    public TextView totalCountView;
-
 
 
     @Override
@@ -85,7 +68,6 @@ public class SearchResultActivity extends AppCompatActivity
         adapter = new RecycleViewAdapter(this);
         adapter.getHelper().makeNewRequest(request);
 
-        totalCountView = findViewById(R.id.activity_search_result_tv_total_count);
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -98,10 +80,10 @@ public class SearchResultActivity extends AppCompatActivity
         });
 
         adapter.setOnBottomReachedListener(position -> {
-            Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
+            Toast.makeText(SearchResultActivity.this, getString(R.string.load_more_products), Toast.LENGTH_LONG).show();
             adapter.getHelper().loadNextPage();
         });
-        adapter.setOnNewRequestListener(request1 -> Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + STRINGS.FOUND_PRODUCTS, Toast.LENGTH_LONG).show());
+        adapter.setOnNewRequestListener(request1 -> Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + getString(R.string.found_product), Toast.LENGTH_LONG).show());
     }
 
     @Override
@@ -129,7 +111,7 @@ public class SearchResultActivity extends AppCompatActivity
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        searchView = (SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setIconifiedByDefault(false);
         searchView.setIconified(false);
 
@@ -164,9 +146,12 @@ public class SearchResultActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        return false;
+    /*
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -180,6 +165,8 @@ public class SearchResultActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.END);
         return true;
+          */
     }
+
     //DRAWER FINISHED
 }
