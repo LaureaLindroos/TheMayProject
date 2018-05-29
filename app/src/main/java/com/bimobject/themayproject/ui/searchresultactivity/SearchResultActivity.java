@@ -90,10 +90,12 @@ public class SearchResultActivity extends AppCompatActivity
         expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
-                Toast.makeText(SearchResultActivity.this,
-                        "Header: "+String.valueOf(groupPosition) +
-                                "\nItem: "+ String.valueOf(childPosition), Toast.LENGTH_SHORT)
-                        .show();
+                String childValue = mMenuAdapter.getChild(groupPosition, childPosition).toString();
+
+                if (childValue == "Category 137") {
+                    request.addCategory("137");
+                    adapter.getHelper().makeNewRequest(request);
+                }
                 view.setSelected(true);
 
                 drawer.closeDrawers();
@@ -103,10 +105,6 @@ public class SearchResultActivity extends AppCompatActivity
         expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                if (listDataHeader.toString().equals("Reset")) {
-                    request.clearParams();
-                    adapter.getHelper().makeNewRequest(request);
-                }
                     return false;
             }
         });
