@@ -15,6 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 
@@ -25,6 +28,7 @@ import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.dto.Categories;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.RequestService;
+import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
 import java.util.List;
@@ -37,6 +41,7 @@ public class SearchResultActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private DrawerLayout drawer;
     private Request request;
+    SearchView searchView;
 
 
     @Override
@@ -44,16 +49,20 @@ public class SearchResultActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
 
-        if(getIntent().hasExtra("search")){
+        if (getIntent().hasExtra("search")) {
             search = getIntent().getStringExtra("search");
         }
 
         //DRAWER START
         drawer = findViewById(R.id.drawer_layout);
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+        toolbar.setLogo(R.drawable.ic_logo_bimobject_black);
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,15 +77,21 @@ public class SearchResultActivity extends AppCompatActivity
         request = new Request();
         request.addSearch(search);
 
-
         adapter = new RecycleViewAdapter();
+
+        if (getIntent().hasExtra("search")) {
+            search = getIntent().getStringExtra("search");
+        }
+
+        Request request = new Request();
+        request.addSearch(search);
+
         adapter.getHelper().makeNewRequest(request);
 
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
 
         adapter.setOnItemClickListener((view, productId) -> {
             Intent intent = new Intent(SearchResultActivity.this, ProductInfoActivity.class);
@@ -89,6 +104,13 @@ public class SearchResultActivity extends AppCompatActivity
             adapter.getHelper().loadNextPage();
         });
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
+    }
+
 
     //DRAWER CONTINUE
     @Override
@@ -106,6 +128,28 @@ public class SearchResultActivity extends AppCompatActivity
         new getCategoriesTask(this).execute();
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setIconifiedByDefault(false);
+        searchView.setIconified(false);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Request request = new Request();
+                request.addSearch(query);
+                adapter.getHelper().makeNewRequest(request);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
 
     }

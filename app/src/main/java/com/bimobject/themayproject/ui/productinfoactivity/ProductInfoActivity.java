@@ -18,6 +18,7 @@ import com.bimobject.themayproject.adapters.ViewPagerAdapter;
 import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.dto.ProductInformation.ProductDetails;
 import com.bimobject.themayproject.helpers.RequestService;
+import com.bimobject.themayproject.helpers.TokenGenerator;
 
 import java.lang.ref.WeakReference;
 
@@ -42,6 +43,12 @@ public class ProductInfoActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.activity_product_info_view_pager);
         viewPagerAdapter = new ViewPagerAdapter(getApplicationContext(), null);
         viewPager.setAdapter(viewPagerAdapter);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
     }
 
     public ViewPager getViewPager() {
