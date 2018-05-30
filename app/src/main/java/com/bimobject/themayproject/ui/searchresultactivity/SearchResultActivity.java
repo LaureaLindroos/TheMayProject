@@ -115,20 +115,6 @@ public class SearchResultActivity extends AppCompatActivity
             }
         });
 
-        adapter.setOnLoadListener(new OnLoadListener() {
-            @Override
-            public void startLoading() {
-                LinearLayout preloader = findViewById(R.id.activity_search_result_list_placeholder);
-                preloader.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void finishedLoading() {
-                LinearLayout preloader = findViewById(R.id.activity_search_result_list_placeholder);
-                preloader.setVisibility(View.INVISIBLE);
-            }
-        });
-
         adapter.getHelper().makeNewRequest(request);
 
     }
