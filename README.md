@@ -1,2 +1,2 @@
 # TheMayProject
-Android app made using the BIMobject open API.
+Android app using the BIMobject open API.
