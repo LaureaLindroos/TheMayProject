@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.helpers.OnBottomReachedListener;
-import com.bimobject.themayproject.helpers.OnLoadListener;
-import com.bimobject.themayproject.helpers.OnNewRequestListener;
+import com.bimobject.themayproject.helpers.OnNewRequestLoadListener;
+import com.bimobject.themayproject.helpers.OnNewRequestRecievedListener;
 import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
 import com.bimobject.themayproject.helpers.Request;
@@ -29,8 +29,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private List<Product> data;
     private OnRecycleViewItemClickListener onRecycleViewItemClickListener;
     private OnBottomReachedListener onBottomReachedListener;
-    private OnNewRequestListener onNewRequestListener;
-    private OnLoadListener onLoadListener;
+    private OnNewRequestRecievedListener onNewRequestRecievedListener;
+    private OnNewRequestLoadListener onNewRequestLoadListener;
     public boolean isLoading;
 
     private RVAHelper helper;
@@ -118,20 +118,20 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         this.onBottomReachedListener = onBottomReachedListener;
     }
 
-    public void setOnNewRequestListener(OnNewRequestListener onNewRequestListener) {
-        this.onNewRequestListener = onNewRequestListener;
+    public void setOnNewRequestRecievedListener(OnNewRequestRecievedListener onNewRequestRecievedListener) {
+        this.onNewRequestRecievedListener = onNewRequestRecievedListener;
     }
 
-    public void setOnLoadListener(OnLoadListener onLoadListener) {
-        this.onLoadListener = onLoadListener;
+    public void setOnNewRequestLoadListener(OnNewRequestLoadListener onNewRequestLoadListener) {
+        this.onNewRequestLoadListener = onNewRequestLoadListener;
     }
 
-    public OnLoadListener getOnLoadListener() {
-        return onLoadListener;
+    public OnNewRequestLoadListener getOnNewRequestLoadListener() {
+        return onNewRequestLoadListener;
     }
 
     public void onNewRequest(Request request){
-        onNewRequestListener.onNewRequest(request);
+        onNewRequestRecievedListener.onNewRequest(request);
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

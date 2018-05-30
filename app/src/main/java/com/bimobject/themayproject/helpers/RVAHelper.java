@@ -49,21 +49,13 @@ public final class RVAHelper {
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            context.get().adapter.getOnLoadListener().startLoading();
-        }
-
-        @Override
         protected void onPostExecute(List<Product> products) {
             context.get().adapter.addAll(products);
 
             if(request.getPage() == 1) {
                 context.get().adapter.onNewRequest(request);
+                context.get().adapter.getOnNewRequestLoadListener().finishedLoading();
             }
-
-            context.get().adapter.getOnLoadListener().finishedLoading();
-
         }
 
         @Override
