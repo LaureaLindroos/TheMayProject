@@ -9,22 +9,27 @@ import java.util.List;
 import java.util.Map;
 
 public class PrepareCategoriesEXLV {
-    private HashMap <String, String> listCategoriesHeader;
-    private HashMap <String, String> childArray;
+
+    private HashMap <String, String> childHashMapKeyValue;
     private List<Categories> collectedDataList;
+    public HashMap <String, String> listCategoriesHeader;
     private HashMap<String, HashMap<String, String>> listCategoriesChild;
+    private HashMap <String, ArrayList<String>> childHashMap;
+    private ArrayList<String> childArray;
+    private ArrayList<String> headerArray;
+
 
 
     public PrepareCategoriesEXLV(List<Categories> collectedDataList) {
         this.collectedDataList = collectedDataList;
         listCategoriesChild = new HashMap<>();
         listCategoriesHeader = new HashMap<>();
-        childArray = new HashMap<>();
+        headerArray= new ArrayList<>();
+        childHashMap = new HashMap<>();
+        childHashMapKeyValue = new HashMap<>();
 
         setListCategoriesHeader();
-
         setListCategoriesChild();
-        printList();
 
     }
 
@@ -32,9 +37,13 @@ public class PrepareCategoriesEXLV {
 
         for( Categories category: collectedDataList){
             ArrayList<SubCategories> children = category.getChildren();
-            for(SubCategories child : children)
-                    childArray.put(child.getName(), child.getId());
-        listCategoriesChild.put(category.getName(),childArray);
+            childArray = new ArrayList<>();
+            for(SubCategories child : children) {
+                childArray.add(child.getName());
+                childHashMapKeyValue.put(child.getName(), child.getId());
+            }
+
+            childHashMap.put(category.getName(), childArray);
         }
     }
 
@@ -52,10 +61,26 @@ public class PrepareCategoriesEXLV {
     private void setListCategoriesHeader(){
        for( Categories category: collectedDataList){
            listCategoriesHeader.put(category.getName(), category.getId());
+           headerArray.add(category.getName());
        }
     }
 
 
+    public HashMap<String, String> getListCategoriesHeader() {
+        return listCategoriesHeader;
+    }
+
+    public HashMap<String, HashMap<String, String>> getListCategoriesChild() {
+        return listCategoriesChild;
+    }
+
+    public HashMap<String, ArrayList<String>> getChildHashMap() {
+        return childHashMap;
+    }
+
+    public ArrayList<String> getHeaderArray() {
+        return headerArray;
+    }
 
 }
 
