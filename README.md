@@ -1,2 +1,2 @@
 # TheMayProject
-App for BIMobject so search their API
+Android app made using the BIMobject open API.
