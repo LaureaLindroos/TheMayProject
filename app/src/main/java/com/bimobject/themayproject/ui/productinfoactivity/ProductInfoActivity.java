@@ -4,10 +4,7 @@ import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +12,6 @@ import com.bimobject.themayproject.DotIndicator;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.adapters.ExpandableListAdapter;
 import com.bimobject.themayproject.adapters.ViewPagerAdapter;
-import com.bimobject.themayproject.constants.STRINGS;
 import com.bimobject.themayproject.dto.ProductInformation.ProductDetails;
 import com.bimobject.themayproject.helpers.RequestService;
 import com.bimobject.themayproject.helpers.TokenGenerator;
@@ -70,7 +66,7 @@ public class ProductInfoActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            Toast.makeText(activity.get().getApplicationContext(), STRINGS.LOADING, Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity.get().getApplicationContext(), activity.get().getString(R.string.loading_product), Toast.LENGTH_SHORT).show();
         }
 
         @Override

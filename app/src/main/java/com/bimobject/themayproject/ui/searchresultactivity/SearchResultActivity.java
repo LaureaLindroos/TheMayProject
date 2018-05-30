@@ -15,14 +15,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
-import com.bimobject.themayproject.constants.STRINGS;
+import com.bimobject.themayproject.helpers.OnNewRequestListener;
+import com.bimobject.themayproject.helpers.RVAHelper;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
@@ -32,20 +31,13 @@ public class SearchResultActivity extends AppCompatActivity
 
     private static RecycleViewAdapter adapter;
     private static String search;
-    private RecyclerView recyclerView;
     private DrawerLayout drawer;
-    private Request request;
-    SearchView searchView;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-
-        if (getIntent().hasExtra("search")) {
-            search = getIntent().getStringExtra("search");
-        }
 
         //DRAWER START
         drawer = findViewById(R.id.drawer_layout);
@@ -68,10 +60,6 @@ public class SearchResultActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //DRAWER END
 
-        request = new Request();
-        request.addSearch(search);
-
-        adapter = new RecycleViewAdapter();
 
         if (getIntent().hasExtra("search")) {
             search = getIntent().getStringExtra("search");
@@ -80,9 +68,11 @@ public class SearchResultActivity extends AppCompatActivity
         Request request = new Request();
         request.addSearch(search);
 
+        adapter = new RecycleViewAdapter();
         adapter.getHelper().makeNewRequest(request);
 
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
+        TextView emptyView = findViewById(R.id.activity_search_result_empty_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -94,10 +84,30 @@ public class SearchResultActivity extends AppCompatActivity
         });
 
         adapter.setOnBottomReachedListener(position -> {
-            Toast.makeText(SearchResultActivity.this, STRINGS.FETCH_MORE_PRODUCTS, Toast.LENGTH_LONG).show();
+            Toast.makeText(SearchResultActivity.this, getString(R.string.load_more_products), Toast.LENGTH_LONG).show();
             adapter.getHelper().loadNextPage();
         });
+
+        adapter.setOnNewRequestListener(request1 -> {
+            if (request1.getTotalCount() == 0){
+                Toast.makeText(SearchResultActivity.this, getString(R.string.zero_results), Toast.LENGTH_LONG).show();
+                recyclerView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
+            }
+            else{
+                Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + getString(R.string.found_product), Toast.LENGTH_LONG).show();
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyView.setVisibility(View.GONE);
+            }
+        });
     }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
+    }
+
 
     @Override
     protected void onPostResume() {
@@ -124,7 +134,7 @@ public class SearchResultActivity extends AppCompatActivity
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        searchView = (SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setIconifiedByDefault(false);
         searchView.setIconified(false);
 
@@ -159,9 +169,12 @@ public class SearchResultActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        return false;
+    /*
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -175,6 +188,8 @@ public class SearchResultActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.END);
         return true;
+          */
     }
+
     //DRAWER FINISHED
 }
