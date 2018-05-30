@@ -12,20 +12,23 @@ import android.widget.TextView;
 
 import com.bimobject.themayproject.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class FilterListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
-    private List<String> mListDataHeader; // header titles
-
+//    private HashMap<String, String> mListDataHeader; // header titles
+    private ArrayList mListDataHeader;
     // child data in format of header title, child title
-    private HashMap<String, List<String>> mListDataChild;
+  //  private HashMap<String, HashMap<String, String>> mListDataChild;
+    private HashMap<String, ArrayList<String>> mListDataChild;
     ExpandableListView expandList;
 
-    public FilterListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listChildData) {
+    public FilterListAdapter(Context context, ArrayList<String> headers, HashMap<String, ArrayList<String>> listChildData) {
         this.mContext = context;
-        this.mListDataHeader = listDataHeader;
+        this.mListDataHeader=headers;
+     //   this.mListDataHeader = listDataHeader;
         this.mListDataChild = listChildData;
     }
 
