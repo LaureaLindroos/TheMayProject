@@ -25,10 +25,11 @@ public class MainSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_search);
 
         Button searchButton = findViewById(R.id.activity_main_btn_search);
-        EditText searchBox = findViewById(R.id.activity_main_search_et_value);
+        //EditText searchBox = findViewById(R.id.activity_main_search_et_value);
 
         searchButton.setOnClickListener(view -> makeSearch());
 
+        /*
         searchBox.setOnKeyListener((v, keyCode, event) -> {
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 makeSearch();
@@ -37,7 +38,7 @@ public class MainSearchActivity extends AppCompatActivity {
             return false;
         });
 
-        /*
+
         searchButton.setOnEditorActionListener((v, actionId, event) -> {
 
             switch (actionId) {
@@ -62,7 +63,6 @@ public class MainSearchActivity extends AppCompatActivity {
     private void makeSearch() {
             EditText searchBox = findViewById(R.id.activity_main_search_et_value);
             String search = searchBox.getText().toString();
-
 
             Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
             intent.putExtra("search", search);
