@@ -32,8 +32,6 @@ public class RequestService {
                 super.onSuccess(statusCode, headers, response);
                 try {
 
-
-
                     Boolean hasNextPage = ((JSONObject)response.get("meta")).getBoolean("hasNextPage");
                     request.setHasNextPage(hasNextPage);
 
@@ -53,9 +51,6 @@ public class RequestService {
     public static ProductDetails getProductDetails(String id){
 
         final ArrayList<ProductDetails> productDetails = new ArrayList<>();
-
-        /*RequestParams params = new RequestParams();
-        params.put("fields", "name,imageUrls");*/
 
         SyncClient.get(URL.GET_PRODUCTS + id, null, new JsonHttpResponseHandler(){
 
@@ -77,13 +72,8 @@ public class RequestService {
     }
 
     public  static List<Categories> getcategories() {
-        System.out.println("Hej");
-        System.out.println("Hej");
 
         final ArrayList<Categories> categories = new ArrayList<>();
-
-        /*RequestParams params = new RequestParams();
-        params.put("fields", "name,imageUrls");*/
 
         SyncClient.get(URL.GET_CATEGORIES, null, new JsonHttpResponseHandler(){
 
@@ -93,9 +83,7 @@ public class RequestService {
 
                 try {
                     categories.addAll(JSONParser.parseToCategories(response));
-                    System.out.println("Hej");
                 } catch (JSONException e) {
-                    System.out.println("nej");
                     e.printStackTrace();
                 }
 
