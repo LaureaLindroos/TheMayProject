@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.helpers.OnBottomReachedListener;
+import com.bimobject.themayproject.helpers.OnLoadListener;
 import com.bimobject.themayproject.helpers.OnNewRequestListener;
 import com.bimobject.themayproject.helpers.OnRecycleViewItemClickListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
@@ -29,6 +30,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private OnRecycleViewItemClickListener onRecycleViewItemClickListener;
     private OnBottomReachedListener onBottomReachedListener;
     private OnNewRequestListener onNewRequestListener;
+    private OnLoadListener onLoadListener;
+    public boolean isLoading;
 
     private RVAHelper helper;
 
@@ -117,6 +120,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     public void setOnNewRequestListener(OnNewRequestListener onNewRequestListener) {
         this.onNewRequestListener = onNewRequestListener;
+    }
+
+    public void setOnLoadListener(OnLoadListener onLoadListener) {
+        this.onLoadListener = onLoadListener;
+    }
+
+    public OnLoadListener getOnLoadListener() {
+        return onLoadListener;
     }
 
     public void onNewRequest(Request request){

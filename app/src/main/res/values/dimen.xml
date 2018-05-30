@@ -4,4 +4,5 @@
     <dimen name="general_font_size">16sp</dimen>
     <dimen name="small_font_size">14sp</dimen>
     <dimen name="headline_size">18sp</dimen>
+    <dimen name="text_view_padding">2dp</dimen>
 </resources>
