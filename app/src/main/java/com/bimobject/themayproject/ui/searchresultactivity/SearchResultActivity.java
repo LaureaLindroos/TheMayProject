@@ -1,6 +1,8 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -15,30 +17,38 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
+import com.bimobject.themayproject.helpers.OnLoadListener;
 import com.bimobject.themayproject.helpers.OnNewRequestListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 
+import java.lang.ref.WeakReference;
+
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static RecycleViewAdapter adapter;
-    private static String search;
+    public static RecycleViewAdapter adapter;
     private DrawerLayout drawer;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
+
+        Request request = new Request();
+        if(getIntent().hasExtra("search")){
+            request.addSearch(getIntent().getStringExtra("search"));
+        }
 
         //DRAWER START
         drawer = findViewById(R.id.drawer_layout);
@@ -50,7 +60,6 @@ public class SearchResultActivity extends AppCompatActivity
         }
         toolbar.setLogo(R.drawable.ic_logo_bimobject_black);
 
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -60,17 +69,7 @@ public class SearchResultActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //DRAWER END
 
-
-        if (getIntent().hasExtra("search")) {
-            search = getIntent().getStringExtra("search");
-        }
-
-        Request request = new Request();
-        request.addSearch(search);
-
         adapter = new RecycleViewAdapter();
-        adapter.getHelper().makeNewRequest(request);
-
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
         TextView emptyView = findViewById(R.id.activity_search_result_empty_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -115,6 +114,23 @@ public class SearchResultActivity extends AppCompatActivity
                 emptyView.setVisibility(View.GONE);
             }
         });
+
+        adapter.setOnLoadListener(new OnLoadListener() {
+            @Override
+            public void startLoading() {
+                LinearLayout preloader = findViewById(R.id.activity_search_result_list_placeholder);
+                preloader.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void finishedLoading() {
+                LinearLayout preloader = findViewById(R.id.activity_search_result_list_placeholder);
+                preloader.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        adapter.getHelper().makeNewRequest(request);
+
     }
 
     @Override
@@ -144,8 +160,7 @@ public class SearchResultActivity extends AppCompatActivity
 
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setIconified(false);
-        searchView.setQuery(search, false);
-
+        searchView.setQuery(RVAHelper.getRequest().getSearch(), false);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -200,4 +215,5 @@ public class SearchResultActivity extends AppCompatActivity
     }
 
     //DRAWER FINISHED
+
 }
