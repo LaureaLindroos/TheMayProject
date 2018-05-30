@@ -96,6 +96,7 @@ public class SearchResultActivity extends AppCompatActivity
             } else {
                 Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + getString(R.string.found_product), Toast.LENGTH_LONG).show();
 
+                /*
                 TextView responseTextValue = findViewById(R.id.activity_search_response_search_term);
                 String search_term = request1.getSearch();
                 if (search_term.length() > 20) {
@@ -108,6 +109,7 @@ public class SearchResultActivity extends AppCompatActivity
 
                 TextView responseTotalFilters = findViewById(R.id.activity_search_response_total_filters_applied);
                 responseTotalFilters.setText("10");
+                */
 
                 recyclerView.setVisibility(View.VISIBLE);
                 emptyView.setVisibility(View.GONE);
@@ -139,9 +141,9 @@ public class SearchResultActivity extends AppCompatActivity
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        SearchView searchView = (SearchView) searchItem.getActionView();
 
-        searchView.onActionViewExpanded();
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setIconified(false);
         searchView.setQuery(search, false);
 
 

@@ -9,7 +9,7 @@
         android:actionLayout="@layout/search_bar_edit_text"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"
-        android:iconifiedByDefault="false" />
+        />
 
     <item
         android:id="@+id/action_drawer"
