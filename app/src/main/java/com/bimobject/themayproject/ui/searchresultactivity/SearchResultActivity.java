@@ -269,6 +269,10 @@ public class SearchResultActivity extends AppCompatActivity
                         request.clearParams();
                         adapter.getHelper().makeNewRequest(request);
                     }
+                    else{
+                       request.addCategory(prepareCategoriesEXLV.listCategoriesHeader.get(listDataHeader.get(i).toString()));
+              //      String s  =prepareCategoriesEXLV.listCategoriesHeader.get(listDataHeader.get(i).toString());
+                     adapter.getHelper().makeNewRequest(request);}
                     return false;
                 }
             });

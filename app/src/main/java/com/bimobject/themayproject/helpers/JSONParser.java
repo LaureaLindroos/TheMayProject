@@ -1,6 +1,6 @@
 package com.bimobject.themayproject.helpers;
 
-import com.bimobject.themayproject.dto.AllCategories;
+
 import com.bimobject.themayproject.dto.Categories;
 import com.bimobject.themayproject.dto.Product;
 import com.bimobject.themayproject.dto.ProductInformation.ProductDetails;

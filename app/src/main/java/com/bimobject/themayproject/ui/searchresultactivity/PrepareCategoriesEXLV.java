@@ -12,7 +12,7 @@ public class PrepareCategoriesEXLV {
 
     private HashMap <String, String> childHashMapKeyValue;
     private List<Categories> collectedDataList;
-    private HashMap <String, String> listCategoriesHeader;
+    public HashMap <String, String> listCategoriesHeader;
     private HashMap<String, HashMap<String, String>> listCategoriesChild;
     private HashMap <String, ArrayList<String>> childHashMap;
     private ArrayList<String> childArray;
