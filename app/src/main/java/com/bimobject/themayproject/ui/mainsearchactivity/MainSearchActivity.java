@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.dto.AllCategories;
@@ -25,9 +26,22 @@ public class MainSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_search);
 
         Button searchButton = findViewById(R.id.activity_main_btn_search);
-        //EditText searchBox = findViewById(R.id.activity_main_search_et_value);
+        SearchView searchBox = findViewById(R.id.activity_main_search_et_value);
+        searchBox.setIconifiedByDefault(false);
+        searchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                makeSearch(query);
+                return true;
+            }
 
-        searchButton.setOnClickListener(view -> makeSearch());
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        searchButton.setOnClickListener(view -> makeSearch(searchBox.getQuery().toString()));
 
         /*
         searchBox.setOnKeyListener((v, keyCode, event) -> {
@@ -60,12 +74,9 @@ public class MainSearchActivity extends AppCompatActivity {
         TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
     }
 
-    private void makeSearch() {
-            EditText searchBox = findViewById(R.id.activity_main_search_et_value);
-            String search = searchBox.getText().toString();
-
+    private void makeSearch(String query) {
             Intent intent = new Intent(MainSearchActivity.this, SearchResultActivity.class);
-            intent.putExtra("search", search);
+            intent.putExtra("search", query);
             startActivity(intent);
         }
 

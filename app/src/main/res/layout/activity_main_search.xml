@@ -7,7 +7,7 @@
     tools:context="com.bimobject.themayproject.ui.mainsearchactivity.MainSearchActivity"
     tools:layout_editor_absoluteY="81dp">
 
-    <EditText
+    <SearchView
         android:id="@+id/activity_main_search_et_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

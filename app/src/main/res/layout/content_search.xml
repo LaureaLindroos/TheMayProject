@@ -8,6 +8,7 @@
     tools:context=".ui.searchresultactivity.SearchResultActivity"
     tools:showIn="@layout/app_bar_search">
 
+    <!--
     <LinearLayout
         android:id="@+id/activity_search_result_response_info"
         android:layout_width="match_parent"
@@ -68,6 +69,7 @@
             android:gravity="center_vertical"
             android:padding="@dimen/text_view_padding" />
     </LinearLayout>
+    -->
 
 
     <android.support.v7.widget.RecyclerView
@@ -75,7 +77,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        app:layout_constraintTop_toBottomOf="@id/activity_search_result_response_info" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/activity_search_result_empty_view"
