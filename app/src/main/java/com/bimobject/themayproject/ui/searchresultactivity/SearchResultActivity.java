@@ -40,6 +40,7 @@ import java.util.HashMap;
 import com.bimobject.themayproject.helpers.RequestService;
 
 import java.util.List;
+import java.util.Map;
 
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -171,9 +172,6 @@ public class SearchResultActivity extends AppCompatActivity
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
-        // listDataHeader =prepareCategoriesEXLV.getListCategoriesHeader();
-        //listDataChild = prepareCategoriesEXLV.getListCategoriesChild();
-
 
         searchView = (SearchView) searchItem.getActionView();
         searchView.setIconifiedByDefault(false);
@@ -252,11 +250,15 @@ public class SearchResultActivity extends AppCompatActivity
             expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                 @Override
                 public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
-                    Toast.makeText(SearchResultActivity.this,
-                            "Header: "+String.valueOf(groupPosition) +
-                                    "\nItem: "+ String.valueOf(childPosition), Toast.LENGTH_SHORT)
-                            .show();
-                    view.setSelected(true);
+
+
+
+                    String outerVal = listDataHeader.get(groupPosition).toString();
+                    String innerVal = listDataChild.get(outerVal).get(childPosition).toString();
+
+                    request.clearParams();
+                    request.addCategory(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
+                    adapter.getHelper().makeNewRequest(request);
 
                     drawer.closeDrawers();
                     return false;
@@ -269,10 +271,11 @@ public class SearchResultActivity extends AppCompatActivity
                         request.clearParams();
                         adapter.getHelper().makeNewRequest(request);
                     }
-                    else{
-                       request.addCategory(prepareCategoriesEXLV.listCategoriesHeader.get(listDataHeader.get(i).toString()));
-              //      String s  =prepareCategoriesEXLV.listCategoriesHeader.get(listDataHeader.get(i).toString());
-                     adapter.getHelper().makeNewRequest(request);}
+                    else {
+                        request.addCategory(prepareCategoriesEXLV.listCategoriesHeader.get(listDataHeader.get(i).toString()));
+
+                       adapter.getHelper().makeNewRequest(request);
+                    }
                     return false;
                 }
             });
