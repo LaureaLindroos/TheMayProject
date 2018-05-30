@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.helpers.OnNewRequestListener;
@@ -45,9 +46,8 @@ public class SearchResultActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-
         toolbar.setLogo(R.drawable.ic_logo_bimobject_black);
 
 
@@ -89,13 +89,26 @@ public class SearchResultActivity extends AppCompatActivity
         });
 
         adapter.setOnNewRequestListener(request1 -> {
-            if (request1.getTotalCount() == 0){
+            if (request1.getTotalCount() == 0) {
                 Toast.makeText(SearchResultActivity.this, getString(R.string.zero_results), Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
-            }
-            else{
+            } else {
                 Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + getString(R.string.found_product), Toast.LENGTH_LONG).show();
+
+                TextView responseTextValue = findViewById(R.id.activity_search_response_search_term);
+                String search_term = request1.getSearch();
+                if (search_term.length() > 20) {
+                    search_term = search_term.substring(0, 20) + "...";
+                }
+                responseTextValue.setText("\"" + search_term + "\"");
+
+                TextView responseTotalCount = findViewById(R.id.activity_search_response_total_count);
+                responseTotalCount.setText(String.valueOf(request1.getTotalCount()));
+
+                TextView responseTotalFilters = findViewById(R.id.activity_search_response_total_filters_applied);
+                responseTotalFilters.setText("10");
+
                 recyclerView.setVisibility(View.VISIBLE);
                 emptyView.setVisibility(View.GONE);
             }
@@ -107,14 +120,6 @@ public class SearchResultActivity extends AppCompatActivity
         super.onPostResume();
         TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
     }
-
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        TokenGenerator.start(getString(R.string.client_id), getString(R.string.client_secret));
-    }
-
 
     //DRAWER CONTINUE
     @Override
@@ -135,8 +140,9 @@ public class SearchResultActivity extends AppCompatActivity
         MenuItem searchItem = menu.findItem(R.id.action_search);
 
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setIconifiedByDefault(false);
-        searchView.setIconified(false);
+
+        searchView.onActionViewExpanded();
+        searchView.setQuery(search, false);
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
