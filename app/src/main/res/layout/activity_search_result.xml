@@ -25,11 +25,11 @@
             android:id="@+id/expandable_filter_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="160dp"
-            android:choiceMode="multipleChoice"
-            android:listSelector="@color/colorMediumGrey">
+            android:layout_marginTop="160dp"/>
 
-        </ExpandableListView>
+            <!--android:choiceMode="multipleChoice"
+            android:listSelector="@color/colorMediumGrey"-->>
+
 
 
     </android.support.design.widget.NavigationView>

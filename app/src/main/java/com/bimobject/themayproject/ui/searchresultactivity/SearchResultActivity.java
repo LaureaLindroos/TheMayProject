@@ -23,6 +23,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 
+import com.bimobject.themayproject.adapters.CheckedFilterAdapter;
 import com.bimobject.themayproject.adapters.FilterListAdapter;
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 
@@ -48,7 +49,7 @@ public class SearchResultActivity extends AppCompatActivity
 
     private static RecycleViewAdapter adapter;
     private static String search;
-    FilterListAdapter mMenuAdapter;
+    CheckedFilterAdapter mMenuAdapter;
     ExpandableListView expandableList;
     ArrayList<String> listDataHeader;
     HashMap<String, ArrayList<String>> listDataChild;
@@ -213,7 +214,7 @@ public class SearchResultActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        /*int id = item.getItemId();
 
         if (id == R.id.drawer_filter_search_action) {
             request.addCategory("137");
@@ -223,7 +224,7 @@ public class SearchResultActivity extends AppCompatActivity
             adapter.getHelper().makeNewRequest(request);
         }
 
-        drawer.closeDrawer(GravityCompat.END);
+        drawer.closeDrawer(GravityCompat.END);*/
         return true;
     }
 
@@ -244,31 +245,31 @@ public class SearchResultActivity extends AppCompatActivity
             prepareCategoriesEXLV = new PrepareCategoriesEXLV(categories);
             listDataHeader = prepareCategoriesEXLV.getHeaderArray();
             listDataChild = prepareCategoriesEXLV.getChildHashMap();
-            mMenuAdapter = new FilterListAdapter(getApplicationContext(), listDataHeader, listDataChild);
+            mMenuAdapter = new CheckedFilterAdapter(getApplicationContext(), listDataHeader, listDataChild, prepareCategoriesEXLV, request, adapter);
 
             // setting list adapter
             expandableList.setAdapter(mMenuAdapter);
-           /* expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                 @Override
                 public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
 
 
-
+/*
                     String outerVal = listDataHeader.get(groupPosition).toString();
                     String innerVal = listDataChild.get(outerVal).get(childPosition).toString();
 
-           //FIXA         request.clearParams(outerVal);
+                    request.clearParam(outerVal);
                     request.addCategory(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
                     adapter.getHelper().makeNewRequest(request);
 
-                    drawer.closeDrawers();
+                    drawer.closeDrawers();*/
                     return false;
                 }
             });
             expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                 @Override
                 public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                    if (listDataHeader.toString().equals("Reset")) {
+                    /*if (listDataHeader.toString().equals("Reset")) {
                         request.clearParams();
                         adapter.getHelper().makeNewRequest(request);
                     }
@@ -276,54 +277,17 @@ public class SearchResultActivity extends AppCompatActivity
                         request.addCategory(prepareCategoriesEXLV.listCategoriesHeader.get(listDataHeader.get(i).toString()));
 
                        adapter.getHelper().makeNewRequest(request);
-                    }
+                    }*/
                     return false;
                 }
-            });*/
-
-               expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-                    @Override
-                    public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
-                        int index = parent.getFlatListPosition(ExpandableListView
-                                .getPackedPositionForGroup(groupPosition));
-                        parent.setItemChecked(index, true);
-
-                        return false;
-                    }
-                });
-    expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                    @Override
-                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-            /*Toast.makeText(scanTemplateFragment.getActivity(),
-                    expandableListTitle.get(groupPosition)
-                            + " -> "
-                            + expandableListDetail.get(
-                            expandableListTitle.get(groupPosition)).get(
-                            childPosition), Toast.LENGTH_SHORT).show();*/
-                        /*int index = parent.getFlatListPosition(ExpandableListView
-                                .getPackedPositionForChild(groupPosition, childPosition));
+            });
 
 
-                        SparseBooleanArray checked = expandableList.getCheckedItemPositions();
-
-
-                            parent.setItemChecked(index, true);*/
-
-                        System.out.println("pressed" +
-                                "");
-
-
-
-                        return false;
-                    }
-                });
         }
 
         @Override
         protected List<Categories> doInBackground(String... strings) {
-            List<Categories> c2 = RequestService.getcategories();
-
-            return c2;
+            return RequestService.getcategories();
         }
     }
     //DRAWER FINISHED

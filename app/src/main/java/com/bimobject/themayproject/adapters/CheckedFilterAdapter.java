@@ -6,9 +6,11 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -18,6 +20,9 @@ import android.widget.TextView;
 import com.bimobject.themayproject.R;
 import com.bimobject.themayproject.dto.Categories;
 import com.bimobject.themayproject.dto.SubCategories;
+import com.bimobject.themayproject.ui.searchresultactivity.PrepareCategoriesEXLV;
+import com.bimobject.themayproject.helpers.Request;
+import com.loopj.android.http.RequestParams;
 
 // Eclipse wanted me to use a sparse array instead of my hashmaps, I just suppressed that suggestion
 @SuppressLint("UseSparseArrays")
@@ -25,13 +30,16 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
 
     // Define activity context
     private Context mContext;
-
+    private PrepareCategoriesEXLV prepareCategoriesEXLV;
+    private Request request;
+    private DrawerLayout drawer;
+    private static RecycleViewAdapter adapter;
     /*
      * Here we have a Hashmap containing a String key
      * (can be Integer or other type but I was testing
      * with contacts so I used contact name as the key)
      */
-    private HashMap<String, List<String>> mListDataChild;
+    private HashMap<String, ArrayList<String>> mListDataChild;
 
     // ArrayList that is what each key in the above
     // hashmap points to
@@ -53,16 +61,21 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
      */
     private String groupText;
     private String childText;
+    private ArrayList<String> categoryParams;
 
     /*  Here's the constructor we'll use to pass in our calling
      *  activity's context, group items, and child items
      */
     public CheckedFilterAdapter(Context context,
-                                          ArrayList<String> listDataGroup, HashMap<String, List<String>> listDataChild) {
+                                ArrayList<String> listDataGroup, HashMap<String, ArrayList<String>> listDataChild, PrepareCategoriesEXLV mprepareCategoriesEXLV, Request mRequest, RecycleViewAdapter mAdapter) {
 
         mContext = context;
         mListDataGroup = listDataGroup;
         mListDataChild = listDataChild;
+        prepareCategoriesEXLV =mprepareCategoriesEXLV;
+        request = mRequest;
+        adapter = mAdapter;
+        this.categoryParams = new ArrayList<>();
 
         // Initialize our hashmap containing our check states here
         mChildCheckStates = new HashMap<Integer, boolean[]>();
@@ -223,17 +236,36 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
                     boolean getChecked[] = mChildCheckStates.get(mGroupPosition);
                     getChecked[mChildPosition] = isChecked;
                     mChildCheckStates.put(mGroupPosition, getChecked);
+                    String outerVal = mListDataGroup.get(groupPosition).toString();
+                    String innerVal = mListDataChild.get(outerVal).get(childPosition).toString();
+                    if(categoryParams.contains(outerVal))
+                    {categoryParams.remove(outerVal);}
+                   categoryParams.add(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
+                   makeRequest();
 
                 } else {
 
                     boolean getChecked[] = mChildCheckStates.get(mGroupPosition);
                     getChecked[mChildPosition] = isChecked;
                     mChildCheckStates.put(mGroupPosition, getChecked);
+                    String outerVal = mListDataGroup.get(groupPosition).toString();
+                    String innerVal = mListDataChild.get(outerVal).get(childPosition).toString();
+                    categoryParams.remove(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
+
                 }
             }
         });
 
         return convertView;
+    }
+
+    private void makeRequest() {
+        request.clearParams();
+        for(String param : categoryParams){
+            request.addCategory(param);
+        }
+        adapter.getHelper().makeNewRequest(request);
+
     }
 
     @Override

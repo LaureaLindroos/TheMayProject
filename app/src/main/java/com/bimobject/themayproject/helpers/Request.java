@@ -41,6 +41,7 @@ public class Request {
     }
 
 
+
     public boolean hasNextPage() {
         return hasNextPage;
     }
