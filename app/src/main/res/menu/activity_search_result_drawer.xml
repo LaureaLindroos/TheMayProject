@@ -17,7 +17,8 @@
             android:id="@+id/drawer_filter_search_clear"
             android:title="Clear filter"
             android:icon="@android:drawable/dialog_holo_light_frame"
+            android:focusable="false"
             />
-    </group>-->
+    </group>
 
 </menu>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BIMobject</string>'
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="load_more_products">Loading more products</string>
+    <string name="loading_product">Loading product</string>
+    <string name="found_product">&#160;products found</string>
+    <string name="no_data_available">No data available</string>
+    <string name="zero_results">0 products found. Try something else!</string>
+    <string name="search_term_desc">Search:&#160;</string>
+    <string name="total_count_desc">&#160;Results:&#160;</string>
+    <string name="filters_applied_desc">&#160;Filters:&#160;</string>
+</resources>

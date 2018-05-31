@@ -32,6 +32,10 @@ public class RequestService {
                 super.onSuccess(statusCode, headers, response);
                 try {
 
+
+                    int totalCount = ((JSONObject)response.get("meta")).getInt("totalCount");
+                    request.setTotalCount(totalCount);
+
                     Boolean hasNextPage = ((JSONObject)response.get("meta")).getBoolean("hasNextPage");
                     request.setHasNextPage(hasNextPage);
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 public final class RVAHelper {
 
-    private Request request;
+    private static Request request;
     private RecycleViewAdapter adapter;
 
     public RVAHelper(RecycleViewAdapter adapter) {
@@ -20,21 +20,25 @@ public final class RVAHelper {
     }
 
     public void makeNewRequest(Request req){
-            this.request = req;
+            request = req;
             adapter.clear();
-            new LoadListItemsTask(this).execute(this.request);
+            new LoadListItemsTask(this).execute(request);
     }
 
     public void loadNextPage(){
 
-        if(this.request.hasNextPage()) {
-            int page = this.request.getPage();
-            this.request.setPage(page + 1);
+        if(request.hasNextPage()) {
+            int page = request.getPage();
+            request.setPage(page + 1);
 
-            this.request.addPage(this.request.getPage());
-            new LoadListItemsTask(this).execute(this.request);
+            request.addPage(request.getPage());
+            new LoadListItemsTask(this).execute(request);
         }
         //TODO: What else?
+    }
+
+    public static Request getRequest() {
+        return request;
     }
 
     private static class LoadListItemsTask extends AsyncTask<Request, String, List<Product>> {
@@ -46,9 +50,18 @@ public final class RVAHelper {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
         protected void onPostExecute(List<Product> products) {
             context.get().adapter.addAll(products);
-            context.get().adapter.notifyDataSetChanged();
+
+            if(request.getPage() == 1) {
+                context.get().adapter.onNewRequest(request);
+            }
+
         }
 
         @Override
