@@ -87,6 +87,7 @@
         android:text="@string/no_data_available"
         android:visibility="gone" />
 
+    <!--
     <LinearLayout
         android:id="@+id/activity_search_result_list_placeholder"
         android:layout_width="wrap_content"
@@ -109,5 +110,6 @@
             android:src="@drawable/progress_animation"
            />
     </LinearLayout>
+    -->
 
 </android.support.constraint.ConstraintLayout>
