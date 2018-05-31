@@ -8,9 +8,9 @@
         android:title="Search"
         android:actionLayout="@layout/search_bar_edit_text"
         app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:showAsAction="ifRoom|collapseActionView"
+        />
 
-    <!-- TODO add filter icon -->
     <item
         android:id="@+id/action_drawer"
         android:icon="@drawable/ic_action_sort"

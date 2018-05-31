@@ -8,18 +8,108 @@
     tools:context=".ui.searchresultactivity.SearchResultActivity"
     tools:showIn="@layout/app_bar_search">
 
+    <!--
+    <LinearLayout
+        android:id="@+id/activity_search_result_response_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/general_margin"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/activity_search_result_rv_list"
+        app:layout_constraintEnd_toStartOf="@+id/activity_search_result_rv_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/activity_search_response_search_term_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_view_padding"
+            android:text="@string/search_term_desc" />
+
+        <TextView
+            android:id="@+id/activity_search_response_search_term"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/colorLighterGrey"
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_view_padding" />
+
+        <TextView
+            android:id="@+id/activity_search_response_total_count_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_view_padding"
+            android:text="@string/total_count_desc" />
+
+        <TextView
+            android:id="@+id/activity_search_response_total_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/colorLighterGrey"
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_view_padding" />
+
+        <TextView
+            android:id="@+id/activity_search_response_total_filters_applied_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_view_padding"
+            android:text="@string/filters_applied_desc" />
+
+        <TextView
+            android:id="@+id/activity_search_response_total_filters_applied"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/colorLighterGrey"
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_view_padding" />
+    </LinearLayout>
+    -->
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_search_result_rv_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/activity_search_result_empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:text="@string/no_data_available"
+        android:visibility="gone" />
+
+    <!--
+    <LinearLayout
+        android:id="@+id/activity_search_result_list_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:visibility="gone"
-        android:text="@string/no_data_available" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/activity_search_result_list_placeholder_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:cropToPadding="false"
+            android:src="@drawable/progress_animation"
+           />
+    </LinearLayout>
+    -->
 
 </android.support.constraint.ConstraintLayout>
