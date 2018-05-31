@@ -48,19 +48,13 @@ public final class RVAHelper {
             context = new WeakReference<>(helper);
         }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
         protected void onPostExecute(List<Product> products) {
             context.get().adapter.addAll(products);
 
             if(request.getPage() == 1) {
                 context.get().adapter.onNewRequest(request);
+                context.get().adapter.getOnNewRequestLoadListener().finishedLoading();
             }
-
         }
 
         @Override

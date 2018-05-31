@@ -1,8 +1,6 @@
 package com.bimobject.themayproject.ui.searchresultactivity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -17,22 +15,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 import com.bimobject.themayproject.R;
-import com.bimobject.themayproject.helpers.OnLoadListener;
-import com.bimobject.themayproject.helpers.OnNewRequestListener;
+import com.bimobject.themayproject.helpers.OnNewRequestLoadListener;
 import com.bimobject.themayproject.helpers.RVAHelper;
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
-
-import java.lang.ref.WeakReference;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 public class SearchResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +43,25 @@ public class SearchResultActivity extends AppCompatActivity
         if(getIntent().hasExtra("search")){
             request.addSearch(getIntent().getStringExtra("search"));
         }
+
+
+        adapter = new RecycleViewAdapter();
+        adapter.setOnNewRequestLoadListener(new OnNewRequestLoadListener() {
+            @Override
+            public void startLoading() {
+                ShimmerFrameLayout container = findViewById(R.id.shimmer_view_container);
+                container.startShimmerAnimation();
+                container.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void finishedLoading() {
+                ShimmerFrameLayout container = findViewById(R.id.shimmer_view_container);
+                container.stopShimmerAnimation();
+                container.setVisibility(View.GONE);
+            }
+        });
+        adapter.getOnNewRequestLoadListener().startLoading();
 
         //DRAWER START
         drawer = findViewById(R.id.drawer_layout);
@@ -69,7 +82,6 @@ public class SearchResultActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         //DRAWER END
 
-        adapter = new RecycleViewAdapter();
         RecyclerView recyclerView = findViewById(R.id.activity_search_result_rv_list);
         TextView emptyView = findViewById(R.id.activity_search_result_empty_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -87,13 +99,14 @@ public class SearchResultActivity extends AppCompatActivity
             adapter.getHelper().loadNextPage();
         });
 
-        adapter.setOnNewRequestListener(request1 -> {
+        adapter.setOnNewRequestRecievedListener(request1 -> {
             if (request1.getTotalCount() == 0) {
                 Toast.makeText(SearchResultActivity.this, getString(R.string.zero_results), Toast.LENGTH_LONG).show();
                 recyclerView.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(SearchResultActivity.this, RVAHelper.getRequest().getTotalCount() + getString(R.string.found_product), Toast.LENGTH_LONG).show();
+
 
                 /*
                 TextView responseTextValue = findViewById(R.id.activity_search_response_search_term);
