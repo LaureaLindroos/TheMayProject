@@ -1,31 +1,25 @@
 package com.bimobject.themayproject.ui.mainsearchactivity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.bimobject.themayproject.R;
 
 
 
+
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 
 import com.bimobject.themayproject.dto.Categories;
-import com.bimobject.themayproject.helpers.OnLoadListener;
+
 import com.bimobject.themayproject.helpers.Request;
 import com.bimobject.themayproject.helpers.RequestService;
+
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
-
-import java.lang.ref.WeakReference;
 
 public class MainSearchActivity extends AppCompatActivity {
 
