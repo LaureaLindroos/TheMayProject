@@ -5,9 +5,19 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorBimPrimary</item>
         <item name="colorPrimaryDark">@color/colorBimDarker</item>
-        <item name="colorAccent">@color/colorMediumGrey</item>
+        <item name="colorAccent">@color/colorBimDarker</item>
         <item name="android:statusBarColor">@color/colorDarkGrey</item>
         <item name="android:toolbarStyle">@color/colorMediumGrey</item>
+        <item name="android:checkboxStyle">@style/checkBoxStyle</item>
+    </style>
+
+    <style name="checkBoxStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">@color/colorBimPrimary</item>
+        <item name="android:textColorSecondary">@color/colorLightGrey</item>
+    </style>
+
+    <style name="main_search" parent="Widget.AppCompat.EditText">
+        <item name="android:backgroundTint">@color/colorMediumGrey</item>
     </style>
 
 </resources>
