@@ -246,6 +246,10 @@ public class SearchResultActivity extends AppCompatActivity
             listDataChild = prepareCategoriesEXLV.getChildHashMap();
             mMenuAdapter = new FilterListAdapter(getApplicationContext(), listDataHeader, listDataChild);
 
+
+            Button resetFilter = findViewById(R.id.filter_reset_btn);
+            resetFilter.setOnClickListener(view -> makeCleanFilter());
+
             // setting list adapter
             expandableList.setAdapter(mMenuAdapter);
            /* expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -316,6 +320,7 @@ public class SearchResultActivity extends AppCompatActivity
 
                         return false;
                     }
+
                 });
         }
 
@@ -325,6 +330,12 @@ public class SearchResultActivity extends AppCompatActivity
 
             return c2;
         }
+    }
+
+    private void makeCleanFilter() {
+        request.clearParams();
+        adapter.getHelper().makeNewRequest(request);
+        drawer.closeDrawer(GravityCompat.END);
     }
     //DRAWER FINISHED
 }

@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom"
+    android:layout_gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/general_margin"
     android:paddingLeft="@dimen/general_margin"
@@ -17,5 +18,12 @@
         android:contentDescription="bimobject logo"
         android:paddingTop="@dimen/general_margin"
         app:srcCompat="@drawable/ic_bim_logo_black_large" />
+
+    <Button
+        android:id="@+id/filter_reset_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_reset_filter"
+        android:text="Reset filter" />
 
 </LinearLayout>
