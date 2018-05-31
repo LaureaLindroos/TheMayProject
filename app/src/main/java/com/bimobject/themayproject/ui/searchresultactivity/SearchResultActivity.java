@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -247,7 +248,7 @@ public class SearchResultActivity extends AppCompatActivity
 
             // setting list adapter
             expandableList.setAdapter(mMenuAdapter);
-            expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+           /* expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                 @Override
                 public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
 
@@ -256,7 +257,7 @@ public class SearchResultActivity extends AppCompatActivity
                     String outerVal = listDataHeader.get(groupPosition).toString();
                     String innerVal = listDataChild.get(outerVal).get(childPosition).toString();
 
-                    request.clearParams();
+           //FIXA         request.clearParams(outerVal);
                     request.addCategory(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
                     adapter.getHelper().makeNewRequest(request);
 
@@ -278,7 +279,44 @@ public class SearchResultActivity extends AppCompatActivity
                     }
                     return false;
                 }
-            });
+            });*/
+
+               expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+                    @Override
+                    public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
+                        int index = parent.getFlatListPosition(ExpandableListView
+                                .getPackedPositionForGroup(groupPosition));
+                        parent.setItemChecked(index, true);
+
+                        return false;
+                    }
+                });
+    expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+            /*Toast.makeText(scanTemplateFragment.getActivity(),
+                    expandableListTitle.get(groupPosition)
+                            + " -> "
+                            + expandableListDetail.get(
+                            expandableListTitle.get(groupPosition)).get(
+                            childPosition), Toast.LENGTH_SHORT).show();*/
+                        /*int index = parent.getFlatListPosition(ExpandableListView
+                                .getPackedPositionForChild(groupPosition, childPosition));
+
+
+                        SparseBooleanArray checked = expandableList.getCheckedItemPositions();
+
+
+                            parent.setItemChecked(index, true);*/
+
+                        System.out.println("pressed" +
+                                "");
+
+
+
+                        return false;
+                    }
+                });
         }
 
         @Override
