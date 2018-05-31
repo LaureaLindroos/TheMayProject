@@ -48,7 +48,6 @@ public final class RVAHelper {
             context = new WeakReference<>(helper);
         }
 
-        @Override
         protected void onPostExecute(List<Product> products) {
             context.get().adapter.addAll(products);
 

@@ -132,6 +132,7 @@ public class SearchResultActivity extends AppCompatActivity
 
     }
 
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
