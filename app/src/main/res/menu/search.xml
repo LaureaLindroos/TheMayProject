@@ -10,7 +10,6 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 
-    <!-- TODO add filter icon -->
     <item
         android:id="@+id/action_drawer"
         android:icon="@drawable/ic_action_sort"
