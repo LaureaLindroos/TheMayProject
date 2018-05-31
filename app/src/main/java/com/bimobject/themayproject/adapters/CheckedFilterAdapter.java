@@ -44,10 +44,17 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
     // ArrayList that is what each key in the above
     // hashmap points to
     private ArrayList<String> mListDataGroup;
+    public ArrayList<CompoundButton> checkBoxes;
+    public ArrayList<CompoundButton> checkBoxesGroup;
+
+    public HashMap<Integer, boolean[]> getmChildCheckStates() {
+        return mChildCheckStates;
+    }
+
 
     // Hashmap for keeping track of our checkbox check states
     private HashMap<Integer, boolean[]> mChildCheckStates;
-
+    private ArrayList<Boolean> mGroupCheckStates;
     // Our getChildView & getGroupView use the viewholder patter
     // Here are the viewholders defined, the inner classes are
     // at the bottom
@@ -76,9 +83,12 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
         request = mRequest;
         adapter = mAdapter;
         this.categoryParams = new ArrayList<>();
+        this.checkBoxes = new ArrayList<>();
+        this.checkBoxesGroup = new ArrayList<>();
 
         // Initialize our hashmap containing our check states here
         mChildCheckStates = new HashMap<Integer, boolean[]>();
+        mGroupCheckStates = new ArrayList<>();
     }
 
     @Override
@@ -121,13 +131,44 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
 
             groupViewHolder.mGroupText = (TextView) convertView.findViewById(R.id.expandable_filter_sublist_item);
 
+            groupViewHolder.mGroupCheckBox=(CheckBox) convertView.findViewById(R.id.check_Box_group);
+
             convertView.setTag(groupViewHolder);
         } else {
 
             groupViewHolder = (GroupViewHolder) convertView.getTag();
         }
 
+
         groupViewHolder.mGroupText.setText(groupText);
+        groupViewHolder.mGroupCheckBox.setOnCheckedChangeListener(null);
+
+        boolean getChecked = false;
+        mGroupCheckStates.add(getChecked);
+        groupViewHolder.mGroupCheckBox.setChecked(false);
+
+        checkBoxes.add(groupViewHolder.mGroupCheckBox);
+
+        groupViewHolder.mGroupCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    boolean getChecked = mGroupCheckStates.get(groupPosition);
+                    getChecked = isChecked;
+                    mGroupCheckStates.add(getChecked);
+                    categoryParams.add(prepareCategoriesEXLV.listCategoriesHeader.get(prepareCategoriesEXLV.headerArray.get(groupPosition).toString()));
+                    makeRequest();
+
+                }
+                else{
+                    boolean getChecked = mGroupCheckStates.get(groupPosition);
+                    getChecked = isChecked;
+                    mGroupCheckStates.add(getChecked);
+                    categoryParams.remove(prepareCategoriesEXLV.listCategoriesHeader.get(prepareCategoriesEXLV.headerArray.get(groupPosition).toString()));
+                    makeRequest();
+                }
+                }
+        });
 
         return convertView;
     }
@@ -226,6 +267,8 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
             childViewHolder.mCheckBox.setChecked(false);
         }
 
+        checkBoxes.add(childViewHolder.mCheckBox);
+
         childViewHolder.mCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
@@ -238,8 +281,8 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
                     mChildCheckStates.put(mGroupPosition, getChecked);
                     String outerVal = mListDataGroup.get(groupPosition).toString();
                     String innerVal = mListDataChild.get(outerVal).get(childPosition).toString();
-                    if(categoryParams.contains(outerVal))
-                    {categoryParams.remove(outerVal);}
+                    if(categoryParams.contains(prepareCategoriesEXLV.listCategoriesHeader.get(groupPosition)))
+                    {categoryParams.remove(prepareCategoriesEXLV.listCategoriesHeader.get(groupPosition));}
                    categoryParams.add(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
                    makeRequest();
 
@@ -251,7 +294,7 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
                     String outerVal = mListDataGroup.get(groupPosition).toString();
                     String innerVal = mListDataChild.get(outerVal).get(childPosition).toString();
                     categoryParams.remove(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
-
+                    makeRequest();
                 }
             }
         });
@@ -281,6 +324,7 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
     public final class GroupViewHolder {
 
         TextView mGroupText;
+        CheckBox mGroupCheckBox;
     }
 
     public final class ChildViewHolder {
@@ -288,4 +332,9 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
         TextView mChildText;
         CheckBox mCheckBox;
     }
+
+    public ArrayList<CompoundButton> getCheckBoxes(){
+        return this.checkBoxes;
+    }
+
 }

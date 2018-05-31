@@ -18,13 +18,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.SearchView;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 
 import com.bimobject.themayproject.adapters.CheckedFilterAdapter;
-import com.bimobject.themayproject.adapters.FilterListAdapter;
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 
 import com.bimobject.themayproject.R;
@@ -213,18 +213,6 @@ public class SearchResultActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        /*int id = item.getItemId();
-
-        if (id == R.id.drawer_filter_search_action) {
-            request.addCategory("137");
-            adapter.getHelper().makeNewRequest(request);
-        } else if (id == R.id.drawer_filter_search_clear) {
-            request.clearParams();
-            adapter.getHelper().makeNewRequest(request);
-        }
-
-        drawer.closeDrawer(GravityCompat.END);*/
         return true;
     }
 
@@ -256,32 +244,12 @@ public class SearchResultActivity extends AppCompatActivity
             expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
                 @Override
                 public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
-
-
-/*
-                    String outerVal = listDataHeader.get(groupPosition).toString();
-                    String innerVal = listDataChild.get(outerVal).get(childPosition).toString();
-
-                    request.clearParam(outerVal);
-                    request.addCategory(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
-                    adapter.getHelper().makeNewRequest(request);
-
-                    drawer.closeDrawers();*/
                     return false;
                 }
             });
             expandableList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                 @Override
                 public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                    /*if (listDataHeader.toString().equals("Reset")) {
-                        request.clearParams();
-                        adapter.getHelper().makeNewRequest(request);
-                    }
-                    else {
-                        request.addCategory(prepareCategoriesEXLV.listCategoriesHeader.get(listDataHeader.get(i).toString()));
-
-                       adapter.getHelper().makeNewRequest(request);
-                    }*/
                     return false;
                 }
             });
@@ -296,9 +264,11 @@ public class SearchResultActivity extends AppCompatActivity
     }
 
     private void makeCleanFilter() {
+
+        mMenuAdapter.getCheckBoxes().forEach(c -> c.setChecked(false));
+
         request.clearParams();
         adapter.getHelper().makeNewRequest(request);
-        drawer.closeDrawer(GravityCompat.END);
     }
     //DRAWER FINISHED
 }

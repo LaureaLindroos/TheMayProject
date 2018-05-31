@@ -15,7 +15,7 @@ public class PrepareCategoriesEXLV {
     public HashMap <String, String> listCategoriesHeader;
     private HashMap <String, ArrayList<String>> childHashMap;
     public ArrayList<String> childArray;
-    private ArrayList<String> headerArray;
+    public ArrayList<String> headerArray;
     public HashMap <String, HashMap<String, String>> catalogueSubcategories;
 
 
