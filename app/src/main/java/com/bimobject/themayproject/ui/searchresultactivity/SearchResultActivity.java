@@ -317,6 +317,7 @@ public class SearchResultActivity extends AppCompatActivity
     private void makeCleanFilter() {
 
         mMenuAdapter.getCheckBoxes().forEach(c -> c.setChecked(false));
+        mMenuAdapter.getCheckBoxesGroup().forEach(c -> c.setChecked(false));
         request.clearParams();
         adapter.getHelper().makeNewRequest(request);
 

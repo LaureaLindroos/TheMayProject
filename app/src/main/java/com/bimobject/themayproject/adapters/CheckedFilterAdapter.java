@@ -50,7 +50,7 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
 
     // Hashmap for keeping track of our checkbox check states
     private HashMap<Integer, boolean[]> mChildCheckStates;
-    private ArrayList<Boolean> mGroupCheckStates;
+    private HashMap<Integer, Boolean> mGroupCheckStates;
     // Our getChildView & getGroupView use the viewholder patter
     // Here are the viewholders defined, the inner classes are
     // at the bottom
@@ -84,7 +84,11 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
 
         // Initialize our hashmap containing our check states here
         mChildCheckStates = new HashMap<Integer, boolean[]>();
-        mGroupCheckStates = new ArrayList<>();
+        mGroupCheckStates = new HashMap<Integer, Boolean>();
+        //Initializing groupcheckstates to false
+        for(int i = 0; i < getGroupCount(); i++){
+            mGroupCheckStates.put(i, false);
+        }
     }
 
     @Override
@@ -139,32 +143,26 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
         groupViewHolder.mGroupText.setText(groupText);
         groupViewHolder.mGroupCheckBox.setOnCheckedChangeListener(null);
 
-        boolean getChecked = false;
-        mGroupCheckStates.add(getChecked);
-        groupViewHolder.mGroupCheckBox.setChecked(false);
-
         checkBoxes.add(groupViewHolder.mGroupCheckBox);
 
         groupViewHolder.mGroupCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    boolean getChecked = mGroupCheckStates.get(groupPosition);
-                    getChecked = isChecked;
-                    mGroupCheckStates.add(getChecked);
+                    mGroupCheckStates.put(groupPosition, isChecked);
                     categoryParams.add(prepareCategoriesEXLV.listCategoriesHeader.get(mListDataGroup.get(groupPosition).toString()).toString());
                     makeRequest();
 
                 }
                 else{
-                    boolean getChecked = mGroupCheckStates.get(groupPosition);
-                    getChecked = isChecked;
-                    mGroupCheckStates.add(getChecked);
+                    mGroupCheckStates.put(groupPosition, isChecked);
                     categoryParams.remove(prepareCategoriesEXLV.listCategoriesHeader.get(mListDataGroup.get(groupPosition).toString()).toString());
                     makeRequest();
                 }
                 }
         });
+
+        groupViewHolder.mGroupCheckBox.setChecked(mGroupCheckStates.get(groupPosition));
 
         return convertView;
     }
@@ -325,6 +323,10 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean hasStableIds() {
         return false;
+    }
+
+    public ArrayList<CompoundButton> getCheckBoxesGroup() {
+        return checkBoxesGroup;
     }
 
     public final class GroupViewHolder {
