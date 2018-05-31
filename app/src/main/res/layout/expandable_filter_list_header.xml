@@ -18,17 +18,14 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textColor="@color/colorDarkerGrey"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
                 <CheckBox
                     android:id="@+id/check_Box_group"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:focusable="false"/>
-
-
-
-
+                    android:focusable="false"
+                    />
         </LinearLayout>
 
 

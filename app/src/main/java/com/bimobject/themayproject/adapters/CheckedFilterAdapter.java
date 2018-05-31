@@ -281,9 +281,18 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
                     mChildCheckStates.put(mGroupPosition, getChecked);
                     String outerVal = mListDataGroup.get(groupPosition).toString();
                     String innerVal = mListDataChild.get(outerVal).get(childPosition).toString();
-                    if(categoryParams.contains(prepareCategoriesEXLV.listCategoriesHeader.get(groupPosition)))
-                    {categoryParams.remove(prepareCategoriesEXLV.listCategoriesHeader.get(groupPosition));}
-                   categoryParams.add(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
+
+                    if(categoryParams.contains(prepareCategoriesEXLV.listCategoriesHeader.get(prepareCategoriesEXLV.headerArray.get(groupPosition).toString())))
+                    {
+                        categoryParams.remove(prepareCategoriesEXLV.listCategoriesHeader.get(prepareCategoriesEXLV.headerArray.get(groupPosition).toString()));
+                        boolean getCheckedGroup = mGroupCheckStates.get(mGroupPosition);
+                        getCheckedGroup = false;
+                        //Trying to uncheck the box
+                        mGroupCheckStates.set(groupPosition, getCheckedGroup);
+                    }
+
+
+                    categoryParams.add(prepareCategoriesEXLV.catalogueSubcategories.get(outerVal).get(innerVal).toString());
                    makeRequest();
 
                 } else {
