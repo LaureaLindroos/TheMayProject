@@ -36,16 +36,13 @@ import com.bimobject.themayproject.adapters.CheckedFilterAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import android.widget.SearchView;
+
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bimobject.themayproject.adapters.RecycleViewAdapter;
 
 import com.bimobject.themayproject.R;
 
-import com.bimobject.themayproject.adapters.RecycleViewAdapter;
-import com.bimobject.themayproject.constants.FILTER;
 import com.bimobject.themayproject.dto.Categories;
 
 
@@ -63,12 +60,9 @@ import com.bimobject.themayproject.ui.productinfoactivity.ProductInfoActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.bimobject.themayproject.helpers.RequestService;
 
 import java.util.List;
-import java.util.Map;
 
-import java.lang.ref.WeakReference;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 

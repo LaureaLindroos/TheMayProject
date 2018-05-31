@@ -2,15 +2,15 @@ package com.bimobject.themayproject.adapters;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v4.widget.DrawerLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
+
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -18,11 +18,10 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.bimobject.themayproject.R;
-import com.bimobject.themayproject.dto.Categories;
-import com.bimobject.themayproject.dto.SubCategories;
+
 import com.bimobject.themayproject.ui.searchresultactivity.PrepareCategoriesEXLV;
 import com.bimobject.themayproject.helpers.Request;
-import com.loopj.android.http.RequestParams;
+
 
 // Eclipse wanted me to use a sparse array instead of my hashmaps, I just suppressed that suggestion
 @SuppressLint("UseSparseArrays")
@@ -32,7 +31,6 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private PrepareCategoriesEXLV prepareCategoriesEXLV;
     private Request request;
-    private DrawerLayout drawer;
     private static RecycleViewAdapter adapter;
     /*
      * Here we have a Hashmap containing a String key
