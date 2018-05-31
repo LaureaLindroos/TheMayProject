@@ -46,11 +46,7 @@ public class CheckedFilterAdapter extends BaseExpandableListAdapter {
     private ArrayList<String> mListDataGroup;
     public ArrayList<CompoundButton> checkBoxes;
     public ArrayList<CompoundButton> checkBoxesGroup;
-
-    public HashMap<Integer, boolean[]> getmChildCheckStates() {
-        return mChildCheckStates;
-    }
-
+    
 
     // Hashmap for keeping track of our checkbox check states
     private HashMap<Integer, boolean[]> mChildCheckStates;
