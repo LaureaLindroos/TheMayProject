@@ -247,6 +247,10 @@ public class SearchResultActivity extends AppCompatActivity
             listDataChild = prepareCategoriesEXLV.getChildHashMap();
             mMenuAdapter = new CheckedFilterAdapter(getApplicationContext(), listDataHeader, listDataChild, prepareCategoriesEXLV, request, adapter);
 
+
+            Button resetFilter = findViewById(R.id.filter_reset_btn);
+            resetFilter.setOnClickListener(view -> makeCleanFilter());
+
             // setting list adapter
             expandableList.setAdapter(mMenuAdapter);
             expandableList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -289,6 +293,12 @@ public class SearchResultActivity extends AppCompatActivity
         protected List<Categories> doInBackground(String... strings) {
             return RequestService.getcategories();
         }
+    }
+
+    private void makeCleanFilter() {
+        request.clearParams();
+        adapter.getHelper().makeNewRequest(request);
+        drawer.closeDrawer(GravityCompat.END);
     }
     //DRAWER FINISHED
 }

@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.searchresultactivity.SearchResultActivity"></activity>
+        <activity android:name=".ui.searchresultactivity.SearchResultActivity"
+            android:theme="@style/AppTheme"></activity>
         <activity android:name=".ui.productinfoactivity.ProductInfoActivity"></activity>
 
     </application>
