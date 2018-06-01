@@ -2,28 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="75dp"
     android:gravity="bottom"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/general_margin"
-    android:paddingLeft="@dimen/general_margin"
-    android:paddingRight="@dimen/general_margin"
-    android:paddingTop="@dimen/general_margin">
+    android:orientation="vertical">
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:contentDescription="bimobject logo"
         android:paddingTop="@dimen/general_margin"
-        app:srcCompat="@drawable/ic_bim_logo_black_large" />
+        app:srcCompat="@drawable/ic_bim_logo_black_large" />-->
 
     <Button
         android:id="@+id/filter_reset_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_reset_filter"
-        android:text="Reset filter" />
+        android:layout_gravity="center|center_vertical"
+        android:text="Reset filter"
+        android:backgroundTint="@color/colorBimDarker"
+        android:textColor="@color/colorLighterGrey"
+        android:drawableLeft="@drawable/ic_action_reset_filter"
+        android:paddingEnd="@dimen/general_margin"/>
 
 </LinearLayout>

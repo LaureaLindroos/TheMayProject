@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <!-- TODO add filters -->
-    <!-- TODO icons -->
-
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/drawer_filter_search_action"

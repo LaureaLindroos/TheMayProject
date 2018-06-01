@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="right"
+        android:paddingTop="@dimen/general_margin"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/filter_header">
 
@@ -25,10 +26,7 @@
             android:id="@+id/expandable_filter_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="160dp"/>
-
-            <!--android:choiceMode="multipleChoice"
-            android:listSelector="@color/colorMediumGrey"-->>
+            android:layout_marginTop="80dp" />
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
