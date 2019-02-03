@@ -7,6 +7,17 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 import com.bimobject.themayproject.R;
+
+
+
+
+import com.bimobject.themayproject.adapters.RecycleViewAdapter;
+
+import com.bimobject.themayproject.dto.Categories;
+
+import com.bimobject.themayproject.helpers.Request;
+import com.bimobject.themayproject.helpers.RequestService;
+
 import com.bimobject.themayproject.helpers.TokenGenerator;
 import com.bimobject.themayproject.ui.searchresultactivity.SearchResultActivity;
 

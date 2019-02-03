@@ -62,6 +62,7 @@ public class ProductInfoActivity extends AppCompatActivity {
 
         public getProductDetailsTask(ProductInfoActivity context) {
             this.activity = new WeakReference<>(context);
+
         }
 
         @Override
@@ -86,6 +87,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             PrepareProductInfo prepareProductInfo = new PrepareProductInfo(productDetails);
             ExpandableListAdapter listAdapter = new ExpandableListAdapter(activity.get(), prepareProductInfo.getListDataHeader(), prepareProductInfo.getListDataChild());
             expandableListView.setAdapter(listAdapter);
+
 
 
             final int[] prevExpandPosition = {-1};
